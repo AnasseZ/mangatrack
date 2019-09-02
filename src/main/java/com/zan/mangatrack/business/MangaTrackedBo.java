@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name = "mangas")
-public class MangaBo {
+@Table(name = "mangas_tracked")
+public class MangaTrackedBo {
 
     @Id
     public long id;
@@ -18,6 +18,6 @@ public class MangaBo {
     @Column(columnDefinition = "manga_tracked_id")
     public long mangaTrackedId;
 
-    @Column(columnDefinition = "title")
-    public String title;
+    @Column(columnDefinition = "last_chapter_read")
+    public int lastChapterRead;
 }
