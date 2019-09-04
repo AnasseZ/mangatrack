@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/mangas-tracked")
+@RequestMapping("/api/mangas-tracked")
 public class MangaTrackedController {
 
     @Autowired

@@ -1,4 +1,4 @@
 package com.zan.mangatrack.business;
 
-public class UserBo {
+public class UserPrincipal {
 }
