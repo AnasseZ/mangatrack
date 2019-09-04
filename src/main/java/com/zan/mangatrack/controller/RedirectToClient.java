@@ -1,19 +1,13 @@
 package com.zan.mangatrack.controller;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class RedirectToClient implements ErrorController {
+public class RedirectToClient {
 
-    @RequestMapping("/error")
+    @RequestMapping(value = "/**/{[path:[^\\.]*}")
     public String handleError() {
         return "/";
-    }
-
-    @Override
-    public String getErrorPath() {
-        return "/error";
     }
 }
