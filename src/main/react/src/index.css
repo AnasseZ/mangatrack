@@ -1,0 +1,370 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+body,
+.card {
+    background: #35465d;
+    background: -webkit-linear-gradient(to bottom, #192740, #35465d);
+    background: linear-gradient(to bottom, #192740, #35465d);
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+/* NAVBAR */
+.nav {
+    font-size: 15px !important;
+    position: fixed;
+}
+
+mainNav {
+    border-bottom: 1px solid #e9ecef;
+    background-color: #fff;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#mainNav .navbar-brand {
+    font-weight: 800;
+    color: white;
+}
+#mainNav .navbar-toggler {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 13px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.fa-bars {
+    padding-left: 0.2em;
+}
+
+#mainNav .navbar-nav > li.nav-item > a {
+    color: #fff;
+}
+#mainNav .navbar-nav > li.nav-item > a {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+@media only screen and (min-width: 992px) {
+    #mainNav {
+        border-bottom: 1px solid transparent;
+        background: 0 0;
+    }
+    #mainNav .navbar-brand {
+        padding: 10px 20px;
+        color: #fff;
+    }
+    #mainNav .navbar-brand:focus,
+    #mainNav .navbar-brand:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    #mainNav .navbar-nav > li.nav-item > a {
+        padding: 10px 20px;
+        color: #fff;
+    }
+    #mainNav .navbar-nav > li.nav-item > a:focus,
+    #mainNav .navbar-nav > li.nav-item > a:hover {
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #mainNav {
+        -webkit-transition: background-color 0.2s;
+        -moz-transition: background-color 0.2s;
+        transition: background-color 0.2s;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        -o-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-backface-visibility: hidden;
+    }
+    #mainNav.is-fixed {
+        position: fixed;
+        top: -67px;
+        -webkit-transition: -webkit-transform 0.2s;
+        -moz-transition: -moz-transform 0.2s;
+        transition: transform 0.2s;
+        border-bottom: 1px solid #fff;
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+    #mainNav.is-fixed .navbar-brand {
+        color: #212529;
+    }
+
+    #mainNav.is-visible {
+        -webkit-transform: translate3d(0, 100%, 0);
+        -moz-transform: translate3d(0, 100%, 0);
+        -ms-transform: translate3d(0, 100%, 0);
+        -o-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+}
+
+/* MANGA CARD */
+.card {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* COMMON STYLE */
+h1,
+h2,
+h3,
+h4,
+h6,
+p {
+    color: white;
+    font-family: "PT Sans";
+}
+
+.card-title {
+    color: white;
+    font-family: Roboto;
+    font-size: 1.2rem;
+    margin-bottom: 0;
+}
+
+/* LOGO */
+#logo {
+    width: 45px;
+    height: 45px;
+}
+
+.card-img-top {
+    height: 16rem;
+    align-self: center;
+}
+
+.fa-plus-circle {
+    color: white;
+}
+
+#loading-icon,
+#white-text {
+    color: white;
+}
+
+.img-modal {
+    width: 7rem;
+    height: 10rem;
+}
+
+.modal-title {
+    color: black;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+}
+
+.chap-title {
+    font-size: 1rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #a2a2a2;
+    margin-top: 5px;
+}
+.manga-title {
+    font-size: 1.5rem;
+    color: black;
+}
+
+#mangaSearch,
+#alertInfo {
+    width: 100%;
+}
+
+#btnSubManga {
+    background-color: white;
+    color: #35465d;
+    border-color: #35465d;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+/* TABLETTES, TELEPHONES */
+@media (max-width: 768px) {
+    #alertInfo {
+        width: 90%;
+    }
+
+    #btnSignIn {
+        margin-top: 0.4em;
+    }
+
+    .row-eq-height {
+        justify-content: center;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 13rem;
+    }
+}
+
+/* PC PORTABLES */
+@media (max-width: 1024px) {
+    .card-img-top {
+        height: 14rem;
+    }
+}
+
+/* TELEPHONES ONLY */
+@media (max-width: 425px) {
+    .card-img-top {
+        width: 100%;
+        height: 8.3rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+#bntLogin {
+    margin-right: 0.4em;
+    border-radius: 0.2em;
+}
+
+#btnSignIn {
+    border-radius: 0.2em;
+}
+
+#btnFormLogin {
+    width: 100%;
+}
+
+.fa-beat {
+    animation: fa-beat 5s ease infinite;
+}
+@keyframes fa-beat {
+    0% {
+        transform: scale(1);
+    }
+    5% {
+        transform: scale(1.25);
+    }
+    20% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1);
+    }
+    35% {
+        transform: scale(1.25);
+    }
+    50% {
+        transform: scale(1);
+    }
+    55% {
+        transform: scale(1.25);
+    }
+    70% {
+        transform: scale(1);
+    }
+}
+
+.row-loadingpage {
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.col-manga:hover {
+    transform: scale(1.05);
+}
+
+.col-manga {
+    padding: 8px 12px 8px 8px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+}
+
+.card-body {
+    text-align: left;
+    padding: 7px;
+    flex-direction: column;
+}
+
+.black {
+    color: black;
+}
+
+.grey {
+    color: #a2a2a2;
+}
+
+.subtitle-input {
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.edit-icon {
+    opacity: 0.3;
+}
+
+.hover-white:hover {
+    opacity: 1;
+    color: white;
+}
+
+.row-edit {
+    justify-content: space-evenly;
+}
+
+.input-update-chapter {
+    border: none;
+    background: transparent;
+    color: white;
+    outline: none;
+}
+
+.is-up-to-date {
+    color: lightskyblue;
+    font-weight: bold;
+}
+
+.icone-plus {
+    align-self: center;
+    opacity: 0.5;
+}
+
+.col-icone-plus {
+    transform: none !important;
+    transition: none !important;
+}
+
+.hr-separator {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(255, 255, 255, 0.75),
+        rgba(0, 0, 0, 0)
+    );
+}
+
+.bisque {
+    color: bisque;
+}
+
+.profilIcon {
+    font-size: 48px;
+}
+
+.no-border-top {
+    border-top: 0;
+}
