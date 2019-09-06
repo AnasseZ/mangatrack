@@ -13,3 +13,12 @@ CREATE TABLE mangas_tracked (
     manga_tracked_id NUMERIC NOT NULL,
     last_chapter_read NUMERIC
 );
+
+
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+)

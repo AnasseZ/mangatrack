@@ -19,7 +19,7 @@ public class User extends DateAudit {
     private long id;
 
     @NotBlank
-    @Size(max = 40)
+    @Size(min = 3, max = 40)
     private String username;
 
     @JsonIgnore
@@ -30,7 +30,7 @@ public class User extends DateAudit {
 
     @JsonIgnore
     @NotBlank
-    @Size(max = 100)
+    @Size(min = 6, max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -39,4 +39,13 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 }
