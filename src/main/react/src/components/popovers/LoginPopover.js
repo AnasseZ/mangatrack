@@ -32,7 +32,6 @@ export class LoginPopover extends React.Component {
   };
 
   login = () => {
-    console.log("appel de login");
     this.props.login(this.state.usernameValue, this.state.passwordValue);
   };
 

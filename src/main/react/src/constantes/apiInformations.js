@@ -1,1 +1,1 @@
-export const apiRoot = "https://localhost:8443/";
+export const apiRoot = "http://localhost:8080/";

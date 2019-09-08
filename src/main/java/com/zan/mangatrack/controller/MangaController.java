@@ -1,6 +1,7 @@
 package com.zan.mangatrack.controller;
 
 import com.zan.mangatrack.business.MangaBo;
+import com.zan.mangatrack.security.HasUserRole;
 import com.zan.mangatrack.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mangas")
+@HasUserRole
 public class MangaController {
 
     @Autowired

@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 import { Button } from "reactstrap";
 import { LoginPopover } from "../popovers/LoginPopover";
-import { SignInPopover } from "../popovers/SignInPopover";
+import { SignUpPopover } from "../popovers/SignUpPopover";
 
 class NavOffline extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loginPopoverOpen: false,
-      signInPopoverOpen: false
+      signUpPopoverOpen: false
     };
   }
 
@@ -20,9 +20,9 @@ class NavOffline extends Component {
     });
   };
 
-  toggleSignInPopin = () => {
+  toggleSignUpPopin = () => {
     this.setState({
-      signInPopoverOpen: !this.state.signInPopoverOpen
+      signUpPopoverOpen: !this.state.signUpPopoverOpen
     });
   };
 
@@ -68,7 +68,7 @@ class NavOffline extends Component {
                 <LoginPopover
                   isOpen={this.state.loginPopoverOpen}
                   toggleLoginPopin={this.toggleLoginPopin}
-                  toggleSignInPopin={this.toggleSignInPopin}
+                  toggleSignUpPopin={this.toggleSignUpPopin}
                   login={this.props.login}
                 />
               </li>
@@ -76,14 +76,14 @@ class NavOffline extends Component {
                 <Button
                   color="info"
                   id="btnSignIn"
-                  onClick={this.toggleSignInPopin}
+                  onClick={this.toggleSignUpPopin}
                 >
                   S'inscrire
                 </Button>
-                <SignInPopover
-                  isOpen={this.state.signInPopoverOpen}
+                <SignUpPopover
+                  isOpen={this.state.signUpPopoverOpen}
                   toggleLoginPopin={this.toggleLoginPopin}
-                  toggleSignInPopin={this.toggleSignInPopin}
+                  toggleSignUpPopin={this.toggleSignUpPopin}
                 />
               </li>
             </ul>

@@ -4,10 +4,8 @@ import { AuthConsumer } from "../../contexts/AuthContext";
 
 export default class Login extends React.Component {
   render() {
-    console.log(this.props);
     const { message } = this.props.location.state || {message: "Entrez vos identifants"};
 
-    console.log(message);
     return (
       <AuthConsumer>
         {({ login, isAuth }) =>

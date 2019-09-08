@@ -1,8 +1,7 @@
 import React from "react";
-import * as jwt_decode from "jwt-decode";
 
 import { apiRoot } from "../constantes/apiInformations";
-import { getUserById, getUserToken } from "../services/UserService";
+import { getCurrentUser, getUserToken } from "../services/UserService";
 import LoadingPage from "../components/pages/LoadingPage";
 
 const AuthContext = React.createContext();
@@ -73,10 +72,7 @@ class AuthProvider extends React.Component {
   }
 
   setToken(token) {
-    localStorage.setItem(tokenName, token.token);
-
-    const jtwDecoded = jwt_decode(token.token);
-    localStorage.setItem(storedUserId, jtwDecoded["id"]);
+    localStorage.setItem(tokenName, token.accessToken);
   }
 
   userConnexionError(error) {
@@ -85,7 +81,6 @@ class AuthProvider extends React.Component {
 
     // Erreur donc token réinitialisé et userId aussi
     localStorage.removeItem(tokenName);
-    localStorage.removeItem(storedUserId);
 
     this.updateToken();
   }
@@ -96,13 +91,11 @@ class AuthProvider extends React.Component {
 
   verifyUser() {
     let tokenStored = localStorage.getItem(tokenName);
-    let userId = localStorage.getItem(storedUserId);
 
     // Si le token et userId existent ( user deja co... on verifie)
-    if (tokenStored !== null && userId !== null) {
+    if (tokenStored !== null) {
       // envoyer au serveur le token pour recuperer son profil
-      getUserById(
-        userId,
+      getCurrentUser(
         tokenStored,
         this.userConnexionOk,
         this.userConnexionError

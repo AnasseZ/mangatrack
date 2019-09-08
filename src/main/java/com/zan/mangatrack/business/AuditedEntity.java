@@ -1,7 +1,10 @@
 package com.zan.mangatrack.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -17,7 +20,8 @@ import java.time.Instant;
         value = {"createdAt", "updatedAt"},
         allowGetters = true
 )
-public abstract class DateAudit implements Serializable {
+@Data
+public abstract class AuditedEntity implements Serializable {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -26,4 +30,11 @@ public abstract class DateAudit implements Serializable {
     @LastModifiedDate
     @Column(nullable = false)
     private Instant updatedAt;
+
+    @CreatedBy
+    @Column(updatable = false)
+    private Long createdBy;
+
+    @LastModifiedBy
+    private Long updatedBy;
 }

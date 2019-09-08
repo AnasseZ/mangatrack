@@ -1,16 +1,16 @@
 import { apiRoot } from "../constantes/apiInformations";
 import { get, post } from "../util/http";
 
-export const getUserById = (userId, token, doWhenOK, doWhenError) => {
-  get(apiRoot + "api/users/" + userId, doWhenOK, doWhenError, token);
+export const getCurrentUser = (token, doWhenOK, doWhenError) => {
+  get(apiRoot + "api/users/me", doWhenOK, doWhenError, token);
 };
 
 
 export const getUserToken = (username, password,doWhenOK, doWhenError) => {
   post(
-    apiRoot + "api/login_check",
+    apiRoot + "auth/signin",
     {
-      username: username,
+      usernameOrEmail: username,
       password: password
     },
     doWhenOK,
@@ -19,5 +19,5 @@ export const getUserToken = (username, password,doWhenOK, doWhenError) => {
 }
 
 export const register = (data, doWhenOK, doWhenError) => {
-  post(apiRoot + "register", data, doWhenOK, doWhenError);
+  post(apiRoot + "auth/signup", data, doWhenOK, doWhenError);
 }

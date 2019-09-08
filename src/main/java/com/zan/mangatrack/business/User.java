@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "users")
-public class User extends DateAudit {
+public class User extends AuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class User extends DateAudit {
 
     @JsonIgnore
     @NotBlank
-    @Size(min = 6, max = 100)
+    @Size(min = 8, max = 100)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
