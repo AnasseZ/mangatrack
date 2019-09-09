@@ -7,7 +7,6 @@ import LoadingPage from "../components/pages/loading/LoadingPage";
 const AuthContext = React.createContext();
 
 const tokenName = "auth_token";
-const storedUserId = "auth_userId";
 
 class AuthProvider extends React.Component {
   constructor() {

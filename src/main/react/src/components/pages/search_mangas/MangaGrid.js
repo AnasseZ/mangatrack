@@ -2,8 +2,6 @@ import React from "react";
 import Manga from "./Manga";
 import AlertC from "../../shared/AlertC";
 import { AuthConsumer } from "../../../contexts/AuthContext";
-import Loading from "../loading/Loading";
-import { searchMangaByName } from "../../../services/MangaService";
 
 export default class MangaGrid extends React.Component {
   constructor(props) {

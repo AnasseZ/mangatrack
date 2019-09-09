@@ -23,7 +23,7 @@ export default class ProfilIcon extends React.Component {
       <>
         <span className="fa-stack fa-2x">
           <i className="fas fa-circle fa-stack-1x profilIcon" />
-          <p className="fa-stack-1x text-white" onClick={() => {this.toggle();console.log(this.state.popoverOpen)}} id="userIcon">
+          <p className="fa-stack-1x text-white" onClick={this.toggle} id="userIcon">
             {this.props.user.username[0]}
           </p>
         </span>
