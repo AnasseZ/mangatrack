@@ -16,13 +16,15 @@ class NavOffline extends Component {
 
   toggleLoginPopin = () => {
     this.setState({
-      loginPopoverOpen: !this.state.loginPopoverOpen
+      loginPopoverOpen: !this.state.loginPopoverOpen,
+      signUpPopoverOpen: false
     });
   };
 
   toggleSignUpPopin = () => {
     this.setState({
-      signUpPopoverOpen: !this.state.signUpPopoverOpen
+      signUpPopoverOpen: !this.state.signUpPopoverOpen,
+      loginPopoverOpen: false
     });
   };
 
