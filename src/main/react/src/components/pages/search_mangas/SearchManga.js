@@ -1,6 +1,6 @@
 import React from "react";
-import { FindManga } from "../FindManga";
-import { Title } from "../Title";
+import { FindManga } from "./FindManga";
+import { Title } from "../../shared/Title";
 
 export default class Home extends React.Component {
   render() {

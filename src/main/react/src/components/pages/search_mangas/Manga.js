@@ -1,6 +1,6 @@
 import React from "react";
-import { getMangaTracked } from "../services/MangaService";
-import MangaModal from "../components/modals/MangaModal";
+import { getMangaTracked } from "../../../services/MangaService";
+import MangaModal from "../../modals/MangaModal";
 
 export default class Manga extends React.Component {
   constructor(props) {

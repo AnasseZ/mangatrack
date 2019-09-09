@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AuthConsumer } from "../../contexts/AuthContext";
+import { AuthConsumer } from "../../../contexts/AuthContext";
 
 export default class Login extends React.Component {
   render() {

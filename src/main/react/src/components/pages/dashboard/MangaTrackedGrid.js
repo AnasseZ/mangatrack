@@ -1,7 +1,7 @@
 import React from "react";
 import MangaTracked from "./MangaTracked";
-import { AuthConsumer } from "../contexts/AuthContext";
-import AlertC from "../components/AlertC";
+import { AuthConsumer } from "../../../contexts/AuthContext";
+import AlertC from "../../shared/AlertC";
 
 import { Link } from "react-router-dom";
 

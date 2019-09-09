@@ -2,8 +2,8 @@ import React from "react";
 
 import { AuthConsumer } from "../../contexts/AuthContext";
 
-import Dashboard from "./Dashboard";
-import LandingPage from "./LandingPage";
+import Dashboard from "./dashboard/Dashboard";
+import LandingPage from "./home/LandingPage";
 
 export default () => (
   <AuthConsumer>

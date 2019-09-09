@@ -1,10 +1,10 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./Home";
-import SearchManga from "./SearchManga";
-import Login from "./Login";
+import SearchManga from "./search_mangas/SearchManga";
+import Login from "./login/Login";
 import PrivateRoute from "../PrivateRoute";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import NoMatch from "./NoMatch";
 
 // The Main component renders one of the three provided

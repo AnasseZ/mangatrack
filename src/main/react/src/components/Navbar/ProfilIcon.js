@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ProfilPopover } from "../components/popovers/ProfilPopover";
+import { ProfilPopover } from "./popovers/ProfilPopover";
 
 export default class ProfilIcon extends React.Component {
   constructor(props) {

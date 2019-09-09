@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import { Button } from "reactstrap";
-import { LoginPopover } from "../popovers/LoginPopover";
-import { SignUpPopover } from "../popovers/SignUpPopover";
+import { LoginPopover } from "./popovers/LoginPopover";
+import { SignUpPopover } from "./popovers/SignUpPopover";
 
 class NavOffline extends Component {
   constructor(props) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { register } from "../../../services/UserService";
 
 import {
   Popover,
@@ -10,7 +11,6 @@ import {
   FormGroup,
   Input
 } from "reactstrap";
-import { register } from "../../services/UserService";
 
 export class SignUpPopover extends React.Component {
   constructor(props) {

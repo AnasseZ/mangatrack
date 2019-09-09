@@ -1,11 +1,9 @@
 package com.zan.mangatrack.business;
 
+import com.zan.mangatrack.business.mangadex.MangadexManga;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +11,7 @@ import javax.persistence.Table;
 public class MangaBo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
 
     @Column(columnDefinition = "manga_tracked_id")
@@ -20,4 +19,14 @@ public class MangaBo {
 
     @Column(columnDefinition = "title")
     public String title;
+
+    public MangaBo() {
+
+    }
+
+    public MangaBo(MangadexManga mangadexManga, long id) {
+        this.mangaTrackedId = id;
+        this.title = mangadexManga.getTitle();
+
+    }
 }

@@ -2,7 +2,7 @@ import React from "react";
 
 import { apiRoot } from "../constantes/apiInformations";
 import { getCurrentUser, getUserToken } from "../services/UserService";
-import LoadingPage from "../components/pages/LoadingPage";
+import LoadingPage from "../components/pages/loading/LoadingPage";
 
 const AuthContext = React.createContext();
 

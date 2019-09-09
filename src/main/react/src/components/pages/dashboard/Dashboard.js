@@ -1,9 +1,9 @@
 import React from "react";
-import { Title } from "../Title";
-import { getMangasByUser } from "../../services/MangaService";
-import { AuthConsumer } from "../../contexts/AuthContext";
-import Loading from "../Loading";
-import MangaTrackedGrid from "../MangaTrackedGrid";
+import { Title } from "../../shared/Title";
+import { getMangasByUser } from "../../../services/MangaService";
+import { AuthConsumer } from "../../../contexts/AuthContext";
+import Loading from "../loading/Loading";
+import MangaTrackedGrid from "./MangaTrackedGrid";
 
 class Dashboard extends React.Component {
   constructor(props) {

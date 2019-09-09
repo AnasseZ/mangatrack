@@ -1,6 +1,6 @@
 import React from "react";
 
-import { updateManga } from "../services/MangaService";
+import { updateManga } from "../../../services/MangaService";
 
 export default class MangaTracked extends React.Component {
   constructor(props) {

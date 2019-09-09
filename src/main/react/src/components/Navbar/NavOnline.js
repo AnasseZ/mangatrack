@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import  ProfilIcon  from "../ProfilIcon";
+import  ProfilIcon  from "./ProfilIcon";
 
 class NavOffline extends Component {
   render() {

@@ -5,10 +5,7 @@ import com.zan.mangatrack.security.HasUserRole;
 import com.zan.mangatrack.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +22,18 @@ public class MangaController {
         return ResponseEntity.ok(mangaService.list());
     }
 
+    @GetMapping("/search/{title}")
+    ResponseEntity<List<MangaBo>> search(@PathVariable String title) {
+        return ResponseEntity.ok(mangaService.search(title));
+    }
+
     @GetMapping("/{id}")
     ResponseEntity<MangaBo> get(@PathVariable long id) {
         return ResponseEntity.ok(mangaService.get(id).get());
+    }
+
+    @PostMapping("/mangadex/{min}/{max}")
+    ResponseEntity<List<MangaBo>> saveMangadexMangas(@PathVariable long min, @PathVariable long max) {
+        return ResponseEntity.ok(mangaService.saveMangadexManga(min, max));
     }
 }
