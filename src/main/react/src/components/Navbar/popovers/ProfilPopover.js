@@ -7,23 +7,21 @@ import {
   ListGroupItem
 } from "reactstrap";
 
-export class ProfilPopover extends React.Component {
-  render() {
+export const ProfilPopover = ({isOpen, toggle, logout}) => {
     return (
       <Popover
         placement="bottom"
-        isOpen={this.props.isOpen}
+        isOpen={isOpen}
         target="userIcon"
-        toggle={this.props.toggle}
+        toggle={toggle}
       >
         <PopoverBody className="p-0">
           <ListGroup>
             <ListGroupItem className="no-border-top">Mon profil</ListGroupItem>
             <ListGroupItem>Informations personnelles</ListGroupItem>
-            <ListGroupItem>Se déconnecter</ListGroupItem>
+            <ListGroupItem onClick={logout}>Se déconnecter</ListGroupItem>
           </ListGroup>
         </PopoverBody>
       </Popover>
     );
-  }
-}
+};

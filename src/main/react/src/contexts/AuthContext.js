@@ -51,7 +51,6 @@ class AuthProvider extends React.Component {
   logout() {
     this.updateIsAuth(false);
     localStorage.removeItem(tokenName);
-    localStorage.removeItem(storedUserId);
   }
 
   userConnexionOk(user) {

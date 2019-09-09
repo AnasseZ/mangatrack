@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ProfilPopover } from "./popovers/ProfilPopover";
+import {AuthConsumer} from "../../contexts/AuthContext";
 
 export default class ProfilIcon extends React.Component {
   constructor(props) {
@@ -26,7 +27,11 @@ export default class ProfilIcon extends React.Component {
             {this.props.user.username[0]}
           </p>
         </span>
-        <ProfilPopover isOpen={this.state.popoverOpen} toggle={this.toggle} />
+        <AuthConsumer>
+          {({ logout }) =>
+              <ProfilPopover isOpen={this.state.popoverOpen} toggle={this.toggle} logout={logout} />
+          }
+        </AuthConsumer>
       </>
     );
   }

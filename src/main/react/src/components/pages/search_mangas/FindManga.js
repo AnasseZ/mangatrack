@@ -12,6 +12,7 @@ export class FindManga extends React.Component {
       error: null,
       loading: false,
       mangas: [],
+      page: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,20 +37,22 @@ export class FindManga extends React.Component {
   searchByName() {
     this.setState({
       loading: true
-    })
-    console.log(this.state);
+    });
 
     searchMangaByName(
         this.state.value,
+        this.state.page,
         this.searchMangaOk,
-        this.searchMangaError
+        this.searchMangaError,
+        this.props.token
     );
   }
 
   searchMangaOk(result) {
+    console.log(result);
     this.setState({
       loading: false,
-      mangas: result
+      mangas: result.content
     });
   }
 

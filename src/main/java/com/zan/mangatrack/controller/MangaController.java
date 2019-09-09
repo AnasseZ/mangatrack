@@ -4,6 +4,7 @@ import com.zan.mangatrack.business.MangaBo;
 import com.zan.mangatrack.security.HasUserRole;
 import com.zan.mangatrack.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,8 @@ public class MangaController {
     }
 
     @GetMapping("/search/{title}")
-    ResponseEntity<List<MangaBo>> search(@PathVariable String title) {
-        return ResponseEntity.ok(mangaService.search(title));
+    ResponseEntity<Page<MangaBo>> search(@PathVariable String title, @RequestParam(value = "page", defaultValue ="0") int page) {
+        return ResponseEntity.ok(mangaService.search(title, page));
     }
 
     @GetMapping("/{id}")

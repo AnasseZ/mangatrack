@@ -75,7 +75,7 @@ export class LoginPopover extends React.Component {
             href="#"
             onClick={() => {
               this.props.toggleLoginPopin();
-              this.props.toggleSignInPopin();
+              this.props.toggleSignUpPopin();
             }}
           >
             S'inscrire.
