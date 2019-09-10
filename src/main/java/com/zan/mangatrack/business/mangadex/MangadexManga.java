@@ -3,19 +3,26 @@ package com.zan.mangatrack.business.mangadex;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import java.util.List;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class MangadexManga {
 
     private String title;
 
-    private String cover_url;
+    private String imgSrc;
 
     private String author;
 
-    private String description;
+    private int status;
 
-    private List<MangadexChapter> chapter;
+    public MangadexManga() {
+
+    }
+
+    public MangadexManga(String title, String imgSrc, String author, int status) {
+        this.title = title;
+        this.imgSrc = imgSrc;
+        this.author = author;
+        this.status = status;
+    }
 }

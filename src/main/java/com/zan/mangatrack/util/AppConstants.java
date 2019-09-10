@@ -7,4 +7,6 @@ public class AppConstants {
     public static String MANGADEX_API_ROOT = "https://mangadex.org/api/manga/";
 
     public static String MANGADEX_IMG_ROOT = "https://mangadex.org";
+
+    public static String GB_CODE_LANG = "gb";
 }

@@ -1,3 +1,5 @@
+import {tokenName} from "../constantes/apiInformations";
+
 const request = (url, requestOptions, doWhenOK, doWhenError) => {
   fetch(url, requestOptions)
     .then(res => {
@@ -23,7 +25,7 @@ const request = (url, requestOptions, doWhenOK, doWhenError) => {
 };
 
 const authHeaders = (token = null) =>
-  token ? { Authorization: `Bearer ${token}` } : {};
+  token ? { Authorization: `Bearer ${localStorage.getItem(tokenName)}` } : {};
 
 export const get = (url, doWhenOK, doWhenError, token = null) =>
   request(

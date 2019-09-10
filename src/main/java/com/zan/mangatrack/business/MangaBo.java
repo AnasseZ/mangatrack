@@ -1,11 +1,13 @@
 package com.zan.mangatrack.business;
 
+import com.zan.mangatrack.business.mangadex.MangadexChapter;
 import com.zan.mangatrack.business.mangadex.MangadexManga;
 import com.zan.mangatrack.util.AppConstants;
 import com.zan.mangatrack.util.ChapterHelper;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,26 +24,33 @@ public class MangaBo {
     @Column(columnDefinition = "title")
     private String title;
 
-    private String description;
-
     private String author;
 
-    private String cover_url;
+    private String imgSrc;
+
+    private boolean isFinished;
+
+    private double lastChapterOut;
 
     public MangaBo() {
 
     }
 
-    public MangaBo(MangadexManga mangadexManga, long id) {
+    public MangaBo(MangadexManga mangadexManga, List<MangadexChapter> chapters, long id) {
         this.mangaTrackedId = id;
         this.title = mangadexManga.getTitle();
         this.author = mangadexManga.getAuthor();
-        this.cover_url = AppConstants.MANGADEX_IMG_ROOT + mangadexManga.getCover_url();
+        this.imgSrc = AppConstants.MANGADEX_IMG_ROOT + mangadexManga.getImgSrc();
 
-        if (mangadexManga.getDescription().length() >= 500) {
-            this.description = mangadexManga.getDescription().substring(0, 499);
+        // 2 so its finished
+        if (mangadexManga.getStatus() == 2) {
+            this.isFinished = true;
+
+            if (!chapters.isEmpty()) {
+                lastChapterOut = ChapterHelper.findLastChapter(chapters);
+            }
         } else {
-            this.description = mangadexManga.getDescription();
+            this.isFinished = false;
         }
     }
 }

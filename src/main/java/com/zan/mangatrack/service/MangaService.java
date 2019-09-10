@@ -1,8 +1,7 @@
 package com.zan.mangatrack.service;
 
 import com.zan.mangatrack.business.MangaBo;
-import com.zan.mangatrack.business.mangadex.MangadexManga;
-import com.zan.mangatrack.business.mangadex.MangadexResponse;
+import com.zan.mangatrack.provider.MangadexProvider;
 import com.zan.mangatrack.repository.MangaRepository;
 import com.zan.mangatrack.util.AppConstants;
 import org.slf4j.Logger;
@@ -35,10 +34,14 @@ public class MangaService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    MangadexProvider mangadexProvider;
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
+
 
     public List<MangaBo> list() {
         return this.mangaRepository.findAll();
@@ -59,13 +62,11 @@ public class MangaService {
 
         for (long i = min; i <= max ; i++) {
             try {
-                MangadexResponse mangadexResponse = restTemplate.getForObject(AppConstants.MANGADEX_API_ROOT + i, MangadexResponse.class);
+                // query mangadex API with id
+                String mangadexResponse = restTemplate.getForObject(AppConstants.MANGADEX_API_ROOT + i, String.class);
 
-                if(mangadexResponse != null)  {
-                    MangaBo mangaBo = new MangaBo(mangadexResponse.getManga(), i);
-                    mangaBos.add(mangaBo);
-                    LOGGER.info(mangaBo.getTitle() + " with id " + i + " is fetched.");
-                }
+                // create well formated manga object from response for current manga
+                mangadexProvider.createMangaFromJson(mangaBos, i, mangadexResponse);
             } catch (HttpClientErrorException e) {
                 LOGGER.error("id " + i + " hasn't any manga linked.");
             }

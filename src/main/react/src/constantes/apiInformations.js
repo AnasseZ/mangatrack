@@ -1,5 +1,7 @@
 export const apiRoot = "http://localhost:8080/";
 
+export const tokenName = "auth_token";
+
 /**  API RESOURCES ROOTS **/
 export const mangaRoot = 'api/mangas';
 

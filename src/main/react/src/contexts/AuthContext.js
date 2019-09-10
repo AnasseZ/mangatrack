@@ -1,12 +1,10 @@
 import React from "react";
 
-import { apiRoot } from "../constantes/apiInformations";
+import { apiRoot, tokenName } from "../constantes/apiInformations";
 import { getCurrentUser, getUserToken } from "../services/UserService";
 import LoadingPage from "../components/pages/loading/LoadingPage";
 
 const AuthContext = React.createContext();
-
-const tokenName = "auth_token";
 
 class AuthProvider extends React.Component {
   constructor() {
