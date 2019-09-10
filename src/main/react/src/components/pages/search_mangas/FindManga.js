@@ -49,7 +49,6 @@ export class FindManga extends React.Component {
   }
 
   searchMangaOk(result) {
-    console.log(result);
     this.setState({
       loading: false,
       mangas: result.content

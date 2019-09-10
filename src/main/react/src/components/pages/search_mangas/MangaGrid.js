@@ -1,5 +1,5 @@
 import React from "react";
-import Manga from "./Manga";
+import {Manga} from "./Manga";
 import AlertC from "../../shared/AlertC";
 import { AuthConsumer } from "../../../contexts/AuthContext";
 
