@@ -27,7 +27,7 @@ export class FindManga extends React.Component {
       value: evt.target.value,
     });
 
-    if(!this.state.mangas) {
+    if(this.state.mangas) {
       this.setState({
         mangas: []
       })
