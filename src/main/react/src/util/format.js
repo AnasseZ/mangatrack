@@ -5,3 +5,16 @@ export const getDescription = description => getReducedText(description, 250);
 const getReducedText = (text, length) => text.length > length
     ? text.substring(0, length) + "..."
     : text;
+
+
+export const createMangaTrackedFromManga = (manga, lastChapterRead) => {
+    return {
+        author: manga.author,
+        mangaTrackedId: manga.mangaTrackedId,
+        title: manga.title,
+        imgSrc: manga.imgSrc,
+        isFinished: manga.isFinished,
+        lastChapterOut: manga.lastChapterOut,
+        lastChapterRead: lastChapterRead
+    };
+};

@@ -1,11 +1,9 @@
 package com.zan.mangatrack.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -13,6 +11,7 @@ import javax.persistence.Table;
 public class MangaTrackedBo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
 
     @Column(columnDefinition = "manga_tracked_id")
@@ -20,4 +19,19 @@ public class MangaTrackedBo {
 
     @Column(columnDefinition = "last_chapter_read")
     public int lastChapterRead;
+
+    private String title;
+
+    private String author;
+
+    private String imgSrc;
+
+    private boolean isFinished;
+
+    private double lastChapterOut;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("mangasTracked")
+    private User user;
 }

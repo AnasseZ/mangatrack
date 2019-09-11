@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 
+import {createMangaTrackedFromManga} from "../../util/format";
+
 import {
     Button,
     Modal,
@@ -9,21 +11,25 @@ import {
     FormGroup,
     Input
 } from "reactstrap";
-import {getLastChapterOut, postManga} from "../../services/MangaService";
+import {getUpdatedInformations, postMangaTracked} from "../../services/MangaService";
 
 export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) => {
 
     const [lastChapterRead, setLastChapterRead] = useState("");
     const [lastChapterOut, setLastChapterOut] = useState("");
     const [error, setError] = useState(false);
+    const [updatedManga, setUpdatedManga] = useState(null);
 
     useEffect(() => {
         if (manga.isFinished) {
             setLastChapterOut(manga.lastChapterOut);
         } else {
-            getLastChapterOut(
+            getUpdatedInformations(
                 manga.mangaTrackedId,
-                result => setLastChapterOut(result),
+                result => {
+                    setUpdatedManga(result);
+                    setLastChapterOut(result.lastChapterOut)
+                },
                 error => setError(error),
                 true
             );
@@ -49,19 +55,15 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
         };
     };
 
-    const followOk = result => {
-        sendAlertContent(sendSuccessAlert());
-    };
-
-    const followError = error => {
-        sendAlertContent(sendErrorAlert());
-    };
-
     const onChangeLastChapterRead = e => setLastChapterRead(e.target.value);
 
     const followManga = () => {
-        console.log(manga);
-        //postManga(manga, followOk, followError, true);
+        postMangaTracked(
+            createMangaTrackedFromManga(updatedManga, lastChapterRead),
+            result => sendAlertContent(sendSuccessAlert()),
+            error => sendAlertContent(sendErrorAlert()),
+            true
+        );
         toggle();
     };
 

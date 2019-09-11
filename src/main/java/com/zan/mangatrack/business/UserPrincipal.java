@@ -1,6 +1,7 @@
 package com.zan.mangatrack.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,14 +24,18 @@ public class UserPrincipal implements UserDetails {
     @JsonIgnore
     private String password;
 
+    @JsonIgnoreProperties("user")
+    private List<MangaTrackedBo> mangasTracked;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, List<MangaTrackedBo> mangasTracked ) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+        this.mangasTracked = mangasTracked;
     }
 
     public static UserPrincipal create(User user) {
@@ -43,7 +48,8 @@ public class UserPrincipal implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                authorities
+                authorities,
+                user.getMangasTracked()
         );
     }
 

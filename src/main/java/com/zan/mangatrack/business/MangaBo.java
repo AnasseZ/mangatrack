@@ -36,7 +36,7 @@ public class MangaBo {
 
     }
 
-    public MangaBo(MangadexManga mangadexManga, List<MangadexChapter> chapters, long id) {
+    public MangaBo(MangadexManga mangadexManga, List<MangadexChapter> chapters, long id, boolean firstFetch) {
         this.mangaTrackedId = id;
         this.title = mangadexManga.getTitle();
         this.author = mangadexManga.getAuthor();
@@ -50,6 +50,9 @@ public class MangaBo {
                 lastChapterOut = ChapterHelper.findLastChapter(chapters);
             }
         } else {
+            if(!firstFetch) {
+                lastChapterOut = ChapterHelper.findLastChapter(chapters);
+            }
             this.isFinished = false;
         }
     }

@@ -2,8 +2,9 @@ import {apiRoot, mangaRoot, mangadexApiRoot} from "../constantes/apiInformations
 import { get, post, put } from "../util/http";
 
 
-export const postManga = (data, doWhenOK, doWhenError, token) => {
-  post(apiRoot + "api/search_mangas", data, doWhenOK, doWhenError, token);
+/** MANGATRACKED MANGAS **/
+export const postMangaTracked = (data, doWhenOK, doWhenError, token) => {
+  post(apiRoot + "api/mangas-tracked", data, doWhenOK, doWhenError, token);
 };
 
 export const getMangasByUser = (userId, doWhenOK, doWhenError, token) => {
@@ -25,8 +26,8 @@ export const updateManga = (data, doWhenOK, doWhenError, token) => {
   put(apiRoot + "api/search_mangas/" + data.id , data, doWhenOK, doWhenError, token);
 };
 
-export const getLastChapterOut = (id, doWhenOK, doWhenError, token) => {
-  get(apiRoot + "api/mangas/" + id + "/lastChapterOut", doWhenOK, doWhenError, token);
+export const getUpdatedInformations = (id, doWhenOK, doWhenError, token) => {
+  get(apiRoot + "api/mangas/" + id + "/updated-informations", doWhenOK, doWhenError, token);
 };
 
 

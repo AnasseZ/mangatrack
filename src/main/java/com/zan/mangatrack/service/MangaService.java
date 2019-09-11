@@ -68,7 +68,7 @@ public class MangaService {
 
                 if (mangadexResponse != null) {
                     // create well formated manga object from response for current manga
-                    mangaBos.add(mangadexProvider.createMangaFromJson(i, mangadexResponse));
+                    mangaBos.add(mangadexProvider.createMangaFromJson(i, mangadexResponse, true));
                 }
 
             } catch (HttpClientErrorException e) {
@@ -79,12 +79,12 @@ public class MangaService {
         return mangaRepository.saveAll(mangaBos);
     }
 
-    public double getLastChapterOut(final long id) throws IOException {
+    public MangaBo getUpdatedInformations(final long id) throws IOException {
         String mangadexResponse = restTemplate.getForObject(AppConstants.MANGADEX_API_ROOT + id, String.class);
-        if (mangadexResponse != null) {
-            return mangadexProvider.getLastChapterOut(mangadexResponse);
+        if (mangadexResponse == null) {
+            throw new IOException("Can't get resource from Mangadex API.");
         }
 
-        return 0;
+        return mangadexProvider.createMangaFromJson(id, mangadexResponse, false);
     }
 }

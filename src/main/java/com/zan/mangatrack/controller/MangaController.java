@@ -39,9 +39,9 @@ public class MangaController {
         return ResponseEntity.ok(mangaService.saveMangadexManga(min, max));
     }
 
-    @GetMapping("/{id}/lastChapterOut")
-    ResponseEntity<Double> getLastChapterOut(@PathVariable long id) throws IOException {
-        return ResponseEntity.ok(mangaService.getLastChapterOut(id));
+    @GetMapping("/{id}/updated-informations")
+    ResponseEntity<MangaBo> getLastChapterOut(@PathVariable long id) throws IOException {
+        return ResponseEntity.ok(mangaService.getUpdatedInformations(id));
     }
 
 }
