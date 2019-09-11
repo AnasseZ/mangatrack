@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +58,7 @@ public class MangaService {
         return this.mangaRepository.findByKeywords(title.toLowerCase(), pageable);
     }
 
-    public List<MangaBo> saveMangadexManga(final long min, final long max) {
+    public List<MangaBo> saveMangadexManga(final long min, final long max) throws IOException {
         List<MangaBo> mangaBos = new ArrayList<>();
 
         for (long i = min; i <= max ; i++) {
@@ -65,13 +66,25 @@ public class MangaService {
                 // query mangadex API with id
                 String mangadexResponse = restTemplate.getForObject(AppConstants.MANGADEX_API_ROOT + i, String.class);
 
-                // create well formated manga object from response for current manga
-                mangadexProvider.createMangaFromJson(mangaBos, i, mangadexResponse);
+                if (mangadexResponse != null) {
+                    // create well formated manga object from response for current manga
+                    mangaBos.add(mangadexProvider.createMangaFromJson(i, mangadexResponse));
+                }
+
             } catch (HttpClientErrorException e) {
                 LOGGER.error("id " + i + " hasn't any manga linked.");
             }
         }
 
         return mangaRepository.saveAll(mangaBos);
+    }
+
+    public double getLastChapterOut(final long id) throws IOException {
+        String mangadexResponse = restTemplate.getForObject(AppConstants.MANGADEX_API_ROOT + id, String.class);
+        if (mangadexResponse != null) {
+            return mangadexProvider.getLastChapterOut(mangadexResponse);
+        }
+
+        return 0;
     }
 }

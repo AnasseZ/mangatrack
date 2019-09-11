@@ -25,6 +25,11 @@ export const updateManga = (data, doWhenOK, doWhenError, token) => {
   put(apiRoot + "api/search_mangas/" + data.id , data, doWhenOK, doWhenError, token);
 };
 
+export const getLastChapterOut = (id, doWhenOK, doWhenError, token) => {
+  get(apiRoot + "api/mangas/" + id + "/lastChapterOut", doWhenOK, doWhenError, token);
+};
+
+
 
 /** MANGADEX MANGAS FROM MANGADEX API **/
 

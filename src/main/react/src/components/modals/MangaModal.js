@@ -9,14 +9,25 @@ import {
     FormGroup,
     Input
 } from "reactstrap";
-import {postManga} from "../../services/MangaService";
+import {getLastChapterOut, postManga} from "../../services/MangaService";
 
 export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) => {
 
     const [lastChapterRead, setLastChapterRead] = useState("");
+    const [lastChapterOut, setLastChapterOut] = useState("");
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        setLastChapterRead("687");
+        if (manga.isFinished) {
+            setLastChapterOut(manga.lastChapterOut);
+        } else {
+            getLastChapterOut(
+                manga.mangaTrackedId,
+                result => setLastChapterOut(result),
+                error => setError(error),
+                true
+            );
+        }
     }, []);
 
     const sendAlertContent = param => {
@@ -55,7 +66,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
     };
 
     const syncLastChapterRead = () => {
-        setLastChapterRead(manga.lastChapterOut);
+        setLastChapterRead(lastChapterOut);
     };
 
 
@@ -77,7 +88,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
                         <div className="col-sm-8">
                             <h2 className="manga-title">{mangaTitle}</h2>
                             <h3 className="chap-title">
-                                Dernier chapitre: {manga.lastChapterOut}
+                                Dernier chapitre: {lastChapterOut}
                             </h3>
                             <br/>
                             <h6 className="grey subtitle-input">Facultatif</h6>

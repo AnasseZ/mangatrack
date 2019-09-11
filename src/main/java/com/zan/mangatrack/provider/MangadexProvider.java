@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zan.mangatrack.business.MangaBo;
 import com.zan.mangatrack.business.mangadex.MangadexChapter;
 import com.zan.mangatrack.business.mangadex.MangadexManga;
+import com.zan.mangatrack.util.ChapterHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,43 +24,56 @@ public class MangadexProvider {
     @Autowired
     ObjectMapper objectMapper;
 
-    public void createMangaFromJson(List<MangaBo> mangas, long id, String mangadexResponse) {
-        if(mangadexResponse != null)  {
-            try {
-                // get informations nodes
-                JsonNode rootNode = objectMapper.readTree(mangadexResponse);
-                JsonNode mangaNode = rootNode.get("manga");
-                JsonNode chapterNode = rootNode.get("chapter");
+    public MangaBo createMangaFromJson(long id, String mangadexResponse) throws IOException {
+        // get informations nodes
+        JsonNode rootNode = objectMapper.readTree(mangadexResponse);
+        JsonNode mangaNode = rootNode.get("manga");
 
-                List<MangadexChapter> chapters = new ArrayList<>();
+        MangadexManga mangadexManga = new MangadexManga(
+                mangaNode.get("title").asText(),
+                mangaNode.get("cover_url").asText(),
+                mangaNode.get("author").asText(),
+                mangaNode.get("status").asInt()
+        );
 
-                MangadexManga mangadexManga = new MangadexManga(
-                        mangaNode.get("title").asText(),
-                        mangaNode.get("cover_url").asText(),
-                        mangaNode.get("author").asText(),
-                        mangaNode.get("status").asInt()
-                );
+        List<MangadexChapter> chapters = getMangadexChapters(rootNode);
 
-                if(chapterNode != null) {
-                    Iterator<JsonNode> iterator = chapterNode.elements();
+        MangaBo mangaBo = new MangaBo(mangadexManga, chapters, id);
+        LOGGER.info(mangaBo.getTitle() + " with id " + id + " is fetched.");
 
-                    while (iterator.hasNext()) {
-                        JsonNode current = iterator.next();
-                        chapters.add(new MangadexChapter(
-                                current.get("chapter").asText(),
-                                current.get("lang_code").asText(),
-                                current.get("timestamp").asLong()
-                        ));
-                    }
-                }
+        return mangaBo;
+    }
 
-                MangaBo mangaBo = new MangaBo(mangadexManga, chapters, id);
-                mangas.add(mangaBo);
+    public double getLastChapterOut(String mangadexResponse) throws IOException {
+        // get informations nodes
+        JsonNode rootNode = objectMapper.readTree(mangadexResponse);
 
-                LOGGER.info(mangaBo.getTitle() + " with id " + id + " is fetched.");
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage());
+        List<MangadexChapter> chapters = getMangadexChapters(rootNode);
+
+        if(chapters.isEmpty()) {
+            return 0;
+        }
+
+        return ChapterHelper.findLastChapter(chapters);
+    }
+
+
+    public List<MangadexChapter> getMangadexChapters(JsonNode rootNode) {
+        List<MangadexChapter> chapters = new ArrayList<>();
+        JsonNode chapterNode = rootNode.get("chapter");
+
+        if (chapterNode != null) {
+            Iterator<JsonNode> iterator = chapterNode.elements();
+
+            while (iterator.hasNext()) {
+                JsonNode current = iterator.next();
+                chapters.add(new MangadexChapter(
+                        current.get("chapter").asText(),
+                        current.get("lang_code").asText(),
+                        current.get("timestamp").asLong()
+                ));
             }
         }
+        return chapters;
     }
 }
