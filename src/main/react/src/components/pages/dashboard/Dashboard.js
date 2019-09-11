@@ -1,7 +1,7 @@
 import React from "react";
 import { Title } from "../../shared/Title";
 import { AuthConsumer } from "../../../contexts/AuthContext";
-import MangaTrackedGrid from "./MangaTrackedGrid";
+import {MangaTrackedGrid} from "./MangaTrackedGrid";
 
 export const Dashboard  = ({user}) => {
     return (
