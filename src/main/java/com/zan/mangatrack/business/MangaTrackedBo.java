@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "mangas_tracked")
-public class MangaTrackedBo {
+public class MangaTrackedBo extends AuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class MangaTrackedBo {
     public long mangaTrackedId;
 
     @Column(columnDefinition = "last_chapter_read")
-    public int lastChapterRead;
+    public double lastChapterRead;
 
     private String title;
 

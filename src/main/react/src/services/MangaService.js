@@ -7,9 +7,10 @@ export const postMangaTracked = (data, doWhenOK, doWhenError, token) => {
   post(apiRoot + "api/mangas-tracked", data, doWhenOK, doWhenError, token);
 };
 
-export const getMangasByUser = (userId, doWhenOK, doWhenError, token) => {
-  get(
-    apiRoot + "api/users/" + userId + "/search_mangas",
+export const updateLastChapterRead = (data, doWhenOK, doWhenError, token) => {
+  put(
+    apiRoot + "api/mangas-tracked/" + data.mangaTrackedId,
+    data,
     doWhenOK,
     doWhenError,
     token
@@ -28,6 +29,10 @@ export const updateManga = (data, doWhenOK, doWhenError, token) => {
 
 export const getUpdatedInformations = (id, doWhenOK, doWhenError, token) => {
   get(apiRoot + "api/mangas/" + id + "/updated-informations", doWhenOK, doWhenError, token);
+};
+
+export const getMangaTrackedUpdatedInformations = (id, doWhenOK, doWhenError, token) => {
+  get(apiRoot + "api/mangas-tracked/" + id + "/updated-informations", doWhenOK, doWhenError, token);
 };
 
 

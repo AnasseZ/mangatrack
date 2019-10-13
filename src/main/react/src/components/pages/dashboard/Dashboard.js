@@ -11,7 +11,7 @@ export const Dashboard  = ({user}) => {
             <Title title="Dashboard" />
             <br />
             <br />
-            <MangaTrackedGrid mangas={user.mangasTracked} />
+            <MangaTrackedGrid mangas={user.mangasTracked} lastFetchInformations={user.lastFetchInformations} />
           </div>
         </div>
       </div>

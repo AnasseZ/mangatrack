@@ -1,11 +1,22 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import AlertC from "../../shared/AlertC";
 
 import {Link} from "react-router-dom";
 import {MangaTracked} from "./MangaTracked";
 
-export const MangaTrackedGrid = ({mangas}) => {
+export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
     const [alertContent, setAlertContent] = useState(null);
+    const [mangasTracked, setMangaTracked] = useState(mangas);
+
+    const updateMangas = manga => {
+        setMangaTracked([...mangasTracked, manga]);
+
+        console.log("dans le update", mangasTracked);
+    };
+
+    useEffect(() => {
+        console.log(mangasTracked);
+    }, []);
 
     const updateAlert = param => {
         setAlertContent(param);
@@ -25,11 +36,13 @@ export const MangaTrackedGrid = ({mangas}) => {
             <AlertC information={alertContent}/>
             <hr className="hr-separator"/>
             <div className="row row-eq-height">
-                {mangas.map((manga, index) =>
+                {mangasTracked.map((manga, index) =>
                     <MangaTracked
                         key={index}
                         manga={manga}
+                        updateMangas={updateMangas}
                         updateAlertInformation={updateAlert}
+                        lastFetchInformations={lastFetchInformations}
                     />
                 )}
                 <div className="col-lg-2 col-sm-3 col-4 col-manga col-icone-plus">

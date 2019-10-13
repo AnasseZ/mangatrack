@@ -40,7 +40,7 @@ public class MangaController {
     }
 
     @GetMapping("/{id}/updated-informations")
-    ResponseEntity<MangaBo> getLastChapterOut(@PathVariable long id) throws IOException {
+    ResponseEntity<MangaBo> getUpdatedInformations(@PathVariable long id) throws IOException {
         return ResponseEntity.ok(mangaService.getUpdatedInformations(id));
     }
 

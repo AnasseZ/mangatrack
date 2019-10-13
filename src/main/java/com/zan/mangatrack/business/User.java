@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,10 @@ public class User extends AuditedEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     @JsonIgnoreProperties("user")
+    @OrderBy("createdAt DESC")
     private List<MangaTrackedBo> mangasTracked;
+
+    private LocalDateTime lastFetchInformations;
 
     public User() {
 
@@ -55,5 +59,6 @@ public class User extends AuditedEntity {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.lastFetchInformations = LocalDateTime.now();
     }
 }

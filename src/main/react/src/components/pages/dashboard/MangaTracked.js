@@ -1,15 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
-import {updateManga} from "../../../services/MangaService";
+import {
+    getMangaTrackedUpdatedInformations,
+    updateLastChapterRead
+} from "../../../services/MangaService";
 import {getTitle} from "../../../util/format";
 import {mangadexMangaRoot} from "../../../constantes/apiInformations";
+import {canFetchUpdatedInformations} from "../../../util/validation";
 
-export const MangaTracked = ({manga, updateAlertInformation}) => {
+export const MangaTracked = ({manga, updateAlertInformation, updateMangas, lastFetchInformations}) => {
     const [error, setError] = useState(null);
-    const [isUpdated, setIsUpdated] = useState(false);
     const [wantModify, setWantModify] = useState(false);
     const [updatedChapterRead, setUpdatedChapterRead] = useState(manga.lastChapterRead);
-
 
     const sendAlertContent = param => {
         updateAlertInformation(param);
@@ -32,12 +34,24 @@ export const MangaTracked = ({manga, updateAlertInformation}) => {
         };
     };
 
-    const updateMangaTracked = () => {
-        if (manga.currentChapter !== updatedChapterRead) {
-            manga.currentChapter = updatedChapterRead;
+    useEffect(() => {
+        if (!manga.isFinished && canFetchUpdatedInformations(lastFetchInformations)) {
+            getMangaTrackedUpdatedInformations(
+                manga.mangaTrackedId,
+                result => {
+                    updateMangas(result);
+                },
+                error => setError(error),
+                true
+            );
+        }
+        console.log(new Date(lastFetchInformations));
+    }, []);
 
-            updateManga(
-                manga,
+    const updateMangaTracked = () => {
+        if (manga.lastChapterRead !== updatedChapterRead) {
+            updateLastChapterRead(
+                {...manga, lastChapterRead: updatedChapterRead},
                 updateMangaOk,
                 updateMangaError,
                 true
@@ -49,13 +63,12 @@ export const MangaTracked = ({manga, updateAlertInformation}) => {
     };
 
     const updateMangaOk = result => {
-        setIsUpdated(true);
+        updateMangas(result);
         sendAlertContent(sendSuccessAlert());
         updateWantModify();
     };
 
     const updateMangaError = error => {
-        setIsUpdated(true);
         setError(error);
 
         sendAlertContent(sendErrorAlert());
@@ -67,7 +80,7 @@ export const MangaTracked = ({manga, updateAlertInformation}) => {
     const onChangeUpdatedChapterRead = e => setUpdatedChapterRead(e.target.value);
 
     const mangaTitle = getTitle(manga.title);
-    const mangadexUrl = mangadexMangaRoot + manga.id;
+    const mangadexUrl = mangadexMangaRoot + manga.mangaTrackedId;
 
     return (
         <div className="col-lg-2 col-sm-3 col-4 col-manga">
@@ -109,7 +122,7 @@ export const MangaTracked = ({manga, updateAlertInformation}) => {
                             />
                             <div className="input-group-append">
                                 <button
-                                    className="btn btn-outline-secondary"
+                                    className="btn btn-outline-success"
                                     type="button"
                                     id="button-addon2"
                                     onClick={updateMangaTracked}

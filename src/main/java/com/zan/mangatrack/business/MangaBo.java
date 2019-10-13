@@ -42,8 +42,8 @@ public class MangaBo {
         this.author = mangadexManga.getAuthor();
         this.imgSrc = AppConstants.MANGADEX_IMG_ROOT + mangadexManga.getImgSrc();
 
-        // 2 so its finished
-        if (mangadexManga.getStatus() == 2) {
+        // 2 so its finished , 3 cancelled
+        if (mangadexManga.getStatus() == 2 || mangadexManga.getStatus() == 3) {
             this.isFinished = true;
 
             if (!chapters.isEmpty()) {

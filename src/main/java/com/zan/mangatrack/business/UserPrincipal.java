@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -29,13 +30,16 @@ public class UserPrincipal implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, List<MangaTrackedBo> mangasTracked ) {
+    private LocalDateTime lastFetchInformations;
+
+    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities, List<MangaTrackedBo> mangasTracked, LocalDateTime lastFetchInformations) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
         this.mangasTracked = mangasTracked;
+        this.lastFetchInformations = lastFetchInformations;
     }
 
     public static UserPrincipal create(User user) {
@@ -49,7 +53,8 @@ public class UserPrincipal implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 authorities,
-                user.getMangasTracked()
+                user.getMangasTracked(),
+                user.getLastFetchInformations()
         );
     }
 
