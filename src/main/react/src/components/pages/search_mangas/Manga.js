@@ -6,10 +6,17 @@ export const Manga = ({manga, callback}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
 
+    // ensure to call the api only one time and only when user click on it
+    const [showModalOnce, setShowModalOnce] = useState(false);
+
     const mangaTitle = getTitle(manga.title);
 
     const updateModalState = () => {
-        setToggleModal(!toggleModal)
+        setToggleModal(!toggleModal);
+
+        if (!showModalOnce) {
+            setShowModalOnce(true);
+        }
     };
 
     return (
@@ -25,13 +32,15 @@ export const Manga = ({manga, callback}) => {
                     <h5 className="card-title">{mangaTitle}</h5>
                 </div>
             </div>
-            <MangaModal
-                isOpen={toggleModal}
-                toggle={updateModalState}
-                manga={manga}
-                mangaTitle={manga.title}
-                callBackAlert={callback}
-            />
+            {
+                showModalOnce && <MangaModal
+                    isOpen={toggleModal}
+                    toggle={updateModalState}
+                    manga={manga}
+                    mangaTitle={manga.title}
+                    callBackAlert={callback}
+                />
+            }
         </div>
     );
-}
+};

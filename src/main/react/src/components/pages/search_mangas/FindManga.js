@@ -27,11 +27,9 @@ export const FindManga = ({token}) => {
 
     const findManga = () => {
         searchByName();
-    }
+    };
 
     const searchByName = (currentPage = page) => {
-
-        console.log(currentPage);
         setLoading(true);
 
         searchMangaByName(

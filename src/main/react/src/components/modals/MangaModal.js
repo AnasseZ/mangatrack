@@ -21,9 +21,11 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
     const [updatedManga, setUpdatedManga] = useState(null);
 
     useEffect(() => {
-        if (manga.isFinished) {
+
+        console.log(manga.finished);
+        if (manga.finished) {
             setLastChapterOut(manga.lastChapterOut);
-        } else { /*
+        } else {
             getUpdatedInformations(
                 manga.mangaTrackedId,
                 result => {
@@ -32,7 +34,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
                 },
                 error => setError(error),
                 true
-            ); */
+            );
         }
     }, []);
 

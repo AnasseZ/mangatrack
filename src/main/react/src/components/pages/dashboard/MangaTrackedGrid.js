@@ -10,19 +10,15 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
 
     const updateMangas = manga => {
         setMangaTracked([...mangasTracked, manga]);
-
-        console.log("dans le update", mangasTracked);
     };
 
     useEffect(() => {
-        console.log(mangasTracked);
     }, []);
 
     const updateAlert = param => {
         setAlertContent(param);
         setInterval(() => setAlertContent(null), 5000);
     };
-
 
     return mangas.length === 0 ? (
         <div>

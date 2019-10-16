@@ -6,7 +6,6 @@ export const PaginationBar = ({getPage, currentPageNumber, totalPage}) => {
     // ie, when having only one page,e currentPage = 0 and totalPage = 1
     const hasNextPage = currentPageNumber + 1 < totalPage;
 
-    console.log(currentPageNumber, totalPage);
     const hasPreviousPage = currentPageNumber > 0;
 
 
@@ -19,7 +18,6 @@ export const PaginationBar = ({getPage, currentPageNumber, totalPage}) => {
     };
 
     const hasOnePage = totalPage === 1;
-
 
     return (
         hasOnePage ? "" :
