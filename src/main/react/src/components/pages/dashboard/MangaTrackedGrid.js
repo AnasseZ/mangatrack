@@ -10,7 +10,8 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
     const updateMangas = updatedManga => {
         // delete then add in the array
         const updatedMangas = mangasTracked.filter(manga => manga.mangaTrackedId !== updatedManga.mangaTrackedId);
-        setMangaTracked([...updatedMangas, updatedManga]);
+        const sortedMangas = [...updatedMangas, updatedManga].sort((m1, m2) => m1.mangaTrackedId - m2.mangaTrackedId);
+        setMangaTracked(sortedMangas);
     };
 
     useEffect(() => {
