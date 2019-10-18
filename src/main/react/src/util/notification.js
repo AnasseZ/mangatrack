@@ -7,8 +7,8 @@ export const addNotification = (message, type) => {
         title = 'Opération réussie.';
     }
 
-    if (type === 'error') {
-        title = 'Opération réussie.';
+    if (type === 'danger') {
+        title = 'Opération échouée.';
     }
 
     store.addNotification({
@@ -31,5 +31,5 @@ export const addSuccessNotification = (message) => {
 };
 
 export const addErrorNotification = (message) => {
-    addNotification(message, 'error');
+    addNotification(message, 'danger');
 };

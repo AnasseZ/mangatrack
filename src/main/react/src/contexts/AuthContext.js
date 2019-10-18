@@ -3,6 +3,7 @@ import React from "react";
 import { apiRoot, tokenName } from "../constantes/apiInformations";
 import { getCurrentUser, getUserToken } from "../services/UserService";
 import LoadingPage from "../components/pages/loading/LoadingPage";
+import {addErrorNotification, addNotification, addSuccessNotification} from "../util/notification";
 
 const AuthContext = React.createContext();
 
@@ -36,6 +37,7 @@ class AuthProvider extends React.Component {
       token => {
         this.setToken(token);
         this.verifyUser();
+        addSuccessNotification("Connexion réussie.");
       },
       this.userConnexionError
     );
@@ -48,6 +50,7 @@ class AuthProvider extends React.Component {
   logout() {
     this.updateIsAuth(false);
     localStorage.removeItem(tokenName);
+    addNotification("Déconnexion réussie.", 'info');
   }
 
   userConnexionOk(user) {
@@ -78,7 +81,8 @@ class AuthProvider extends React.Component {
     // Erreur donc token réinitialisé et userId aussi
     localStorage.removeItem(tokenName);
 
-    this.updateToken();
+    this.updateToken()
+    addErrorNotification("Erreur ! Vous n'avez pas pu vous connectez.");
   }
 
   updateIsAuth(isAuth) {
