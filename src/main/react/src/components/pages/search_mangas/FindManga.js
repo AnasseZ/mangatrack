@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import MangaGrid from "./MangaGrid";
+import {MangaGrid} from "./MangaGrid";
 import {searchMangaByName} from "../../../services/MangaService";
 import AlertC from "../../shared/AlertC";
 import Loading from "../loading/Loading";

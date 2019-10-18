@@ -18,7 +18,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
     const [lastChapterRead, setLastChapterRead] = useState("");
     const [lastChapterOut, setLastChapterOut] = useState("");
     const [error, setError] = useState(false);
-    const [updatedManga, setUpdatedManga] = useState(null);
+    const [updatedManga, setUpdatedManga] = useState(manga);
 
     useEffect(() => {
         if (manga.finished) {
