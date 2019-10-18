@@ -36,6 +36,7 @@ export const MangaTracked = ({manga, updateAlertInformation, updateMangas, lastF
 
     useEffect(() => {
         if (!manga.isFinished && canFetchUpdatedInformations(lastFetchInformations)) {
+            console.log(manga.title + " est rentré");
             getMangaTrackedUpdatedInformations(
                 manga.mangaTrackedId,
                 result => {
@@ -45,7 +46,6 @@ export const MangaTracked = ({manga, updateAlertInformation, updateMangas, lastF
                 true
             );
         }
-        console.log(new Date(lastFetchInformations));
     }, []);
 
     const updateMangaTracked = () => {

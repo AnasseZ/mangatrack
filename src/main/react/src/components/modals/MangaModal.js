@@ -21,8 +21,6 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
     const [updatedManga, setUpdatedManga] = useState(null);
 
     useEffect(() => {
-
-        console.log(manga.finished);
         if (manga.finished) {
             setLastChapterOut(manga.lastChapterOut);
         } else {
