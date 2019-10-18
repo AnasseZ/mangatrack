@@ -7,36 +7,15 @@ import {
 import {getTitle} from "../../../util/format";
 import {mangadexMangaRoot} from "../../../constantes/apiInformations";
 import {canFetchUpdatedInformations} from "../../../util/validation";
+import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 
-export const MangaTracked = ({manga, updateAlertInformation, updateMangas, lastFetchInformations}) => {
+export const MangaTracked = ({manga, updateMangas, lastFetchInformations}) => {
     const [error, setError] = useState(null);
     const [wantModify, setWantModify] = useState(false);
     const [updatedChapterRead, setUpdatedChapterRead] = useState(manga.lastChapterRead);
 
-    const sendAlertContent = param => {
-        updateAlertInformation(param);
-    };
-
-    const sendSuccessAlert = () => {
-        return {
-            content: manga.title + " est mis à jour.",
-            class: "info"
-        };
-    };
-
-    const sendErrorAlert = () => {
-        return {
-            content:
-                "Erreur ! Vous n'avez pas pu mettre à jour " +
-                manga.title +
-                ".",
-            class: "danger"
-        };
-    };
-
     useEffect(() => {
         if (!manga.isFinished && canFetchUpdatedInformations(lastFetchInformations)) {
-            console.log(manga.title + " est rentré");
             getMangaTrackedUpdatedInformations(
                 manga.mangaTrackedId,
                 result => {
@@ -64,14 +43,13 @@ export const MangaTracked = ({manga, updateAlertInformation, updateMangas, lastF
 
     const updateMangaOk = result => {
         updateMangas(result);
-        sendAlertContent(sendSuccessAlert());
+        addSuccessNotification(manga.title + " est mis à jour.");
         updateWantModify();
     };
 
     const updateMangaError = error => {
         setError(error);
-
-        sendAlertContent(sendErrorAlert());
+        addErrorNotification("Erreur ! Vous n'avez pas pu mettre à jour " + manga.title + ".");
         updateWantModify();
     };
 

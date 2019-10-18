@@ -12,8 +12,9 @@ import {
     Input
 } from "reactstrap";
 import {getUpdatedInformations, postMangaTracked} from "../../services/MangaService";
+import {addSuccessNotification, addErrorNotification} from "../../util/notification";
 
-export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) => {
+export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
 
     const [lastChapterRead, setLastChapterRead] = useState("");
     const [lastChapterOut, setLastChapterOut] = useState("");
@@ -36,32 +37,13 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
         }
     }, []);
 
-    const sendAlertContent = param => {
-        callBackAlert(param);
-    };
-
-    const sendSuccessAlert = () => {
-        return {
-            content: "Bravo ! Vous suivez maintenant " + manga.title + ".",
-            class: "info"
-        };
-    };
-
-    const sendErrorAlert = () => {
-        return {
-            content:
-                "Erreur ! Vous n'avez pas pu suivre " + manga.title + ".",
-            class: "danger"
-        };
-    };
-
     const onChangeLastChapterRead = e => setLastChapterRead(e.target.value);
 
     const followManga = () => {
         postMangaTracked(
             createMangaTrackedFromManga(updatedManga, lastChapterRead),
-            result => sendAlertContent(sendSuccessAlert()),
-            error => sendAlertContent(sendErrorAlert()),
+            result => addSuccessNotification("Bravo ! Vous suivez maintenant " + manga.title + "."),
+            error => addErrorNotification("Erreur ! Vous n'avez pas pu suivre " + manga.title + "."),
             true
         );
         toggle();
@@ -70,7 +52,6 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, callBackAlert}) =
     const syncLastChapterRead = () => {
         setLastChapterRead(lastChapterOut);
     };
-
 
     return (
         <Modal isOpen={isOpen} toggle={toggle} className="modal-manga">

@@ -5,7 +5,6 @@ import {Link} from "react-router-dom";
 import {MangaTracked} from "./MangaTracked";
 
 export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
-    const [alertContent, setAlertContent] = useState(null);
     const [mangasTracked, setMangaTracked] = useState(mangas);
 
     const updateMangas = updatedManga => {
@@ -17,11 +16,6 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
     useEffect(() => {
     }, []);
 
-    const updateAlert = param => {
-        setAlertContent(param);
-        setInterval(() => setAlertContent(null), 5000);
-    };
-
     return mangas.length === 0 ? (
         <div>
             <p>
@@ -31,7 +25,6 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
         </div>
     ) : (
         <>
-            <AlertC information={alertContent}/>
             <hr className="hr-separator"/>
             <div className="row row-eq-height">
                 {mangasTracked.map((manga, index) =>
@@ -39,7 +32,6 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
                         key={index}
                         manga={manga}
                         updateMangas={updateMangas}
-                        updateAlertInformation={updateAlert}
                         lastFetchInformations={lastFetchInformations}
                     />
                 )}

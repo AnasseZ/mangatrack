@@ -25,3 +25,11 @@ export const addNotification = (message, type) => {
         }
     });
 };
+
+export const addSuccessNotification = (message) => {
+    addNotification(message, 'success');
+};
+
+export const addErrorNotification = (message) => {
+    addNotification(message, 'error');
+};
