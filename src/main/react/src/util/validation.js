@@ -6,3 +6,16 @@ export const canFetchUpdatedInformations = lastFetchDateInformations => {
     //return timePassed >= 900000;
     return true;
 };
+
+export const passwordOk = (passwordValue, passwordAgainValue) => {
+    if (
+        passwordValue !== "" &&
+        passwordValue === passwordAgainValue &&
+        passwordValue.length >= 8 &&
+        passwordValue.length <= 100
+    ) {
+        return true;
+    }
+
+    return false;
+};

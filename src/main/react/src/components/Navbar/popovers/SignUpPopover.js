@@ -11,6 +11,7 @@ import {
   FormGroup,
   Input
 } from "reactstrap";
+import {passwordOk} from "../../../util/validation";
 
 export class SignUpPopover extends React.Component {
   constructor(props) {
@@ -63,23 +64,10 @@ export class SignUpPopover extends React.Component {
     });
   };
 
-  formOk = () => {
-    if (
-      this.state.passwordValue !== "" &&
-      this.state.passwordValue === this.state.passwordAgainValue &&
-      this.state.passwordValue.length >= 8 &&
-      this.state.passwordValue.length <= 100
-    ) {
-      // if email valide prochainement
 
-      return true;
-    }
-
-    return false;
-  };
 
   register = () => {
-    if (this.formOk()) {
+    if (passwordOk(this.state.passwordValue, this.state.passwordAgainValue)) {
       register(
         {
           username: this.state.usernameValue,

@@ -6,6 +6,7 @@ import Login from "./login/Login";
 import PrivateRoute from "../PrivateRoute";
 import Dashboard from "./dashboard/Dashboard";
 import NoMatch from "./NoMatch";
+import Profil from "./profil/Profil";
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -18,7 +19,8 @@ export const Main = () => (
       <Route exact path="/" component={Home} />
       <Route path="/login" component={Login} />
       <PrivateRoute path="/search-manga" component={SearchManga} />
-      <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/profil" component={Profil} />
       <Route component={NoMatch} />
     </Switch>
   </main>

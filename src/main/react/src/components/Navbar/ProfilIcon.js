@@ -36,10 +36,3 @@ export default class ProfilIcon extends React.Component {
     );
   }
 }
-
-/* 
-
-<a className="nav-link" href="/" onClick={this.props.logout}>
-                  Se déconnecter
-                </a>
-*/

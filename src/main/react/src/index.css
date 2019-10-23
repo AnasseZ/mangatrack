@@ -27,9 +27,7 @@ code {
     position: fixed;
 }
 
-mainNav {
-    border-bottom: 1px solid #e9ecef;
-    background-color: #fff;
+#mainNav {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #mainNav .navbar-brand {
@@ -127,7 +125,8 @@ h2,
 h3,
 h4,
 h6,
-p {
+p,
+label {
     color: white;
     font-family: "PT Sans";
 }
@@ -367,4 +366,16 @@ p {
 
 .no-border-top {
     border-top: 0;
+}
+
+.list-group-link, .list-group-link:hover {
+    text-decoration: none;
+}
+
+.list-group-link:hover {
+    color: black;
+}
+
+.list-group-link {
+    color: #212529;
 }
