@@ -14,24 +14,15 @@ public class MangaTrackedBo extends AuditedEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
 
-    @Column(columnDefinition = "manga_tracked_id")
-    public long mangaTrackedId;
-
     @Column(columnDefinition = "last_chapter_read")
     public double lastChapterRead;
-
-    private String title;
-
-    private String author;
-
-    private String imgSrc;
-
-    private boolean isFinished;
-
-    private double lastChapterOut;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("mangasTracked")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manga_id")
+    private MangaBo manga;
 }

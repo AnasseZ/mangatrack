@@ -2,6 +2,8 @@ package com.zan.mangatrack.controller;
 
 import com.zan.mangatrack.business.MangaTrackedBo;
 import com.zan.mangatrack.business.UserPrincipal;
+import com.zan.mangatrack.dto.MangaTrackedDto;
+import com.zan.mangatrack.mapper.MangaTrackedMapper;
 import com.zan.mangatrack.security.CurrentUser;
 import com.zan.mangatrack.service.MangaTrackedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,22 +20,30 @@ public class MangaTrackedController {
     @Autowired
     MangaTrackedService mangaTrackedService;
 
+    @Autowired
+    MangaTrackedMapper mangaTrackedMapper;
+
     @GetMapping
-    ResponseEntity<List<MangaTrackedBo>> list() {
-        return ResponseEntity.ok(mangaTrackedService.list());
+    ResponseEntity<List<MangaTrackedDto>> list(
+            @CurrentUser UserPrincipal currentUser
+    ) throws Exception {
+        return ResponseEntity.ok(
+                mangaTrackedMapper.toDto(mangaTrackedService.list(currentUser.getId()))
+        );
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<MangaTrackedBo> get(@PathVariable long id) {
-        return ResponseEntity.ok(mangaTrackedService.get(id).get());
+    ResponseEntity<MangaTrackedDto> get(@PathVariable long id) throws Exception {
+        return ResponseEntity.ok(mangaTrackedMapper.toDto(mangaTrackedService.get(id)));
     }
 
     @PostMapping
-    ResponseEntity<MangaTrackedBo> post(
+    ResponseEntity<MangaTrackedDto> post(
             @RequestBody MangaTrackedBo mangaTrackedBo,
             @CurrentUser UserPrincipal currentUser
     ) throws Exception {
-        MangaTrackedBo createdMangaTracked = mangaTrackedService.persist(mangaTrackedBo, currentUser);
+        MangaTrackedDto createdMangaTracked = mangaTrackedMapper
+                .toDto(mangaTrackedService.persist(mangaTrackedBo, currentUser));
 
         return ResponseEntity
                 .created(ServletUriComponentsBuilder
@@ -46,14 +54,20 @@ public class MangaTrackedController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<MangaTrackedBo> updateLastChapterRead(
+    ResponseEntity<MangaTrackedDto> updateLastChapterRead(
             @PathVariable long id,
-            @RequestBody final MangaTrackedBo manga,
+            @RequestBody final MangaTrackedDto manga,
             @CurrentUser UserPrincipal currentUser
     ) throws Exception {
 
-        return ResponseEntity.ok(mangaTrackedService.updateLastChapterRead(id, manga.getLastChapterRead(), currentUser));
+        return ResponseEntity.ok(
+                mangaTrackedMapper.toDto(
+                        mangaTrackedService.updateLastChapterRead(id, manga.getLastChapterRead(), currentUser)
+                ));
     }
+
+
+    /*
 
     @GetMapping("/{id}/updated-informations")
     ResponseEntity<MangaTrackedBo> updateInformations(
@@ -61,6 +75,7 @@ public class MangaTrackedController {
             @CurrentUser UserPrincipal currentUser
     ) throws Exception {
 
+        /*
         long timeSinceLastFetch = Duration.between(currentUser.getLastFetchInformations(), LocalDateTime.now()).toMillis();
 
         // allow 1 fetch every 15 minutes
@@ -69,5 +84,5 @@ public class MangaTrackedController {
         }
 
         return ResponseEntity.ok(mangaTrackedService.getUpdatedInformations(id, currentUser));
-    }
+    } */
 }

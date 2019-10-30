@@ -5,7 +5,6 @@ import {MangaTrackedGrid} from "./MangaTrackedGrid";
 
 export const Dashboard = ({user}) => {
 
-    const sortedMangas = user.mangasTracked.sort((m1, m2) => m1.mangaTrackedId - m2.mangaTrackedId);
     return (
         <div className="container">
             <div className="row">
@@ -13,10 +12,7 @@ export const Dashboard = ({user}) => {
                     <Title title="Dashboard"/>
                     <br/>
                     <br/>
-                    <MangaTrackedGrid
-                        mangas={sortedMangas}
-                        lastFetchInformations={user.lastFetchInformations}
-                    />
+                    <MangaTrackedGrid />
                 </div>
             </div>
         </div>

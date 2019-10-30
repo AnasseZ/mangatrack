@@ -1,6 +1,8 @@
 package com.zan.mangatrack.controller;
 
 import com.zan.mangatrack.business.MangaBo;
+import com.zan.mangatrack.dto.MangaDto;
+import com.zan.mangatrack.mapper.MangaMapper;
 import com.zan.mangatrack.security.HasUserRole;
 import com.zan.mangatrack.service.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +21,17 @@ public class MangaController {
     @Autowired
     MangaService mangaService;
 
+    @Autowired
+    MangaMapper mangaMapper;
+
     @GetMapping
     ResponseEntity<List<MangaBo>> list() {
         return ResponseEntity.ok(mangaService.list());
     }
 
     @GetMapping("/search/{title}")
-    ResponseEntity<Page<MangaBo>> search(@PathVariable String title, @RequestParam(value = "page", defaultValue ="0") int page) {
-        return ResponseEntity.ok(mangaService.search(title, page));
+    ResponseEntity<Page<MangaDto>> search(@PathVariable String title, @RequestParam(value = "page", defaultValue ="0") int page) {
+        return ResponseEntity.ok(mangaService.search(title, page).map(mangaMapper::toDto));
     }
 
     @GetMapping("/{id}")

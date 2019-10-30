@@ -17,31 +17,12 @@ import {addSuccessNotification, addErrorNotification} from "../../util/notificat
 export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
 
     const [lastChapterRead, setLastChapterRead] = useState("");
-    const [lastChapterOut, setLastChapterOut] = useState("");
-    const [error, setError] = useState(false);
-    const [updatedManga, setUpdatedManga] = useState(manga);
-
-    useEffect(() => {
-        if (manga.finished) {
-            setLastChapterOut(manga.lastChapterOut);
-        } else {
-            getUpdatedInformations(
-                manga.mangaTrackedId,
-                result => {
-                    setUpdatedManga(result);
-                    setLastChapterOut(result.lastChapterOut)
-                },
-                error => setError(error),
-                true
-            );
-        }
-    }, []);
 
     const onChangeLastChapterRead = e => setLastChapterRead(e.target.value);
 
     const followManga = () => {
         postMangaTracked(
-            createMangaTrackedFromManga(updatedManga, lastChapterRead),
+            createMangaTrackedFromManga(manga, lastChapterRead),
             result => addSuccessNotification("Bravo ! Vous suivez maintenant " + manga.title + "."),
             error => addErrorNotification("Erreur ! Vous n'avez pas pu suivre " + manga.title + "."),
             true
@@ -50,7 +31,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
     };
 
     const syncLastChapterRead = () => {
-        setLastChapterRead(lastChapterOut);
+        setLastChapterRead(manga.lastChapterOut);
     };
 
     return (
@@ -71,7 +52,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
                         <div className="col-sm-8">
                             <h2 className="manga-title">{mangaTitle}</h2>
                             <h3 className="chap-title">
-                                Dernier chapitre: {lastChapterOut}
+                                Dernier chapitre: {manga.lastChapterOut}
                             </h3>
                             <br/>
                             <h6 className="grey subtitle-input">Facultatif</h6>

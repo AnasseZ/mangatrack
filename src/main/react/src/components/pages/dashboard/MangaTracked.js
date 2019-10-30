@@ -9,28 +9,28 @@ import {mangadexMangaRoot} from "../../../constantes/apiInformations";
 import {canFetchUpdatedInformations} from "../../../util/validation";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 
-export const MangaTracked = ({manga, updateMangas, lastFetchInformations}) => {
+export const MangaTracked = ({mangaTracked, updateMangas}) => {
     const [error, setError] = useState(null);
     const [wantModify, setWantModify] = useState(false);
-    const [updatedChapterRead, setUpdatedChapterRead] = useState(manga.lastChapterRead);
+    const [updatedChapterRead, setUpdatedChapterRead] = useState(mangaTracked.lastChapterRead);
 
     useEffect(() => {
-        if (!manga.isFinished && canFetchUpdatedInformations(lastFetchInformations)) {
+        if (!mangaTracked.manga.isFinished) {/*
             getMangaTrackedUpdatedInformations(
-                manga.mangaTrackedId,
+                mangaTracked.manga.mangaTrackedId,
                 result => {
                     updateMangas(result);
                 },
                 error => setError(error),
                 true
-            );
+            );*/
         }
     }, []);
 
     const updateMangaTracked = () => {
         if (manga.lastChapterRead !== updatedChapterRead) {
             updateLastChapterRead(
-                {...manga, lastChapterRead: updatedChapterRead},
+                {...mangaTracked, lastChapterRead: updatedChapterRead},
                 updateMangaOk,
                 updateMangaError,
                 true
@@ -43,13 +43,13 @@ export const MangaTracked = ({manga, updateMangas, lastFetchInformations}) => {
 
     const updateMangaOk = result => {
         updateMangas(result);
-        addSuccessNotification(manga.title + " est mis à jour.");
+        addSuccessNotification(mangaTracked.manga.title + " est mis à jour.");
         updateWantModify();
     };
 
     const updateMangaError = error => {
         setError(error);
-        addErrorNotification("Erreur ! Vous n'avez pas pu mettre à jour " + manga.title + ".");
+        addErrorNotification("Erreur ! Vous n'avez pas pu mettre à jour " + mangaTracked.manga.title + ".");
         updateWantModify();
     };
 
@@ -57,6 +57,7 @@ export const MangaTracked = ({manga, updateMangas, lastFetchInformations}) => {
 
     const onChangeUpdatedChapterRead = e => setUpdatedChapterRead(e.target.value);
 
+    const manga = mangaTracked.manga;
     const mangaTitle = getTitle(manga.title);
     const mangadexUrl = mangadexMangaRoot + manga.mangaTrackedId;
 
@@ -79,13 +80,13 @@ export const MangaTracked = ({manga, updateMangas, lastFetchInformations}) => {
                         </p>
                         {wantModify ? (
                             <p className="mb-0">
-                                Dernier lu: <strong>{manga.lastChapterRead}</strong>
+                                Dernier lu: <strong>{mangaTracked.lastChapterRead}</strong>
                             </p>
-                        ) : manga.lastChapterOut === manga.lastChapterRead ? (
+                        ) : manga.lastChapterOut === mangaTracked.lastChapterRead ? (
                             <p className="card-text is-up-to-date">À jour !</p>
                         ) : (
                             <p className="card-text">
-                                Dernier lu: <strong>{manga.lastChapterRead}</strong>
+                                Dernier lu: <strong>{mangaTracked.lastChapterRead}</strong>
                             </p>
                         )}
                     </div>

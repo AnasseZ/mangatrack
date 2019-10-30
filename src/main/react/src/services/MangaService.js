@@ -9,12 +9,16 @@ export const postMangaTracked = (data, doWhenOK, doWhenError, token) => {
 
 export const updateLastChapterRead = (data, doWhenOK, doWhenError, token) => {
   put(
-    apiRoot + "api/mangas-tracked/" + data.mangaTrackedId,
+    apiRoot + "api/mangas-tracked/" + data.id,
     data,
     doWhenOK,
     doWhenError,
     token
   );
+};
+
+export const getMangasTracked = (doWhenOK, doWhenError) => {
+  get(apiRoot + "api/mangas-tracked", doWhenOK, doWhenError, true);
 };
 
 

@@ -1,23 +1,50 @@
 import React, {useState, useEffect} from "react";
-import AlertC from "../../shared/AlertC";
 
 import {Link} from "react-router-dom";
 import {MangaTracked} from "./MangaTracked";
+import {getMangasTracked} from "../../../services/MangaService";
+import Loading from "../loading/Loading";
 
-export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
-    const [mangasTracked, setMangaTracked] = useState(mangas);
+export const MangaTrackedGrid = () => {
+    const [mangasTracked, setMangasTracked] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const updateMangas = updatedManga => {
         // delete then add in the array
-        const updatedMangas = mangasTracked.filter(manga => manga.mangaTrackedId !== updatedManga.mangaTrackedId);
-        const sortedMangas = [...updatedMangas, updatedManga].sort((m1, m2) => m1.mangaTrackedId - m2.mangaTrackedId);
-        setMangaTracked(sortedMangas);
+        const updatedMangas = mangasTracked.filter(manga => manga.id !== updatedManga.id);
+        const sortedMangas = [...updatedMangas, updatedManga]
+            .sort((m1, m2) => m1.manga.mangaTrackedId - m2.manga.mangaTrackedId);
+        setMangasTracked(sortedMangas);
     };
 
     useEffect(() => {
+        getMangasTracked(
+            result => {
+                if(result.length > 0 ) {
+                    const sortedMangas = result.sort((m1, m2) => m1.manga.mangaTrackedId - m2.manga.mangaTrackedId);
+                    setMangasTracked(sortedMangas)
+                }
+;
+                setLoading(false);
+            },
+            error => {
+                setLoading(false);
+                setError(error);
+            }
+        );
     }, []);
 
-    return mangas.length === 0 ? (
+
+    if (loading) {
+        return (
+            <div>
+                <Loading/>
+            </div>
+        );
+    }
+
+    return mangasTracked.length === 0 ? (
         <div>
             <p>
                 Aucun manga suivi ! Commencez par en{" "}
@@ -28,12 +55,11 @@ export const MangaTrackedGrid = ({mangas, lastFetchInformations}) => {
         <>
             <hr className="hr-separator"/>
             <div className="row row-eq-height">
-                {mangasTracked.map((manga, index) =>
+                {mangasTracked.map((mangaTracked, index) =>
                     <MangaTracked
                         key={index}
-                        manga={manga}
+                        mangaTracked={mangaTracked}
                         updateMangas={updateMangas}
-                        lastFetchInformations={lastFetchInformations}
                     />
                 )}
                 <div className="col-lg-2 col-sm-3 col-4 col-manga col-icone-plus">

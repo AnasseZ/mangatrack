@@ -32,6 +32,13 @@ public class MangaBo {
 
     private double lastChapterOut;
 
+    @OneToMany(
+            mappedBy = "manga",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<MangaTrackedBo> mangasTracked;
+
     public MangaBo() {
 
     }

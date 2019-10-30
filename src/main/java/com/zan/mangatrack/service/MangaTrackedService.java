@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,25 +26,39 @@ public class MangaTrackedService {
     @Autowired
     MangaService mangaService;
 
-    public List<MangaTrackedBo> list() {
-        return this.mangaTrackedRepository.findAll();
+    public List<MangaTrackedBo> list(final long userId) throws Exception {
+
+        User retrievedUser = userRepository
+                .findById(userId)
+                .orElseThrow(() -> new Exception("User doesn't exists."));
+
+
+        return this.mangaTrackedRepository.findByUser(retrievedUser);
     }
 
-    public Optional<MangaTrackedBo> get(final long id) {
-        return this.mangaTrackedRepository.findById(id);
+    public MangaTrackedBo get(final long id) throws Exception {
+        return this.mangaTrackedRepository.findById(id).orElseThrow(() -> new Exception("Tracked Manga not found."));
     }
 
     public MangaTrackedBo persist(final MangaTrackedBo mangaTrackedBo, final UserPrincipal currentUser) throws Exception {
         Optional<User> retrievedUser = userRepository.findById(currentUser.getId());
 
-        List<MangaTrackedBo> retrievedmanga =
-                mangaTrackedRepository.findByMangaTrackedIdAndUser(mangaTrackedBo.getMangaTrackedId(), retrievedUser.get());
+        // check if manga exist
+        MangaBo retrievedManga = mangaService
+                .get(mangaTrackedBo.getManga().getId())
+                .orElseThrow(() -> new Exception("Manga does not exist."));
 
-        if (!retrievedmanga.isEmpty()) {
-            throw new Exception("Manga with id " + mangaTrackedBo.getId() + " already tracked.");
+        // check if manga already tracked
+        List<MangaTrackedBo> followedMangasWithMangaId =
+                mangaTrackedRepository.findByMangaAndUser(retrievedManga, retrievedUser.get());
+
+        if (!followedMangasWithMangaId.isEmpty()) {
+            throw new Exception("Manga " + retrievedManga.getTitle() + " already tracked.");
         }
 
+        mangaTrackedBo.setManga(retrievedManga);
         mangaTrackedBo.setUser(retrievedUser.get());
+
         return this.mangaTrackedRepository.save(mangaTrackedBo);
     }
 
@@ -54,22 +67,30 @@ public class MangaTrackedService {
             final double lastChapterRead,
             final UserPrincipal currentUser) throws Exception {
 
-        Optional<User> retrievedUser = userRepository.findById(currentUser.getId());
+        User retrievedUser = userRepository
+                .findById(currentUser.getId())
+                .orElseThrow(() -> new Exception("User doesn't exists."));
 
-        if (retrievedUser.isPresent() && currentUser.getId() != retrievedUser.get().getId()) {
-            throw new Exception("Not authorized to update this manga.");
-        }
+        // check if tracked manga exists
+        List<MangaTrackedBo> retrievedmangas =
+                mangaTrackedRepository.findByIdAndUser(id, retrievedUser);
 
-        List<MangaTrackedBo> retrievedmanga =
-                mangaTrackedRepository.findByMangaTrackedIdAndUser(id, retrievedUser.get());
-
-        if (retrievedmanga.isEmpty()) {
+        if (retrievedmangas.isEmpty()) {
             throw new Exception("Manga with id " + id + " not found.");
         }
 
-        retrievedmanga.get(0).setLastChapterRead(lastChapterRead);
+        // we know we can track only one manga so if not empty there is only one element
+        MangaTrackedBo retrievedmanga = retrievedmangas.get(0);
 
-        return retrievedmanga.get(0);
+        // check if has right to update manga
+        if (retrievedmanga.getUser().getId() != retrievedUser.getId()) {
+            throw new Exception("Not authorized. Can't update manga.");
+        }
+
+        // update chapter
+        retrievedmanga.setLastChapterRead(lastChapterRead);
+
+        return retrievedmanga;
     }
 
     public MangaTrackedBo getUpdatedInformations(final long id, final UserPrincipal currentUser)
@@ -81,22 +102,22 @@ public class MangaTrackedService {
         Optional<User> retrievedUser = userRepository.findById(currentUser.getId());
 
         List<MangaTrackedBo> retrievedmangas =
-                mangaTrackedRepository.findByMangaTrackedIdAndUser(id, retrievedUser.get());
+                mangaTrackedRepository.findByIdAndUser(id, retrievedUser.get());
 
         if (retrievedmangas.isEmpty()) {
             throw new Exception("Manga with id " + id + " is not tracked.");
         }
 
         MangaTrackedBo mangaTracked = retrievedmangas.get(0);
-
+        /*
         // update manga tracked with fresh informations
         mangaTracked.setAuthor(manga.getAuthor());
         mangaTracked.setFinished(manga.isFinished());
         mangaTracked.setImgSrc(manga.getImgSrc());
-        mangaTracked.setLastChapterOut(manga.getLastChapterOut());
+        mangaTracked.setLastChapterOut(manga.getLastChapterOut()); */
 
         // update last fetch for current user
-        retrievedUser.get().setLastFetchInformations(LocalDateTime.now());
+        //retrievedUser.get().setLastFetchInformations(LocalDateTime.now());
 
         return mangaTracked;
     }
