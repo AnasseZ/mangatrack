@@ -4,6 +4,7 @@ import com.zan.mangatrack.business.MangaBo;
 import com.zan.mangatrack.business.MangaTrackedBo;
 import com.zan.mangatrack.business.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface MangaTrackedRepository extends JpaRepository<MangaTrackedBo, Lo
     List<MangaTrackedBo> findByIdAndUser(final long id, final User user);
 
     List<MangaTrackedBo> findByUser(final User user);
+
+    @Query("SELECT DISTINCT m.manga FROM MangaTrackedBo m")
+    List<MangaBo> findDistinctManga();
 }

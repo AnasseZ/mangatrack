@@ -98,6 +98,7 @@ export const MangaTracked = ({mangaTracked, updateMangas}) => {
                                 placeholder="Mis à jours"
                                 value={updatedChapterRead}
                                 onChange={onChangeUpdatedChapterRead}
+                                min="0"
                             />
                             <div className="input-group-append">
                                 <button
