@@ -24,7 +24,7 @@ public class MangadexProvider {
     @Autowired
     ObjectMapper objectMapper;
 
-    public MangaBo createMangaFromJson(long id, String mangadexResponse, final boolean firstFetch) throws IOException {
+    public MangaBo createMangaFromJson(long id, String mangadexResponse) throws IOException {
         // get informations nodes
         JsonNode rootNode = objectMapper.readTree(mangadexResponse);
         JsonNode mangaNode = rootNode.get("manga");
@@ -38,7 +38,7 @@ public class MangadexProvider {
 
         List<MangadexChapter> chapters = getMangadexChapters(rootNode);
 
-        MangaBo mangaBo = new MangaBo(mangadexManga, chapters, id, firstFetch);
+        MangaBo mangaBo = new MangaBo(mangadexManga, chapters, id);
         LOGGER.info(mangaBo.getTitle() + " with id " + id + " is fetched.");
 
         return mangaBo;

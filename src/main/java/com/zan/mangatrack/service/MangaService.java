@@ -74,7 +74,7 @@ public class MangaService {
 
                 if (mangadexResponse != null) {
                     // create well formated manga object from response for current manga
-                    mangaBos.add(mangadexProvider.createMangaFromJson(i, mangadexResponse, true));
+                    mangaBos.add(mangadexProvider.createMangaFromJson(i, mangadexResponse));
                 }
 
             } catch (HttpClientErrorException e) {
@@ -91,7 +91,7 @@ public class MangaService {
             throw new IOException("Can't get resource from Mangadex API.");
         }
 
-        return mangadexProvider.createMangaFromJson(id, mangadexResponse, false);
+        return mangadexProvider.createMangaFromJson(id, mangadexResponse);
     }
 
     /**
@@ -100,7 +100,7 @@ public class MangaService {
      *
      * @throws IOException
      */
-    @Scheduled(fixedDelay =  60 * 60 * 1000)
+    @Scheduled(fixedDelay = 4 * 60 * 60 * 1000)
     public void updateFollowedMangas() throws IOException {
 
         // get distinct mangas which are not finished

@@ -28,7 +28,7 @@ export const MangaTracked = ({mangaTracked, updateMangas}) => {
     }, []);
 
     const updateMangaTracked = () => {
-        if (manga.lastChapterRead !== updatedChapterRead) {
+        if (mangaTracked.lastChapterRead !== updatedChapterRead) {
             updateLastChapterRead(
                 {...mangaTracked, lastChapterRead: updatedChapterRead},
                 updateMangaOk,

@@ -43,7 +43,7 @@ public class MangaBo {
 
     }
 
-    public MangaBo(MangadexManga mangadexManga, List<MangadexChapter> chapters, long id, boolean firstFetch) {
+    public MangaBo(MangadexManga mangadexManga, List<MangadexChapter> chapters, long id) {
         this.mangaTrackedId = id;
         this.title = mangadexManga.getTitle();
         this.author = mangadexManga.getAuthor();
@@ -52,15 +52,12 @@ public class MangaBo {
         // 2 so its finished , 3 cancelled
         if (mangadexManga.getStatus() == 2 || mangadexManga.getStatus() == 3) {
             this.isFinished = true;
-
-            if (!chapters.isEmpty()) {
-                lastChapterOut = ChapterHelper.findLastChapter(chapters);
-            }
         } else {
-            if(!firstFetch) {
-                lastChapterOut = ChapterHelper.findLastChapter(chapters);
-            }
             this.isFinished = false;
+        }
+
+        if (!chapters.isEmpty()) {
+            lastChapterOut = ChapterHelper.findLastChapter(chapters);
         }
     }
 }
