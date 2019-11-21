@@ -77,7 +77,7 @@ const SignUpPage = ({isAuth, history}) => {
                                 {/* Mail */}
                                 <div className="form-label-group">
                                     <input id="emailForm" className="form-control" name="emailForm"
-                                           placeholder="E-mail" required autoFocus
+                                           placeholder="E-mail" required
                                            onChange={onChangeField}/>
                                     <label htmlFor="emailForm">E-mail</label>
                                 </div>
@@ -100,7 +100,7 @@ const SignUpPage = ({isAuth, history}) => {
                                 </button>
                                 <hr className="my-4"/>
                                 <p className="text-dark">Déjà inscrit ?{' '}
-                                    <a href="/signup">Se connecter.</a>
+                                    <a href="/login">Se connecter.</a>
                                 </p>
                             </form>
                         </div>

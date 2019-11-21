@@ -2,8 +2,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -18,7 +18,7 @@ body,
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+    monospace;
 }
 
 /* NAVBAR */
@@ -30,10 +30,12 @@ code {
 #mainNav {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 #mainNav .navbar-brand {
     font-weight: 800;
     color: white;
 }
+
 #mainNav .navbar-toggler {
     font-size: 12px;
     font-weight: 800;
@@ -49,6 +51,7 @@ code {
 #mainNav .navbar-nav > li.nav-item > a {
     color: #fff;
 }
+
 #mainNav .navbar-nav > li.nav-item > a {
     font-size: 12px;
     font-weight: 800;
@@ -61,18 +64,22 @@ code {
         border-bottom: 1px solid transparent;
         background: 0 0;
     }
+
     #mainNav .navbar-brand {
         padding: 10px 20px;
         color: #fff;
     }
+
     #mainNav .navbar-brand:focus,
     #mainNav .navbar-brand:hover {
         color: rgba(255, 255, 255, 0.8);
     }
+
     #mainNav .navbar-nav > li.nav-item > a {
         padding: 10px 20px;
         color: #fff;
     }
+
     #mainNav .navbar-nav > li.nav-item > a:focus,
     #mainNav .navbar-nav > li.nav-item > a:hover {
         color: rgba(255, 255, 255, 0.8);
@@ -91,6 +98,7 @@ code {
         transform: translate3d(0, 0, 0);
         -webkit-backface-visibility: hidden;
     }
+
     #mainNav.is-fixed {
         position: fixed;
         top: -67px;
@@ -100,6 +108,7 @@ code {
         border-bottom: 1px solid #fff;
         background-color: rgba(255, 255, 255, 0.9);
     }
+
     #mainNav.is-fixed .navbar-brand {
         color: #212529;
     }
@@ -177,6 +186,7 @@ label {
     color: #a2a2a2;
     margin-top: 5px;
 }
+
 .manga-title {
     font-size: 1.5rem;
     color: black;
@@ -194,6 +204,7 @@ label {
     font-weight: 600;
     text-transform: uppercase;
 }
+
 /* TABLETTES, TELEPHONES */
 @media (max-width: 768px) {
     #alertInfo {
@@ -249,6 +260,7 @@ label {
 .fa-beat {
     animation: fa-beat 5s ease infinite;
 }
+
 @keyframes fa-beat {
     0% {
         transform: scale(1);
@@ -350,10 +362,10 @@ label {
     border: 0;
     height: 1px;
     background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0),
-        rgba(255, 255, 255, 0.75),
-        rgba(0, 0, 0, 0)
+            to right,
+            rgba(0, 0, 0, 0),
+            rgba(255, 255, 255, 0.75),
+            rgba(0, 0, 0, 0)
     );
 }
 
@@ -426,12 +438,12 @@ label {
     border-radius: 2rem;
 }
 
-.form-label-group>input,
-.form-label-group>label {
+.form-label-group > input,
+.form-label-group > label {
     padding: var(--input-padding-y) var(--input-padding-x);
 }
 
-.form-label-group>label {
+.form-label-group > label {
     position: absolute;
     top: 0;
     left: 0;
@@ -471,7 +483,7 @@ label {
     padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
-.form-label-group input:not(:placeholder-shown)~label {
+.form-label-group input:not(:placeholder-shown) ~ label {
     padding-top: calc(var(--input-padding-y) / 3);
     padding-bottom: calc(var(--input-padding-y) / 3);
     font-size: 12px;
@@ -482,9 +494,10 @@ label {
 -------------------------------------------------- */
 
 @supports (-ms-ime-align: auto) {
-    .form-label-group>label {
+    .form-label-group > label {
         display: none;
     }
+
     .form-label-group input::-ms-input-placeholder {
         color: #777;
     }
@@ -495,10 +508,25 @@ label {
 
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
-    .form-label-group>label {
+    .form-label-group > label {
         display: none;
     }
+
     .form-label-group input:-ms-input-placeholder {
         color: #777;
     }
 }
+
+
+/**  LANDING PAGE */
+.heading-landing {
+    font-size: 62px;
+}
+
+#heading-section {
+    height: 100vh;
+}
+
+#heading-section .row {
+     height: 60vh;
+ }
