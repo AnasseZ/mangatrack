@@ -517,16 +517,58 @@ label {
     }
 }
 
-
 /**  LANDING PAGE */
-.heading-landing {
-    font-size: 62px;
-}
 
 #heading-section {
     height: 100vh;
+    z-index: 999;
 }
 
-#heading-section .row {
-     height: 60vh;
- }
+#heading-section .col-manga {
+    min-width: 190px;
+    z-index: 20;
+}
+
+/* BIGGER THAN TABLETTE*/
+@media only screen and (min-width: 769px) {
+    #heading-section .row {
+        height: 65vh;
+    }
+}
+
+/* MAX TABLETTE*/
+@media only screen and (max-width: 768px) {
+    #heading-section {
+        margin-top: 3em;
+    }
+}
+
+/* MOBILE ONLY*/
+@media only screen and (max-width: 425px) {
+    #heading-section .col-manga {
+        min-width: 160px;
+    }
+}
+
+/* MOBILE S ONLY*/
+@media only screen and (max-width: 340px) {
+    #heading-section .col-manga {
+        min-width: 150px;
+    }
+}
+
+#heading-section .col-manga:hover {
+    transform: translate(0, -1rem);
+}
+
+#heading-section .col-manga:not(:first-child) {
+    margin-left: -100px;
+}
+
+#heading-section .col-manga:hover ~ .col-manga {
+    transform: translateX(80px);
+}
+
+#heading-section h2, p:not(.card-text) {
+    font-family: "Montserrat";
+}

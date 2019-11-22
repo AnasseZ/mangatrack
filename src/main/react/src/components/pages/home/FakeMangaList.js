@@ -1,38 +1,48 @@
 import React from "react";
 import OnepieceCover from "../../../assets/onepiece-cover.jpg";
+import KenganCover from "../../../assets/kengan-cover.jpg";
+import NarutoCover from "../../../assets/naruto-cover.jpg";
+import TpnCover from "../../../assets/tpn-cover.jpg";
 
-export const FakeMangaTracked = () => {
+export const FakeMangaList = () => {
 
     const mangas = [
+        {
+            title: "Naruto",
+            imgSrc: NarutoCover,
+            lastChapterOut: 700,
+            lastChapterRead: 698,
+            id: 4
+        },
+        {
+            title: "The Promised Neverland",
+            imgSrc: TpnCover,
+            lastChapterOut: 158,
+            lastChapterRead: 158,
+            id: 2
+        },
+        {
+            title: "Kengan Omega",
+            imgSrc: KenganCover,
+            lastChapterOut: 41,
+            lastChapterRead: 40,
+            id: 3
+        },
         {
             title: "One piece",
             imgSrc: OnepieceCover,
             lastChapterOut: 961,
             lastChapterRead: 498,
             id: 1
-        },
-        {
-            title: "One bouze",
-            imgSrc: OnepieceCover,
-            lastChapterOut: 961,
-            lastChapterRead: 961,
-            id: 2
-        },
-        {
-            title: "One piece",
-            imgSrc: OnepieceCover,
-            lastChapterOut: 961,
-            lastChapterRead: 122,
-            id: 3
         }
     ];
 
     return (
         <>
-            <div className="d-flex">
+            <div className="d-flex justify-content-center">
                 {
                     mangas.map(manga => (
-                        <FakeMangaCard manga={manga} key={manga.id} />
+                        <FakeMangaCard manga={manga} key={manga.id}/>
                     ))
                 }
             </div>

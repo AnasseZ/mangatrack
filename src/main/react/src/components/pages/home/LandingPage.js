@@ -1,5 +1,5 @@
 import React from "react";
-import {FakeMangaTracked} from "./FakeMangaTracked";
+import {FakeMangaList} from "./FakeMangaList";
 
 export default class LandingPage extends React.Component {
     render() {
@@ -11,7 +11,7 @@ export default class LandingPage extends React.Component {
                     <div className="container">
                         <div className="row align-items-center justify-content-center">
                             <div className="col-xl-5 col-lg-5 col-md-3">
-                                <h2 className="heading-landing mb-3">MangaTrack</h2>
+                                <h1 className="heading-landing mb-3">MangaTrack</h1>
                                 <div className="sub-heading-landing">
                                     <p className="mb-4">Suis tout tes mangas préférés en illimité au même endroit et en
                                         temps réel.
@@ -23,19 +23,17 @@ export default class LandingPage extends React.Component {
                                 </div>
                             </div>
                             <div className="col-xl-6 col-lg-7 col-md-9 relative align-self-center">
-
-                                <div><FakeMangaTracked/></div>
+                                <div><FakeMangaList/></div>
 
                             </div>
                         </div>
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
                         <path fill="#ffffff" fillOpacity="1"
-                              d="M0,64L60,90.7C120,117,240,171,360,192C480,213,600,203,720,176C840,149,960,107,1080,96C1200,85,1320,107,1380,117.3L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+                              d="M0,160L48,144C96,128,192,96,288,101.3C384,107,480,149,576,170.7C672,192,768,192,864,176C960,160,1056,128,1152,106.7C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
                     </svg>
                 </section>
             </>
-
         )
     }
 }
