@@ -520,7 +520,7 @@ label {
 /**  LANDING PAGE */
 
 #heading-section {
-    height: 100vh;
+    height: 95vh;
     z-index: 999;
 }
 
@@ -529,10 +529,10 @@ label {
     z-index: 20;
 }
 
-/* BIGGER THAN TABLETTE*/
+/* BIGGER THAN TABLETTE */
 @media only screen and (min-width: 769px) {
     #heading-section .row {
-        height: 65vh;
+        height: 95vh;
     }
 }
 

@@ -28,10 +28,9 @@ export default class LandingPage extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                        <path fill="#ffffff" fillOpacity="1"
-                              d="M0,160L48,144C96,128,192,96,288,101.3C384,107,480,149,576,170.7C672,192,768,192,864,176C960,160,1056,128,1152,106.7C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-                    </svg>
+                </section>
+                <section className="mt-5 bg-light">
+                    <h1>Features</h1>
                 </section>
             </>
         )
