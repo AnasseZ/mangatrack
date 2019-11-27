@@ -8,6 +8,7 @@ import Dashboard from "./dashboard/Dashboard";
 import NoMatch from "./NoMatch";
 import Profil from "./profil/Profil";
 import {SignUp} from "./signup/SignUp";
+import MangaDetail from "./manga-detail/MangaDetail";
 
 export const Main = () => (
     <main>
@@ -15,6 +16,7 @@ export const Main = () => (
             <Route exact path="/" component={Home}/>
             <Route path="/login" component={Login}/>
             <Route path="/signup" component={SignUp}/>
+            <PrivateRoute path="/mangas/:id" component={MangaDetail}/>
             <PrivateRoute path="/search-manga" component={SearchManga}/>
             <PrivateRoute path="/dashboard" component={Dashboard}/>
             <PrivateRoute path="/profil" component={Profil}/>

@@ -138,7 +138,7 @@ h6,
 p,
 label {
     color: white;
-    font-family: "PT Sans";
+    font-family: "Montserrat";
 }
 
 .card-title {
@@ -241,6 +241,13 @@ label {
 
     .card-title {
         font-size: 1rem;
+    }
+}
+
+/* GRID COL MAX  */
+@media (max-width: 575px) {
+    .col-detail {
+        margin-top: 3rem;
     }
 }
 
@@ -569,6 +576,29 @@ label {
     transform: translateX(80px);
 }
 
-#heading-section h2, p:not(.card-text) {
+#heading-section h2, #heading-section p:not(.card-text) {
     font-family: "Montserrat";
 }
+
+/* MANGA DETAIL */
+
+.img-detail {
+    height: 25rem;
+}
+
+.manga-detail-form > .form-group {
+    margin-bottom: 0;
+}
+
+.row-detail-follow {
+    margin-top: 1rem;
+}
+
+.detail-mangaTitle, .detail-mangaAuthor {
+    padding-left: 15px;
+}
+
+.detail-mangaAuthor {
+    font-style: italic;
+}
+
