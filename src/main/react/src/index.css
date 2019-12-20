@@ -533,7 +533,6 @@ label {
 
 #heading-section .col-manga {
     min-width: 190px;
-    z-index: 20;
 }
 
 /* BIGGER THAN TABLETTE */
@@ -602,3 +601,18 @@ label {
     font-style: italic;
 }
 
+.rounded-1 {
+    border-radius: 1rem!important;
+}
+
+.bg-white {
+    background: white;
+}
+
+.rounded-inputs input {
+    border-radius: 2rem;
+}
+
+.label-black label {
+    color: black;
+}

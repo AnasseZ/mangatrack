@@ -36,8 +36,15 @@ public class MangaTrackedService {
         return this.mangaTrackedRepository.findByUser(retrievedUser);
     }
 
-    public MangaTrackedBo get(final long id) throws Exception {
-        return this.mangaTrackedRepository.findById(id).orElseThrow(() -> new Exception("Tracked Manga not found."));
+    public MangaTrackedBo get(final long id, final UserPrincipal currentUser) throws Exception {
+        MangaTrackedBo retrievedManga = this.mangaTrackedRepository.findById(id).orElseThrow(() -> new Exception("Tracked Manga not found."));
+
+        // check if has right to update manga
+        if (retrievedManga.getUser().getId() != currentUser.getId()) {
+            throw new Exception("Not authorized. Can't get manga.");
+        }
+
+        return retrievedManga;
     }
 
     public MangaTrackedBo persist(final MangaTrackedBo mangaTrackedBo, final UserPrincipal currentUser) throws Exception {

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 
 import {AuthConsumer} from "../../../contexts/AuthContext";
-import {passwordOk} from "../../../util/validation";
+import {passwordsOk} from "../../../util/validation";
 import {register} from "../../../services/UserService";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 
@@ -22,7 +22,7 @@ const SignUpPage = ({isAuth, history}) => {
     };
 
     const registerUser = () => {
-        if (passwordOk(formState.passwordForm, formState.passwordAgainForm)) {
+        if (passwordsOk(formState.passwordForm, formState.passwordAgainForm)) {
             register(
                 {
                     username: formState.usernameForm,
@@ -41,7 +41,7 @@ const SignUpPage = ({isAuth, history}) => {
         history.push({
             pathname: '/login',
             state: {
-                message: 'Inscription réussi ! Veuillez maintenant vous connecter.'
+                message: 'Inscription réussie ! Veuillez maintenant vous connecter.'
             }
         });
     };

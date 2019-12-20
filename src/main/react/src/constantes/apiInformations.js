@@ -3,7 +3,8 @@ export const apiRoot = "http://localhost:8080/";
 export const tokenName = "auth_token";
 
 /**  API RESOURCES ROOTS **/
-export const mangaRoot = 'api/mangas';
+export const mangaRoot = 'api/manga/';
+export const API_MANGATRACKED_ROOT = "api/mangas-tracked/";
 
 /** MANGADEX EXTERNAL API ROOT **/
 export const mangadexApiRoot = 'https://mangadex.org/api/manga/';

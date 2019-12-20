@@ -85,7 +85,8 @@ const AuthProvider = (props) => {
                 login: login,
                 logout: logout,
                 user: user,
-                token: token
+                token: token,
+                setUser: setUser
             }}
         >
             {props.children}

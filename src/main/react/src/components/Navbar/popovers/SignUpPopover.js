@@ -11,7 +11,7 @@ import {
     FormGroup,
     Input
 } from "reactstrap";
-import {passwordOk} from "../../../util/validation";
+import {passwordsOk} from "../../../util/validation";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 
 export class SignUpPopover extends React.Component {
@@ -69,7 +69,7 @@ export class SignUpPopover extends React.Component {
 
 
     register = () => {
-        if (passwordOk(this.state.passwordValue, this.state.passwordAgainValue)) {
+        if (passwordsOk(this.state.passwordValue, this.state.passwordAgainValue)) {
             register(
                 {
                     username: this.state.usernameValue,

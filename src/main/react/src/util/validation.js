@@ -7,15 +7,16 @@ export const canFetchUpdatedInformations = lastFetchDateInformations => {
     return true;
 };
 
-export const passwordOk = (passwordValue, passwordAgainValue) => {
-    if (
-        passwordValue !== "" &&
-        passwordValue === passwordAgainValue &&
-        passwordValue.length >= 8 &&
-        passwordValue.length <= 100
-    ) {
-        return true;
-    }
-
-    return false;
+export const passwordsOk = (p1, p2) => {
+    return passwordOk(p1) && samePasswords(p1, p2);
 };
+
+export const passwordOk = password => {
+    return textNotNull(password) && passwordRangeOk(password);
+};
+
+export const textNotNull = text => text !== '';
+export const samePasswords = (p1, p2) => p1 === p2;
+
+export const passwordRangeOk = password => password.length >= 8 &&
+    password.length <= 100;

@@ -53,6 +53,7 @@ export const MangaTrackedGrid = () => {
         </div>
     ) : (
         <>
+            <h4 className="text-left">En cours</h4>
             <hr className="hr-separator"/>
             <div className="row row-eq-height">
                 {mangasTracked.map((mangaTracked, index) =>

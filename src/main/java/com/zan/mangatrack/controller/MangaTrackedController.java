@@ -33,8 +33,8 @@ public class MangaTrackedController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<MangaTrackedDto> get(@PathVariable long id) throws Exception {
-        return ResponseEntity.ok(mangaTrackedMapper.toDto(mangaTrackedService.get(id)));
+    ResponseEntity<MangaTrackedDto> get(@PathVariable long id, @CurrentUser UserPrincipal currentUser) throws Exception {
+        return ResponseEntity.ok(mangaTrackedMapper.toDto(mangaTrackedService.get(id, currentUser)));
     }
 
     @PostMapping

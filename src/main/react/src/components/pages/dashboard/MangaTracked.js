@@ -65,12 +65,12 @@ export const MangaTracked = ({mangaTracked, updateMangas}) => {
     return (
         <div className="col-lg-2 col-sm-3 col-4 col-manga">
             <div className="card border-0 shadow-lg">
-                <Link to={"/mangas/" + manga.id}>
-                <img
-                    className="card-img-top"
-                    src={manga.imgSrc}
-                    alt="Miniature manga"
-                />
+                <Link to={"/mangas/" + mangaTracked.id}>
+                    <img
+                        className="card-img-top"
+                        src={manga.imgSrc}
+                        alt="Miniature manga"
+                    />
                 </Link>
                 <div className="card-body d-flex justify-content-between">
                     <div>
