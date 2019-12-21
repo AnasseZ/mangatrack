@@ -100,7 +100,7 @@ public class MangaService {
      *
      * @throws IOException
      */
-    @Scheduled(fixedDelay = 4 * 60 * 60 * 1000)
+    @Scheduled(fixedDelay = 24 * 60 * 60 * 1000)
     public void updateFollowedMangas() throws IOException {
 
         // get distinct mangas which are not finished

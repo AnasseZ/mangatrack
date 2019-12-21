@@ -12,7 +12,7 @@ export default class ProfilIcon extends React.Component {
     };
   }
 
-  toggle = () => {
+  toggle = (e) => {
     this.setState({
       popoverOpen: !this.state.popoverOpen
     });

@@ -8,6 +8,7 @@ import { SignUpPopover } from "./popovers/SignUpPopover";
 class NavOffline extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       loginPopoverOpen: false,
       signUpPopoverOpen: false
@@ -54,39 +55,14 @@ class NavOffline extends Component {
           <div className="collapse navbar-collapse" id="navbarResponsive">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Accueil
+                <Link className="btn btn-sm btn-link text-white text-decoration-none" to="/login">
+                  Se connecter
                 </Link>
               </li>
               <li className="nav-item">
-                <Button
-                  outline
-                  color="info"
-                  id="bntLogin"
-                  onClick={this.toggleLoginPopin}
-                >
-                  Se connecter
-                </Button>
-                <LoginPopover
-                  isOpen={this.state.loginPopoverOpen}
-                  toggleLoginPopin={this.toggleLoginPopin}
-                  toggleSignUpPopin={this.toggleSignUpPopin}
-                  login={this.props.login}
-                />
-              </li>
-              <li className="nav-item">
-                <Button
-                  color="info"
-                  id="btnSignIn"
-                  onClick={this.toggleSignUpPopin}
-                >
+                <Link className="btn btn-sm bg-white font-weight-bold text-info" to="/signup">
                   S'inscrire
-                </Button>
-                <SignUpPopover
-                  isOpen={this.state.signUpPopoverOpen}
-                  toggleLoginPopin={this.toggleLoginPopin}
-                  toggleSignUpPopin={this.toggleSignUpPopin}
-                />
+                </Link>
               </li>
             </ul>
           </div>

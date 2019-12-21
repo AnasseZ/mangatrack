@@ -616,3 +616,19 @@ label {
 .label-black label {
     color: black;
 }
+
+.text-blue {
+    color: #0079BF !important;
+}
+
+.popover .list-group-item:hover {
+    background: #f2f3f5;
+}
+
+.font-roboto {
+    font-family: "Roboto", Arial;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

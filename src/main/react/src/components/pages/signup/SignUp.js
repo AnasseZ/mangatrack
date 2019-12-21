@@ -70,7 +70,7 @@ const SignUpPage = ({isAuth, history}) => {
                                 {/* Username */}
                                 <div className="form-label-group">
                                     <input id="usernameForm" className="form-control" name="usernameForm"
-                                           placeholder="Nom d'utilisateur" required autoFocus
+                                           placeholder="Nom d'utilisateur" required
                                            onChange={onChangeField}/>
                                     <label htmlFor="usernameForm">Nom d'utilisateur</label>
                                 </div>

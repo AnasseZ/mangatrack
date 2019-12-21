@@ -39,7 +39,7 @@ const LoginPage = ({login, isAuth, history, location}) => {
                                 <form className="form-signin" onSubmit={handleSubmit}>
                                     <div className="form-label-group">
                                         <input id="inputEmailUsername" className="form-control"
-                                               placeholder="Nom d'utilisateur / mail" required autoFocus
+                                               placeholder="Nom d'utilisateur / mail" required
                                                onChange={onChangeUsername}/>
                                         <label htmlFor="inputEmailUsername">Nom d'utilisateur / mail</label>
                                     </div>
