@@ -4,28 +4,36 @@ import {Link} from "react-router-dom";
 import {MangaTracked} from "./MangaTracked";
 import {getMangasTracked} from "../../../services/MangaService";
 import Loading from "../loading/Loading";
+import {COMPLETED, ON_GOING, TO_READ} from "../../../constantes/mangaStatus";
+import {CategoryGrid} from "./CategoryGrid";
 
 export const MangaTrackedGrid = () => {
     const [mangasTracked, setMangasTracked] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    /** MANGAS FILTER BY STATUS */
+    const [toReadMangas, setToReadMangas] = useState([]);
+    const [onGoingMangas, setOnGoingMangas] = useState([]);
+    const [completedMangas, setCompletedMangas] = useState([]);
+
+
     const updateMangas = updatedManga => {
         // delete then add in the array
         const updatedMangas = mangasTracked.filter(manga => manga.id !== updatedManga.id);
         const sortedMangas = [...updatedMangas, updatedManga]
             .sort((m1, m2) => m1.manga.mangaTrackedId - m2.manga.mangaTrackedId);
-        setMangasTracked(sortedMangas);
+        updateMangaGrid(sortedMangas);
     };
 
     useEffect(() => {
         getMangasTracked(
             result => {
-                if(result.length > 0 ) {
+                if (result.length > 0) {
                     const sortedMangas = result.sort((m1, m2) => m1.manga.mangaTrackedId - m2.manga.mangaTrackedId);
-                    setMangasTracked(sortedMangas)
+                    updateMangaGrid(sortedMangas);
                 }
-;
+
                 setLoading(false);
             },
             error => {
@@ -35,6 +43,16 @@ export const MangaTrackedGrid = () => {
         );
     }, []);
 
+    const updateMangaGrid = mangasTracked => {
+        setMangasTracked(mangasTracked);
+        filterByStatus(mangasTracked)
+    };
+
+    const filterByStatus = mangasTracked => {
+        setToReadMangas(mangasTracked.filter(manga => manga.mangaStatus.status === TO_READ));
+        setOnGoingMangas(mangasTracked.filter(manga => manga.mangaStatus.status === ON_GOING));
+        setCompletedMangas(mangasTracked.filter(manga => manga.mangaStatus.status === COMPLETED));
+    };
 
     if (loading) {
         return (
@@ -53,22 +71,13 @@ export const MangaTrackedGrid = () => {
         </div>
     ) : (
         <>
-            <h4 className="text-left">En cours</h4>
-            <hr className="hr-separator"/>
-            <div className="row row-eq-height">
-                {mangasTracked.map((mangaTracked, index) =>
-                    <MangaTracked
-                        key={index}
-                        mangaTracked={mangaTracked}
-                        updateMangas={updateMangas}
-                    />
-                )}
-                <div className="col-lg-2 col-sm-3 col-4 col-manga col-icone-plus">
-                    <Link to="/search-manga" className="icone-plus hover-white">
-                        <i className="fas fa-plus-circle fa-3x"/>
-                    </Link>
-                </div>
-            </div>
+            <CategoryGrid mangasTracked={onGoingMangas} updateMangas={updateMangas} title='En cours'/>
+            <br/><br/><br/>
+
+            <CategoryGrid mangasTracked={toReadMangas} updateMangas={updateMangas} title='À lire'/>
+            <br/><br/><br/>
+
+            <CategoryGrid mangasTracked={completedMangas} updateMangas={updateMangas} title='Terminé'/>
         </>
     );
 };

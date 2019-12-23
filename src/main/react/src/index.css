@@ -301,14 +301,17 @@ label {
     justify-content: center;
 }
 
-.col-manga:hover {
-    transform: scale(1.05);
-}
-
 .col-manga {
     padding: 8px 12px 8px 8px;
-    transition: all 0.2s ease-in-out;
     display: flex;
+}
+
+.scale-on-hover {
+    transition: all 0.2s ease-in-out;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.05);
 }
 
 .card-body {
@@ -602,7 +605,7 @@ label {
 }
 
 .rounded-1 {
-    border-radius: 1rem!important;
+    border-radius: 1rem !important;
 }
 
 .bg-white {

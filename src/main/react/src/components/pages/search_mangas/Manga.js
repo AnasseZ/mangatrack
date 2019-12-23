@@ -20,7 +20,7 @@ export const Manga = ({manga}) => {
     };
 
     return (
-        <div className="col-lg-2 col-sm-3 col-4 col-manga">
+        <div className="col-lg-2 col-sm-3 col-4 col-manga scale-on-hover">
             <div className="card border-0 card-manga">
                 <img
                     className="card-img-top"

@@ -13,4 +13,6 @@ public class MangaTrackedDto {
     private User user;
 
     private MangaDto manga;
+
+    private MangaStatusDto mangaStatus;
 }

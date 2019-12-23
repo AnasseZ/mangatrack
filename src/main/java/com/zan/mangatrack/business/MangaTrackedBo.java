@@ -12,7 +12,7 @@ public class MangaTrackedBo extends AuditedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long id;
+    private long id;
 
     @Column(columnDefinition = "last_chapter_read")
     public double lastChapterRead;
@@ -25,4 +25,8 @@ public class MangaTrackedBo extends AuditedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manga_id")
     private MangaBo manga;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private MangaStatusBo mangaStatus;
 }

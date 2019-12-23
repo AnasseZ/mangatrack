@@ -58,8 +58,7 @@ create table if not exists mangas
     img_src          varchar(255),
     is_finished      boolean not null,
     last_chapter_out NUMERIC,
-    constraint mangas_pkey
-        primary key (id)
+    constraint mangas_pkey primary key (id)
 );
 
 alter table mangas owner to mangatrack_sa;
@@ -70,10 +69,25 @@ create table if not exists mangas_tracked
     last_chapter_read NUMERIC,
     user_id INTEGER NOT NULL,
     manga_id INTEGER NOT NULL,
+    status_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (manga_id) REFERENCES mangas(id),
+    FOREIGN KEY (status_id) REFERENCES mangas_status(id),
     constraint mangas_tracked_pkey
         primary key (id)
 );
 
 alter table mangas_tracked owner to mangatrack_sa;
+
+create table if not exists mangas_status
+(
+    id serial not null,
+    status VARCHAR(255) NOT NULL,
+    constraint mangas_status_pkey primary key (id)
+);
+
+alter table mangas_status owner to mangatrack_sa;
+
+alter table mangas_tracked alter column status_id set not null ;
+
+ALTER TABLE mangas_tracked ADD CONSTRAINT foreign_key_status_id FOREIGN KEY (status_id) REFERENCES mangas_status (id);
