@@ -1,9 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import {Title} from "../../shared/Title";
 import {AuthConsumer} from "../../../contexts/AuthContext";
-import {MangaTrackedGrid} from "./MangaTrackedGrid";
+import {MangaTrackedContainer} from "./MangaTrackedContainer";
 
 export const Dashboard = ({user}) => {
+
+    // TODO: define how to store display mode
+    const [gridMode, setGridMode] = useState(true);
+
+    const notSelectedStyle = ' not-selected';
+    let gridIconStyle = '';
+    let columnIconStyle = '';
+
+    if (gridMode) {
+        columnIconStyle = notSelectedStyle;
+    } else {
+        gridIconStyle = notSelectedStyle;
+    }
+
+    const updateGridMode = useGrid => {
+        setGridMode(useGrid);
+    };
 
     return (
         <div className="container">
@@ -12,7 +29,16 @@ export const Dashboard = ({user}) => {
                     <Title title="Dashboard"/>
                     <br/>
                     <br/>
-                    <MangaTrackedGrid />
+                    <div className="text-right text-white">
+                        <span className="cursor-pointer" onClick={() => updateGridMode(true)}>
+                            <i className={"fas fa-th-large fa-lg mr-2" + gridIconStyle}></i>
+                        </span>
+                        <span className="cursor-pointer" onClick={() => updateGridMode(false)}>
+                            <i className={"fab fa-trello fa-lg" + columnIconStyle}></i>
+                        </span>
+
+                    </div>
+                    <MangaTrackedContainer gridMode={gridMode}/>
                 </div>
             </div>
         </div>

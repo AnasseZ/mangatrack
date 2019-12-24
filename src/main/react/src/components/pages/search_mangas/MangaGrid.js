@@ -1,7 +1,7 @@
 import React from "react";
 import {Manga} from "./Manga";
 
-export const MangaGrid = ({mangas}) => {
+export const MangaGrid = ({mangas, mangasStatus}) => {
 
     return (
         <React.Fragment>
@@ -11,6 +11,7 @@ export const MangaGrid = ({mangas}) => {
                     <Manga
                         manga={manga}
                         key={key}
+                        mangasStatus={mangasStatus}
                     />
                 ))}
             </div>

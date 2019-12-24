@@ -9,20 +9,30 @@ import {
     ModalBody,
     ModalFooter,
     FormGroup,
-    Input
+    Input,
+    Label
 } from "reactstrap";
 import {getUpdatedInformations, postMangaTracked} from "../../services/MangaService";
 import {addSuccessNotification, addErrorNotification} from "../../util/notification";
+import {frenchStatusList, ON_GOING} from "../../constantes/mangaStatus";
 
-export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
+export const MangaModal = ({isOpen, toggle, manga, mangaTitle, mangasStatus}) => {
+
+    const initialStatus =  mangasStatus.find(status => status.status === ON_GOING);
 
     const [lastChapterRead, setLastChapterRead] = useState("");
+    const [selectedStatusId, setSelectedStatusId] = useState(initialStatus.id);
 
     const onChangeLastChapterRead = e => setLastChapterRead(e.target.value);
 
     const followManga = () => {
+        const chosedStatus = mangasStatus.find(status => status.id == selectedStatusId);
+
+        console.log(selectedStatusId);
+        console.log(chosedStatus);
+        console.log(mangasStatus);
         postMangaTracked(
-            createMangaTrackedFromManga(manga, lastChapterRead),
+            createMangaTrackedFromManga(manga, lastChapterRead, chosedStatus),
             result => addSuccessNotification("Bravo ! Vous suivez maintenant " + manga.title + "."),
             error => addErrorNotification("Erreur ! Vous n'avez pas pu suivre " + manga.title + "."),
             true
@@ -32,6 +42,10 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
 
     const syncLastChapterRead = () => {
         setLastChapterRead(manga.lastChapterOut);
+    };
+
+    const handleStatusChange = e => {
+        setSelectedStatusId(e.target.value);
     };
 
     return (
@@ -67,6 +81,17 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle}) => {
                                             onChange={onChangeLastChapterRead}
                                             value={lastChapterRead}
                                         />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label className="grey subtitle-input" for="selectStatus">Select</Label>
+                                        <select value={selectedStatusId} name="selectStatus" className="form-control" id="selectStatus" onChange={handleStatusChange}>
+                                            {
+                                                mangasStatus.map((status, key) => {
+                                                    return <option value={status.id} key={key}>{frenchStatusList[status.status]}</option>
+
+                                                })
+                                            }
+                                        </select>
                                     </FormGroup>
                                 </div>
                                 <div className="col-sm-4 col-3">

@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {MangaGrid} from "./MangaGrid";
-import {searchMangaByName} from "../../../services/MangaService";
+import {searchMangaByName, getMangasStatusList} from "../../../services/MangaService";
 import AlertC from "../../shared/AlertC";
 import Loading from "../loading/Loading";
 import {PaginationBar} from "../../shared/PaginationBar";
@@ -12,6 +12,15 @@ export const FindManga = ({token}) => {
     const [mangas, setMangas] = useState([]);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [mangasStatus, setMangasStatus] = useState([]);
+
+
+    useEffect(() => {
+        getMangasStatusList(
+            result => setMangasStatus(result),
+            error => setError(error),
+        )
+    }, []);
 
 
     const handleChange = evt => {
@@ -102,7 +111,7 @@ export const FindManga = ({token}) => {
             }
             {mangas.length > 0 ?
                 <>
-                    <MangaGrid mangas={mangas}/>
+                    <MangaGrid mangas={mangas} mangasStatus={mangasStatus}/>
                     <PaginationBar currentPageNumber={page} totalPage={totalPages} getPage={searchByName}/>
                 </> : ""
 

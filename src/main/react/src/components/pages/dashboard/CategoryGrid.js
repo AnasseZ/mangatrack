@@ -1,5 +1,5 @@
 import React from "react";
-import {MangaTracked} from "./MangaTracked";
+import {GridItem} from "./GridItem";
 import {Link} from "react-router-dom";
 
 export const CategoryGrid = ({mangasTracked, updateMangas, title}) => {
@@ -10,7 +10,7 @@ export const CategoryGrid = ({mangasTracked, updateMangas, title}) => {
             <hr className="hr-separator mt-1"/>
             <div className="row row-eq-height">
                 {mangasTracked.map((mangaTracked, index) =>
-                    <MangaTracked
+                    <GridItem
                         key={index}
                         mangaTracked={mangaTracked}
                         updateMangas={updateMangas}

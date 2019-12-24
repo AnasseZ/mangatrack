@@ -1,9 +1,6 @@
 package com.zan.mangatrack.service;
 
-import com.zan.mangatrack.business.MangaBo;
-import com.zan.mangatrack.business.MangaTrackedBo;
-import com.zan.mangatrack.business.User;
-import com.zan.mangatrack.business.UserPrincipal;
+import com.zan.mangatrack.business.*;
 import com.zan.mangatrack.repository.MangaTrackedRepository;
 import com.zan.mangatrack.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +22,9 @@ public class MangaTrackedService {
 
     @Autowired
     MangaService mangaService;
+
+    @Autowired
+    MangaStatusService mangaStatusService;
 
     public List<MangaTrackedBo> list(final long userId) throws Exception {
 
@@ -55,6 +55,11 @@ public class MangaTrackedService {
                 .get(mangaTrackedBo.getManga().getId())
                 .orElseThrow(() -> new Exception("Manga does not exist."));
 
+        // check if status exist
+        MangaStatusBo retrievedStatus = mangaStatusService
+                .get(mangaTrackedBo.getMangaStatus().getId())
+                .orElseThrow(() -> new Exception("Status does not exist."));
+
         // check if manga already tracked
         List<MangaTrackedBo> followedMangasWithMangaId =
                 mangaTrackedRepository.findByMangaAndUser(retrievedManga, retrievedUser.get());
@@ -65,6 +70,7 @@ public class MangaTrackedService {
 
         mangaTrackedBo.setManga(retrievedManga);
         mangaTrackedBo.setUser(retrievedUser.get());
+        mangaTrackedBo.setMangaStatus(retrievedStatus);
 
         return this.mangaTrackedRepository.save(mangaTrackedBo);
     }

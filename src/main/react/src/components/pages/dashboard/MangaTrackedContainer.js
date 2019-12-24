@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from "react";
 
-import {Link} from "react-router-dom";
-import {MangaTracked} from "./MangaTracked";
 import {getMangasTracked} from "../../../services/MangaService";
-import Loading from "../loading/Loading";
 import {COMPLETED, ON_GOING, TO_READ} from "../../../constantes/mangaStatus";
-import {CategoryGrid} from "./CategoryGrid";
+import Loading from "../loading/Loading";
+import {Link} from "react-router-dom";
+import {GridSystem} from "./GridSystem";
+import {ColumnSystem} from "./ColumnSystem";
 
-export const MangaTrackedGrid = () => {
+export const MangaTrackedContainer = ({gridMode, updateGridMode}) => {
+
     const [mangasTracked, setMangasTracked] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -54,30 +55,21 @@ export const MangaTrackedGrid = () => {
         setCompletedMangas(mangasTracked.filter(manga => manga.mangaStatus.status === COMPLETED));
     };
 
-    if (loading) {
+    if (mangasTracked.length === 0 && !loading) {
         return (
             <div>
-                <Loading/>
+                <p>
+                    Aucun manga suivi ! Commencez par en{" "}
+                    <Link to="/search-manga">suivre</Link> quelques-un.
+                </p>
             </div>
-        );
+        )
     }
 
-    return mangasTracked.length === 0 ? (
-        <div>
-            <p>
-                Aucun manga suivi ! Commencez par en{" "}
-                <Link to="/search-manga">suivre</Link> quelques-un.
-            </p>
-        </div>
-    ) : (
-        <>
-            <CategoryGrid mangasTracked={onGoingMangas} updateMangas={updateMangas} title='En cours'/>
-            <br/><br/><br/>
-
-            <CategoryGrid mangasTracked={toReadMangas} updateMangas={updateMangas} title='À lire'/>
-            <br/><br/><br/>
-
-            <CategoryGrid mangasTracked={completedMangas} updateMangas={updateMangas} title='Terminé'/>
+    return (
+        <> {loading && <Loading/>}
+            {gridMode && <GridSystem toReadMangas={toReadMangas} completedMangas={completedMangas} onGoingMangas={onGoingMangas} updateMangas={updateMangas}/>}
+            {!gridMode && <ColumnSystem/>}
         </>
-    );
+    )
 };

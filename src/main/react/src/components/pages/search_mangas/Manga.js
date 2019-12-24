@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {MangaModal} from "../../modals/MangaModal";
 import {getTitle} from "../../../util/format";
 
-export const Manga = ({manga}) => {
+export const Manga = ({manga, mangasStatus}) => {
 
     const [toggleModal, setToggleModal] = useState(false);
 
@@ -38,6 +38,7 @@ export const Manga = ({manga}) => {
                     toggle={updateModalState}
                     manga={manga}
                     mangaTitle={manga.title}
+                    mangasStatus={mangasStatus}
                 />
             }
         </div>

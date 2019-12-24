@@ -7,9 +7,7 @@ const getReducedText = (text, length) => text.length > length
     : text;
 
 
-export const createMangaTrackedFromManga = (manga, lastChapterRead) => {
-
-    console.log(manga);
+export const createMangaTrackedFromManga = (manga, lastChapterRead, status) => {
     return {
         lastChapterRead: lastChapterRead,
         manga: {
@@ -20,6 +18,7 @@ export const createMangaTrackedFromManga = (manga, lastChapterRead) => {
             imgSrc: manga.imgSrc,
             isFinished: manga.isFinished,
             lastChapterOut: manga.lastChapterOut,
-        }
+        },
+        mangaStatus: status
     };
 };

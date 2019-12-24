@@ -5,6 +5,7 @@ export const tokenName = "auth_token";
 /**  API RESOURCES ROOTS **/
 export const mangaRoot = 'api/mangas/';
 export const API_MANGATRACKED_ROOT = "api/mangas-tracked/";
+export const API_MANGAS_STATUS_ROOT = "api/mangas-status";
 
 /** MANGADEX EXTERNAL API ROOT **/
 export const mangadexApiRoot = 'https://mangadex.org/api/manga/';

@@ -10,7 +10,7 @@ import {canFetchUpdatedInformations} from "../../../util/validation";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 import {Link} from "react-router-dom";
 
-export const MangaTracked = ({mangaTracked, updateMangas}) => {
+export const GridItem = ({mangaTracked, updateMangas}) => {
     const [error, setError] = useState(null);
     const [wantModify, setWantModify] = useState(false);
     const [updatedChapterRead, setUpdatedChapterRead] = useState(mangaTracked.lastChapterRead);
