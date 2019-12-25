@@ -1,87 +1,17 @@
 import React from 'react';
+import {CategoryColumn} from "./CategoryColumn";
 
 
-export const ColumnSystem = ({mangas}) => {
+export const ColumnSystem = ({categories, updateMangas}) => {
 
 
     return (
-        <div id="column-board">
-
-            <div className="list-wrapper">
-                <div className="list-content">
-                    <div className="list-cards">
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha Hahaha Hahaha Hahaha Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="list-wrapper">
-                <div className="list-content">
-                    <div className="list-cards">
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha Hahaha Hahaha Hahaha Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="list-wrapper">
-                <div className="list-content">
-                    <div className="list-cards">
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha Hahaha Hahaha Hahaha Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                        <div className="list-card">
-                            Hahaha Hahaha v Hahaha
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div id="column-board" className="mt-3">
+            {
+                categories.map(category =>
+                    <CategoryColumn key={category.id} mangasTracked={category.mangas} updateMangas={updateMangas} title={category.title}/>
+                )
+            }
         </div>
     )
 };

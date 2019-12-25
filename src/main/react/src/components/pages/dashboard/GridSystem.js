@@ -2,16 +2,15 @@ import React from "react";
 
 import {CategoryGrid} from "./CategoryGrid";
 
-export const GridSystem = ({toReadMangas,onGoingMangas, completedMangas, updateMangas}) => {
+export const GridSystem = ({categories, updateMangas}) => {
     return (
         <>
-            <CategoryGrid mangasTracked={onGoingMangas} updateMangas={updateMangas} title='En cours'/>
-            <br/><br/><br/>
-
-            <CategoryGrid mangasTracked={toReadMangas} updateMangas={updateMangas} title='À lire'/>
-            <br/><br/><br/>
-
-            <CategoryGrid mangasTracked={completedMangas} updateMangas={updateMangas} title='Terminé'/>
+            {
+                categories.map(category =>
+                    <CategoryGrid key={category.id} mangasTracked={category.mangas} updateMangas={updateMangas}
+                                  title={category.title}/>
+                )
+            }
         </>
     );
 };

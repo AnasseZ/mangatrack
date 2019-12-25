@@ -26,11 +26,9 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, mangasStatus}) =>
     const onChangeLastChapterRead = e => setLastChapterRead(e.target.value);
 
     const followManga = () => {
+        // == because different type ....
         const chosedStatus = mangasStatus.find(status => status.id == selectedStatusId);
 
-        console.log(selectedStatusId);
-        console.log(chosedStatus);
-        console.log(mangasStatus);
         postMangaTracked(
             createMangaTrackedFromManga(manga, lastChapterRead, chosedStatus),
             result => addSuccessNotification("Bravo ! Vous suivez maintenant " + manga.title + "."),

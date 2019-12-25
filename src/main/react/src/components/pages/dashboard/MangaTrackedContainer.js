@@ -1,23 +1,20 @@
 import React, {useState, useEffect} from "react";
 
 import {getMangasTracked} from "../../../services/MangaService";
-import {COMPLETED, ON_GOING, TO_READ} from "../../../constantes/mangaStatus";
+import {COMPLETED, frenchStatusList, ON_GOING, TO_READ} from "../../../constantes/mangaStatus";
 import Loading from "../loading/Loading";
 import {Link} from "react-router-dom";
 import {GridSystem} from "./GridSystem";
 import {ColumnSystem} from "./ColumnSystem";
 
-export const MangaTrackedContainer = ({gridMode, updateGridMode}) => {
+export const MangaTrackedContainer = ({gridMode}) => {
 
     const [mangasTracked, setMangasTracked] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     /** MANGAS FILTER BY STATUS */
-    const [toReadMangas, setToReadMangas] = useState([]);
-    const [onGoingMangas, setOnGoingMangas] = useState([]);
-    const [completedMangas, setCompletedMangas] = useState([]);
-
+    const [categories, setCategories] = useState([]);
 
     const updateMangas = updatedManga => {
         // delete then add in the array
@@ -46,13 +43,32 @@ export const MangaTrackedContainer = ({gridMode, updateGridMode}) => {
 
     const updateMangaGrid = mangasTracked => {
         setMangasTracked(mangasTracked);
-        filterByStatus(mangasTracked)
+        createCategoriesByStatus(mangasTracked)
     };
 
-    const filterByStatus = mangasTracked => {
-        setToReadMangas(mangasTracked.filter(manga => manga.mangaStatus.status === TO_READ));
-        setOnGoingMangas(mangasTracked.filter(manga => manga.mangaStatus.status === ON_GOING));
-        setCompletedMangas(mangasTracked.filter(manga => manga.mangaStatus.status === COMPLETED));
+    const createCategoriesByStatus = mangasTracked => {
+        let categories = [
+            {
+                gridId: 1,
+                columnId: 2,
+                mangas: mangasTracked.filter(manga => manga.mangaStatus.status === ON_GOING),
+                title: frenchStatusList[ON_GOING]
+            },
+            {
+                gridId: 2,
+                columnId: 1,
+                mangas: mangasTracked.filter(manga => manga.mangaStatus.status === TO_READ),
+                title: frenchStatusList[TO_READ]
+            },
+            {
+                gridId: 3,
+                columnId: 3,
+                mangas: mangasTracked.filter(manga => manga.mangaStatus.status === COMPLETED),
+                title: frenchStatusList[COMPLETED]
+            }
+        ];
+
+        setCategories(categories);
     };
 
     if (mangasTracked.length === 0 && !loading) {
@@ -68,8 +84,11 @@ export const MangaTrackedContainer = ({gridMode, updateGridMode}) => {
 
     return (
         <> {loading && <Loading/>}
-            {gridMode && <GridSystem toReadMangas={toReadMangas} completedMangas={completedMangas} onGoingMangas={onGoingMangas} updateMangas={updateMangas}/>}
-            {!gridMode && <ColumnSystem/>}
+            {gridMode &&
+            <GridSystem categories={categories.sort(((a, b) => a.gridId - b.gridId))} updateMangas={updateMangas}/>}
+            {!gridMode &&
+            <ColumnSystem categories={categories.sort(((a, b) => a.columnId - b.columnId))}
+                          updateMangas={updateMangas}/>}
         </>
     )
 };
