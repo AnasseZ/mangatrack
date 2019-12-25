@@ -703,6 +703,7 @@ a.text-blue:hover {
     margin-bottom: 8px;
     overflow-x: auto;
     overflow-y: hidden;
+    user-select: none;
 }
 
 .list-header {
