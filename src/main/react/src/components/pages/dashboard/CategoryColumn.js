@@ -13,23 +13,24 @@ export const CategoryColumn = ({category, updateMangas}) => {
                     <h4 className="text-dark mb-0">{title}</h4>
                     <h6 className="d-inline-block text-grey">{mangas.length} mangas</h6>
                 </div>
-                <Droppable droppableId={category.columnId.toString()}>
-                    {provided => (
-                        <div className="list-cards" ref={provided.innerRef} {...provided.droppableProps}>
-                            {
-                                mangas.map(
-                                    (manga, index) => <ColumnItem key={manga.id}
-                                                                         mangaTracked={manga}
-                                                                         updateMangas={updateMangas}
-                                                                         index={index}
-                                    />)
-                            }
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
+                <div className="list-cards">
+                    <Droppable droppableId={category.columnId.toString()}>
+                        {provided => (
+                            <div ref={provided.innerRef} {...provided.droppableProps}>
+                                {
+                                    mangas.map(
+                                        (manga, index) => <ColumnItem key={manga.id}
+                                                                      mangaTracked={manga}
+                                                                      updateMangas={updateMangas}
+                                                                      index={index}
+                                        />)
+                                }
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </div>
             </div>
-
         </div>
     )
 };

@@ -5,13 +5,14 @@ import {DragDropContext} from "react-beautiful-dnd";
 
 export const ColumnSystem = ({categories, updateMangas}) => {
 
-
     const onDragEnd = result => {
-
+        if (!result.destination) {
+            return;
+        }
     };
 
     return (
-        <div id="column-board" className="mt-3">
+        <div id="column-board" className="row mt-3">
             <DragDropContext onDragEnd={onDragEnd}>
                 {
                     categories.map(category =>

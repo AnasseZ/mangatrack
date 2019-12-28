@@ -62,64 +62,66 @@ export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
         <Draggable draggableId={mangaTracked.id.toString()} index={index}>
             {
                 (provided) => (
-                    <div className="list-card" {...provided.draggableProps} {...provided.dragHandleProps}
+                    <div {...provided.draggableProps} {...provided.dragHandleProps}
                          ref={provided.innerRef}>
-                        <div className="row p-2 text-left">
-                            <div className="col-auto">
-                                <Link to={"/mangas/" + mangaTracked.id}>
-                                    <img src={manga.imgSrc} className="img-column-item shadow" alt="Cover"/>
-                                </Link>
-                            </div>
-                            <div className="col pl-0">
-                                <p className="text-dark font-weight-bold mb-0">
-                                    {getReducedText(manga.title, 15)}
-                                </p>
-                                <p className="text-dark mb-2">
-                                    Chapitre {manga.lastChapterOut}{" "}
-                                    <a href={mangadexUrl} className="text-blue">
-                                        <i className="far fa-arrow-alt-circle-right"/>
-                                    </a>
-                                </p>
-                                <div className="w-100 d-flex justify-content-between">
-                                    {wantModify ? (
-                                        <div className="input-group input-group-sm">
-                                            <input
-                                                type="number"
-                                                className="form-control"
-                                                placeholder="Mis à jours"
-                                                value={updatedChapterRead}
-                                                onChange={onChangeUpdatedChapterRead}
-                                                min="0"
-                                            />
-                                            <div className="input-group-append">
-                                                <button
-                                                    className="btn btn-outline-success"
-                                                    type="button"
-                                                    id="button-addon2"
-                                                    onClick={updateMangaTracked}
-                                                >
-                                                    <i className="fas fa-check"/>
-                                                </button>
+                        <div className="list-card">
+                            <div className="row p-2 m-0 text-left">
+                                <div className="col-auto pl-0">
+                                    <Link to={"/mangas/" + mangaTracked.id}>
+                                        <img src={manga.imgSrc} className="img-column-item shadow" alt="Cover"/>
+                                    </Link>
+                                </div>
+                                <div className="col pl-0">
+                                    <p className="text-dark font-weight-bold mb-0">
+                                        {getReducedText(manga.title, 15)}
+                                    </p>
+                                    <p className="text-dark mb-2">
+                                        Chapitre {manga.lastChapterOut}{" "}
+                                        <a href={mangadexUrl} className="text-blue">
+                                            <i className="far fa-arrow-alt-circle-right"/>
+                                        </a>
+                                    </p>
+                                    <div className="w-100 d-flex justify-content-between">
+                                        {wantModify ? (
+                                            <div className="input-group input-group-sm">
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    placeholder="Mis à jours"
+                                                    value={updatedChapterRead}
+                                                    onChange={onChangeUpdatedChapterRead}
+                                                    min="0"
+                                                />
+                                                <div className="input-group-append">
+                                                    <button
+                                                        className="btn btn-outline-success"
+                                                        type="button"
+                                                        id="button-addon2"
+                                                        onClick={updateMangaTracked}
+                                                    >
+                                                        <i className="fas fa-check"/>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : manga.lastChapterOut === mangaTracked.lastChapterRead ? (
-                                        <p className="text-blue font-weight-bold mb-0">À jour !</p>
-                                    ) : (
-                                        <p className="text-dark mb-0">
-                                            Dernier lu: <strong>{mangaTracked.lastChapterRead}</strong>
-                                        </p>
-                                    )}
+                                        ) : manga.lastChapterOut === mangaTracked.lastChapterRead ? (
+                                            <p className="text-blue font-weight-bold mb-0">À jour !</p>
+                                        ) : (
+                                            <p className="text-dark mb-0">
+                                                Dernier lu: <strong>{mangaTracked.lastChapterRead}</strong>
+                                            </p>
+                                        )}
 
-                                    {wantModify ? (
-                                        ""
-                                    ) : (
-                                        <div className="">
-                                            <i
-                                                className="fas fa-edit updateMangaIcon"
-                                                onClick={updateWantModify}
-                                            />
-                                        </div>
-                                    )}
+                                        {wantModify ? (
+                                            ""
+                                        ) : (
+                                            <div className="">
+                                                <i
+                                                    className="fas fa-edit updateMangaIcon"
+                                                    onClick={updateWantModify}
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
