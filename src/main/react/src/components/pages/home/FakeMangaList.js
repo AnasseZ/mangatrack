@@ -65,7 +65,7 @@ const FakeMangaCard = ({manga}) => {
                         <h5 className="card-title">{manga.title}</h5>
                         <p className="card-text">
                             Chapitre {manga.lastChapterOut}{" "}
-                            <a href="" className="bisque">
+                            <a href="" className="text-blue">
                                 <i className="far fa-arrow-alt-circle-right"/>
                             </a>
                         </p>

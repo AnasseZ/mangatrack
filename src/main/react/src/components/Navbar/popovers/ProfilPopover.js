@@ -16,15 +16,16 @@ export const ProfilPopover = ({isOpen, toggle, logout}) => {
             target="userIcon"
             toggle={toggle}
             trigger="legacy"
+            id="profilPopover"
         >
             <PopoverBody className="p-0">
                 <ListGroup className="font-roboto">
-                    <ListGroupItem className="no-border-top">
+                    <ListGroupItem className="border-0">
                         <Link to="/profil" className="list-group-link" onClick={toggle}>
                             Mon profil
                         </Link>
                     </ListGroupItem>
-                    <ListGroupItem onClick={logout} className="cursor-pointer">Se déconnecter</ListGroupItem>
+                    <ListGroupItem onClick={logout} className="cursor-pointer border-0">Se déconnecter</ListGroupItem>
                 </ListGroup>
             </PopoverBody>
         </Popover>

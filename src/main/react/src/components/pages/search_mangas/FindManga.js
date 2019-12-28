@@ -4,12 +4,13 @@ import {searchMangaByName, getMangasStatusList} from "../../../services/MangaSer
 import AlertC from "../../shared/AlertC";
 import Loading from "../loading/Loading";
 import {PaginationBar} from "../../shared/PaginationBar";
+import {SearchSvg} from "../../shared/searchSvg";
 
-export const FindManga = ({token}) => {
+export const FindManga = () => {
     const [keyword, setKeyword] = useState("");
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [mangas, setMangas] = useState([]);
+    const [mangas, setMangas] = useState(null);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [mangasStatus, setMangasStatus] = useState([]);
@@ -28,14 +29,18 @@ export const FindManga = ({token}) => {
         setKeyword(evt.target.value);
 
         if (mangas) {
-            setMangas([]);
+            setMangas(null);
             setPage(0);
             setTotalPages(0);
         }
     };
 
-    const findManga = () => {
-        searchByName();
+    const findManga = event => {
+        event.preventDefault();
+
+        if (keyword) {
+            searchByName();
+        }
     };
 
     const searchByName = (currentPage = page) => {
@@ -46,7 +51,7 @@ export const FindManga = ({token}) => {
             currentPage,
             searchMangaOk,
             searchMangaError,
-            token
+            true
         );
     };
 
@@ -65,27 +70,33 @@ export const FindManga = ({token}) => {
 
     return (
         <React.Fragment>
-            <div className="row justify-content-center">
-                <div className="col-8 col-sm-4">
-                    <input
-                        value={keyword}
-                        type="text"
-                        className="form-control"
-                        id="mangaSearch"
-                        placeholder="Chercher un manga"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="col-4 col-sm-2 text-left pl-0">
-                    <button
-                        type="submit"
-                        className="btn btn-primary"
-                        onClick={findManga}
-                        id="btnSubManga"
-                        disabled={!keyword}
-                    >
-                        Chercher
-                    </button>
+            <div className="container">
+                <div className="row search-in-dashboard align-items-center shadow-sm">
+                    <div className="col-sm-6 px-5 text-left rounded-inputs">
+                        <h2 className="text-dark font-weight-bold">Rechercher un manga</h2>
+                        <h4 className="text-dark">et suivez le dès maintenant.</h4>
+                        <form className="form-inline" role="form" id="SearchInDashboardForm" onSubmit={findManga}>
+                            <div className="input-group mb-3 w-100">
+                                <input
+                                    value={keyword}
+                                    type="text"
+                                    className="form-control border-0 outline-none"
+                                    placeholder="Chercher un manga"
+                                    onChange={handleChange}
+                                    aria-describedby="searchMangaInputGroup"
+                                />
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text" id="searchMangaInputGroup" onClick={findManga}>
+                                        <i className="fas fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div className="col-sm-6 p-4 search-in-dashboard text-right rounded-inputs">
+                        <SearchSvg/>
+                    </div>
                 </div>
             </div>
             <br/>
@@ -109,7 +120,13 @@ export const FindManga = ({token}) => {
                 )
                 : ""
             }
-            {mangas.length > 0 ?
+            {mangas && mangas.length === 0 ?
+                <>
+                    <h4 className="text-left">Aucun manga trouvé.</h4>
+                </> : ""
+
+            }
+            {mangas && mangas.length > 0 ?
                 <>
                     <MangaGrid mangas={mangas} mangasStatus={mangasStatus}/>
                     <PaginationBar currentPageNumber={page} totalPage={totalPages} getPage={searchByName}/>

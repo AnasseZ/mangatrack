@@ -81,7 +81,7 @@ export const MangaModal = ({isOpen, toggle, manga, mangaTitle, mangasStatus}) =>
                                         />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label className="grey subtitle-input" for="selectStatus">Select</Label>
+                                        <Label className="grey subtitle-input" for="selectStatus">Avancement</Label>
                                         <select value={selectedStatusId} name="selectStatus" className="form-control" id="selectStatus" onChange={handleStatusChange}>
                                             {
                                                 mangasStatus.map((status, key) => {

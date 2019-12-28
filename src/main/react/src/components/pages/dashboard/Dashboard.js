@@ -26,10 +26,12 @@ export const Dashboard = ({user}) => {
         <div className="container">
             <div className="row">
                 <div className="col align-self-center">
-                    <Title title="Dashboard"/>
                     <br/>
                     <br/>
-                    <div className="text-right text-white">
+                    <Title title="Tableau de bord"/>
+                    <br/>
+                    <br/>
+                    <div className="mt-3 text-right text-white">
                         <span className="cursor-pointer" onClick={() => updateGridMode(true)}>
                             <i className={"fas fa-th-large fa-lg mr-2" + gridIconStyle}></i>
                         </span>

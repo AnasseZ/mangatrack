@@ -142,7 +142,6 @@ label {
 }
 
 .card-title {
-    color: white;
     font-family: Roboto;
     font-size: 1.2rem;
     margin-bottom: 0;
@@ -155,7 +154,6 @@ label {
 }
 
 .card-img-top {
-    height: 16rem;
     align-self: center;
 }
 
@@ -221,14 +219,12 @@ label {
 
     .card-img-top {
         width: 100%;
-        height: 13rem;
     }
 }
 
 /* PC PORTABLES */
 @media (max-width: 1024px) {
     .card-img-top {
-        height: 14rem;
     }
 }
 
@@ -236,7 +232,6 @@ label {
 @media (max-width: 425px) {
     .card-img-top {
         width: 100%;
-        height: 8.3rem;
     }
 
     .card-title {
@@ -734,4 +729,69 @@ a.text-blue:hover {
 
 .img-column-item:hover {
     opacity: 0.7;
+}
+
+/* SEARCH BLOC IN DASHBOARD */
+.search-in-dashboard {
+    height: 300px;
+    background: bisque;
+    border-radius: 25px;
+}
+
+#searchMangaInputGroup {
+    background: white;
+    border: none;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    user-select: none;
+    cursor: pointer;
+    color: rgb(108, 99, 255);
+}
+
+#searchMangaInputGroup:hover {
+    color: rgb(160, 160, 255);
+}
+
+.outline-none:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* profil Icon */
+#userIcon {
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #f7797d;
+    font-weight: bold;
+    border: 2px solid white;
+    background: white;
+    font-family: "Roboto", "Montserrat", "PT Sans";
+    opacity: 0.8;
+}
+
+.popover {
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+.popover, .popover > .arrow::before {
+    border: none;
+}
+
+.grid-item {
+    background: none;
+}
+
+.grid-item:not(:hover) .updateMangaIconwrapper {
+    display: none;
+}
+
+.titleNbManga {
+    font-weight: lighter;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.rounded-10px {
+    border-radius: 10px;
 }

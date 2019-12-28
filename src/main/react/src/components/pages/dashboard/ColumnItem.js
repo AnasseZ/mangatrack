@@ -71,7 +71,7 @@ export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
                                         <img src={manga.imgSrc} className="img-column-item shadow" alt="Cover"/>
                                     </Link>
                                 </div>
-                                <div className="col pl-0">
+                                <div className="col px-0">
                                     <p className="text-dark font-weight-bold mb-0">
                                         {getReducedText(manga.title, 15)}
                                     </p>

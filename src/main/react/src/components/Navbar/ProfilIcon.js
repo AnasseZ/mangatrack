@@ -1,38 +1,33 @@
 import React from "react";
 
-import { ProfilPopover } from "./popovers/ProfilPopover";
+import {ProfilPopover} from "./popovers/ProfilPopover";
 import {AuthConsumer} from "../../contexts/AuthContext";
 
 export default class ProfilIcon extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      popoverOpen: false
+        this.state = {
+            popoverOpen: false
+        };
+    }
+
+    toggle = (e) => {
+        this.setState({
+            popoverOpen: !this.state.popoverOpen
+        });
     };
-  }
 
-  toggle = (e) => {
-    this.setState({
-      popoverOpen: !this.state.popoverOpen
-    });
-  };
-
-  render() {
-    return (
-      <>
-        <span className="fa-stack fa-2x">
-          <i className="fas fa-circle fa-stack-1x profilIcon" />
-          <p className="fa-stack-1x text-white" onClick={this.toggle} id="userIcon">
-            {this.props.user.username[0]}
-          </p>
-        </span>
-        <AuthConsumer>
-          {({ logout }) =>
-              <ProfilPopover isOpen={this.state.popoverOpen} toggle={this.toggle} logout={logout} />
-          }
-        </AuthConsumer>
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <span className="badge" onClick={this.toggle} id="userIcon">{this.props.user.username[0]}</span>
+                <AuthConsumer>
+                    {({logout}) =>
+                        <ProfilPopover isOpen={this.state.popoverOpen} toggle={this.toggle} logout={logout}/>
+                    }
+                </AuthConsumer>
+            </>
+        );
+    }
 }

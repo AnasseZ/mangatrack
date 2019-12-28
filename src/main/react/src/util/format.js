@@ -1,4 +1,4 @@
-export const getTitle = title => getReducedText(title, 30);
+export const getTitle = title => getReducedText(title, 15);
 
 export const getDescription = description => getReducedText(description, 250);
 
