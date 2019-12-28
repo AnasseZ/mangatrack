@@ -9,13 +9,13 @@ import {mangadexMangaRoot} from "../../../constantes/apiInformations";
 import {canFetchUpdatedInformations} from "../../../util/validation";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 import {Link} from "react-router-dom";
+import {IMG_RATIO} from "../../../constantes/utils";
 
 export const GridItem = ({mangaTracked, updateMangas}) => {
     const [error, setError] = useState(null);
     const [wantModify, setWantModify] = useState(false);
     const [updatedChapterRead, setUpdatedChapterRead] = useState(mangaTracked.lastChapterRead);
 
-    const IMG_RATIO = 1.57;
     const imgRef = useRef(null);
 
     const [imgHeight, setImgHeight] = useState(0);
@@ -75,11 +75,11 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
 
     return (
         <div className="col-lg-2 col-sm-3 col-6 col-manga">
-            <div className="card border-0 grid-item">
+            <div className="card border-0 shadow-sm">
                 <Link to={"/mangas/" + mangaTracked.id}>
                     <img
                         ref={imgRef}
-                        className="card-img-top shadow-sm rounded-10px "
+                        className="card-img-top"
                         src={manga.imgSrc}
                         alt="Miniature manga"
                         height={imgHeight}
@@ -94,7 +94,7 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
                                 <i className="far fa-arrow-alt-circle-right"/>
                             </a>
                         </p>
-                        <div className="w-100 d-flex justify-content-between cursor-pointer">
+                        <div className="w-100 d-flex justify-content-between">
                             {wantModify ? (
                                 <div className="input-group input-group-sm">
                                     <input
@@ -127,7 +127,7 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
                             {wantModify ? (
                                 ""
                             ) : (
-                                <div className="updateMangaIconwrapper">
+                                <div className="updateMangaIconwrapper cursor-pointer">
                                     <i
                                         className="fas fa-edit updateMangaIcon"
                                         onClick={updateWantModify}

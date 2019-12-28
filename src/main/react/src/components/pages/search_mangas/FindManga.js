@@ -81,7 +81,7 @@ export const FindManga = () => {
                                     value={keyword}
                                     type="text"
                                     className="form-control border-0 outline-none"
-                                    placeholder="Chercher un manga"
+                                    placeholder="Manga"
                                     onChange={handleChange}
                                     aria-describedby="searchMangaInputGroup"
                                 />

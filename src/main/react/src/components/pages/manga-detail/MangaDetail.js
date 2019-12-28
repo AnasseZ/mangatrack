@@ -67,12 +67,13 @@ export default ({match, history}) => {
                                         className="form-control w-auto mb-1 col-6"
                                         placeholder="Mis à jours"
                                         value={mangaTracked.lastChapterRead}
-                                        onChange={() => {}}
+                                        onChange={() => {
+                                        }}
                                         min="0"
                                     />
                                 </div>
                                 <div className="form-group d-flex">
-                                    <label className="col-form-label col-sm-4 col-6" htmlFor="selectCategory">Statut
+                                    <label className="col-form-label col-sm-4 col-6" htmlFor="selectCategory">Avancement
                                         :</label>
                                     <select className="form-control w-auto col-6" id="selectCategory">
                                         <option>En cours</option>
@@ -85,14 +86,16 @@ export default ({match, history}) => {
                                 <button
                                     type="submit"
                                     className="btn btn-danger"
-                                    onClick={() => {}}
+                                    onClick={() => {
+                                    }}
                                 >
                                     Ne plus suivre
                                 </button>
                                 <button
                                     type="submit"
                                     className="btn btn-success ml-2"
-                                    onClick={() => {}}
+                                    onClick={() => {
+                                    }}
                                 >
                                     Enregistrer
                                 </button>

@@ -13,9 +13,6 @@ export default class Home extends React.Component {
                         <br/>
                         <Title title="Suivre un manga"/>
                         <br/>
-                        <br/>
-                        <br/>
-                        <br/>
                         <FindManga/>
                     </div>
                 </div>

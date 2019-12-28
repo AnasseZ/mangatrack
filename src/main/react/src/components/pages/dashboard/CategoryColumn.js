@@ -7,7 +7,7 @@ export const CategoryColumn = ({category, updateMangas}) => {
     const {mangas, title} = category;
 
     return (
-        <div className="list-wrapper">
+        <div className="list-wrapper col-lg-4 col-md-12 col-12 mt-tablette">
             <div className="list-content">
                 <div className="list-header text-left">
                     <h4 className="text-dark mb-0">{title}</h4>

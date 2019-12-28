@@ -9,8 +9,7 @@ body {
     min-height: 100vh;
 }
 
-body,
-.card {
+body, .card {
     background: #35465d;
     background: -webkit-linear-gradient(to bottom, #192740, #35465d);
     background: linear-gradient(to bottom, #192740, #35465d);
@@ -225,6 +224,13 @@ label {
 /* PC PORTABLES */
 @media (max-width: 1024px) {
     .card-img-top {
+    }
+}
+
+/* MAX TABLETTES */
+@media (max-width: 991px) {
+    .mt-tablette {
+        margin-top: 1em;
     }
 }
 
@@ -646,7 +652,6 @@ a.text-blue:hover {
 
 .list-wrapper {
     width: 272px;
-    margin: 0 4px;
     height: 100%;
     box-sizing: border-box;
     display: inline-block;
@@ -683,7 +688,6 @@ a.text-blue:hover {
     cursor: pointer;
     display: block;
     margin-bottom: 8px;
-    max-width: 300px;
     min-height: 20px;
     position: relative;
     text-decoration: none;
