@@ -72,7 +72,7 @@ export const ColumnItem = ({mangaTracked, updateMangas, index}) => {
                                 </div>
                                 <div className="col px-0">
                                     <p className="text-dark font-weight-bold mb-0">
-                                        {getReducedText(manga.title, 15)} {mangaTracked.position}
+                                        {getReducedText(manga.title, 15)}
                                     </p>
                                     <p className="text-dark mb-2">
                                         Chapitre {manga.lastChapterOut}{" "}
