@@ -10,13 +10,14 @@ export const getMangaTracked = (id, doWhenOK, doWhenError) => {
   get(apiRoot + API_MANGATRACKED_ROOT + id , doWhenOK, doWhenError, true);
 };
 
-export const updateLastChapterRead = (data, doWhenOK, doWhenError, token) => {
+export const updateMangaTracked = (data, doWhenOK, doWhenError, isDragged = false) => {
   put(
     apiRoot + API_MANGATRACKED_ROOT + data.id,
     data,
     doWhenOK,
     doWhenError,
-    token
+    true,
+      `isDragged=${isDragged}`
   );
 };
 

@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {getReducedText} from "../../../util/format";
 import {mangadexMangaRoot} from "../../../constantes/apiInformations";
-import {updateLastChapterRead} from "../../../services/MangaService";
+import {updateMangaTracked} from "../../../services/MangaService";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 import {Link} from "react-router-dom";
 import {Draggable} from "react-beautiful-dnd";
 
-export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
+export const ColumnItem = ({mangaTracked, updateMangas, index}) => {
 
     const [error, setError] = useState(null);
     const [wantModify, setWantModify] = useState(false);
@@ -25,13 +25,12 @@ export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
         }
     }, []);
 
-    const updateMangaTracked = () => {
+    const update = () => {
         if (mangaTracked.lastChapterRead !== updatedChapterRead) {
-            updateLastChapterRead(
+            updateMangaTracked(
                 {...mangaTracked, lastChapterRead: updatedChapterRead},
                 updateMangaOk,
-                updateMangaError,
-                true
+                updateMangaError
             );
         } else {
             // simule une annulation de vouloir modifier
@@ -73,7 +72,7 @@ export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
                                 </div>
                                 <div className="col px-0">
                                     <p className="text-dark font-weight-bold mb-0">
-                                        {getReducedText(manga.title, 15)}
+                                        {getReducedText(manga.title, 15)} {mangaTracked.position}
                                     </p>
                                     <p className="text-dark mb-2">
                                         Chapitre {manga.lastChapterOut}{" "}
@@ -97,7 +96,7 @@ export const ColumnItem = ({mangaTracked, updateMangas, index, id}) => {
                                                         className="btn btn-outline-success"
                                                         type="button"
                                                         id="button-addon2"
-                                                        onClick={updateMangaTracked}
+                                                        onClick={update}
                                                     >
                                                         <i className="fas fa-check"/>
                                                     </button>

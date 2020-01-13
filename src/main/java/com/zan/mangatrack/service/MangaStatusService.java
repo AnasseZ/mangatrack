@@ -23,4 +23,8 @@ public class MangaStatusService {
     public Optional<MangaStatusBo> get(final long id) {
         return this.mangaStatusRepository.findById(id);
     }
+
+    public Optional<MangaStatusBo> findByStatus(final String status) {
+        return this.mangaStatusRepository.findFirstByStatus(status);
+    }
 }

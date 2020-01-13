@@ -6,9 +6,8 @@ export const GridSystem = ({categories, updateMangas}) => {
     return (
         <>
             {
-                categories.map((category, key) =>
-                    <CategoryGrid key={category.gridId} mangasTracked={category.mangas} updateMangas={updateMangas}
-                                  title={category.title}/>
+                categories.map((category, index) =>
+                    <CategoryGrid key={index} category={category} updateMangas={updateMangas}/>
                 )
             }
         </>

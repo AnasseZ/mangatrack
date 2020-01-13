@@ -1,10 +1,12 @@
 import React from "react";
 import {ColumnItem} from "./ColumnItem";
 import {Droppable} from "react-beautiful-dnd";
+import {frenchStatusList} from "../../../constantes/mangaStatus";
 
 export const CategoryColumn = ({category, updateMangas}) => {
 
-    const {mangas, title} = category;
+    const {mangas, status} = category;
+    const title = frenchStatusList[status.status];
 
     return (
         <div className="list-wrapper col-lg-4 col-md-12 col-12 mt-tablette">
@@ -14,7 +16,7 @@ export const CategoryColumn = ({category, updateMangas}) => {
                     <h6 className="d-inline-block text-grey">{mangas.length} mangas</h6>
                 </div>
                 <div className="list-cards">
-                    <Droppable droppableId={category.columnId.toString()}>
+                    <Droppable droppableId={category.id.toString()}>
                         {provided => (
                             <div ref={provided.innerRef} {...provided.droppableProps}>
                                 {

@@ -70,6 +70,7 @@ create table if not exists mangas_tracked
     user_id INTEGER NOT NULL,
     manga_id INTEGER NOT NULL,
     status_id INTEGER NOT NULL,
+    position INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (manga_id) REFERENCES mangas(id),
     FOREIGN KEY (status_id) REFERENCES mangas_status(id),

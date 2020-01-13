@@ -29,4 +29,6 @@ public class MangaTrackedBo extends AuditedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
     private MangaStatusBo mangaStatus;
+
+    private int position;
 }

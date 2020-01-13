@@ -735,6 +735,11 @@ a.text-blue:hover {
     opacity: 0.7;
 }
 
+#column-board .list-cards,
+#column-board .list-cards > div {
+    min-height: 100px;
+}
+
 /* SEARCH BLOC IN DASHBOARD */
 .search-in-dashboard {
     height: 300px;

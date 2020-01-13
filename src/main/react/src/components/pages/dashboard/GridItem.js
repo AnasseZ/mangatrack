@@ -2,11 +2,10 @@ import React, {useState, useEffect, useRef} from "react";
 
 import {
     getMangaTrackedUpdatedInformations,
-    updateLastChapterRead
+    updateMangaTracked
 } from "../../../services/MangaService";
 import {getTitle} from "../../../util/format";
 import {mangadexMangaRoot} from "../../../constantes/apiInformations";
-import {canFetchUpdatedInformations} from "../../../util/validation";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
 import {Link} from "react-router-dom";
 import {IMG_RATIO} from "../../../constantes/utils";
@@ -39,13 +38,12 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
         }
     }, []);
 
-    const updateMangaTracked = () => {
+    const update = () => {
         if (mangaTracked.lastChapterRead !== updatedChapterRead) {
-            updateLastChapterRead(
+            updateMangaTracked(
                 {...mangaTracked, lastChapterRead: updatedChapterRead},
                 updateMangaOk,
-                updateMangaError,
-                true
+                updateMangaError
             );
         } else {
             // simule une annulation de vouloir modifier
@@ -90,7 +88,7 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
                         <h5 className="card-title">{mangaTitle}</h5>
                         <p className="card-text mb-0">
                             Chapitre {manga.lastChapterOut}{" "}
-                            <a href={mangadexUrl} className="text-blue">
+                            <a href={mangadexUrl} className="bisque">
                                 <i className="far fa-arrow-alt-circle-right"/>
                             </a>
                         </p>
@@ -110,7 +108,7 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
                                             className="btn btn-outline-success"
                                             type="button"
                                             id="button-addon2"
-                                            onClick={updateMangaTracked}
+                                            onClick={update}
                                         >
                                             <i className="fas fa-check"/>
                                         </button>

@@ -43,7 +43,7 @@ public class MangaTrackedController {
             @CurrentUser UserPrincipal currentUser
     ) throws Exception {
         MangaTrackedDto createdMangaTracked = mangaTrackedMapper
-                .toDto(mangaTrackedService.persist(mangaTrackedBo, currentUser));
+                .toDto(mangaTrackedService.create(mangaTrackedBo, currentUser));
 
         return ResponseEntity
                 .created(ServletUriComponentsBuilder
@@ -54,18 +54,17 @@ public class MangaTrackedController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<MangaTrackedDto> updateLastChapterRead(
+    ResponseEntity<MangaTrackedDto> update(
             @PathVariable long id,
-            @RequestBody final MangaTrackedDto manga,
+            @RequestBody final MangaTrackedDto mangaTrackedDto,
+            @RequestParam(required = false, name = "isDragged", defaultValue = "false") final boolean isDragged,
             @CurrentUser UserPrincipal currentUser
     ) throws Exception {
 
-        return ResponseEntity.ok(
-                mangaTrackedMapper.toDto(
-                        mangaTrackedService.updateLastChapterRead(id, manga.getLastChapterRead(), currentUser)
-                ));
+        return ResponseEntity.ok(mangaTrackedMapper
+                .toDto(mangaTrackedService.update(id, mangaTrackedDto, isDragged, currentUser))
+        );
     }
-
 
     /*
 

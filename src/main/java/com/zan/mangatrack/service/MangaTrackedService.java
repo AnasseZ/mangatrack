@@ -1,8 +1,13 @@
 package com.zan.mangatrack.service;
 
 import com.zan.mangatrack.business.*;
+import com.zan.mangatrack.dto.MangaTrackedDto;
+import com.zan.mangatrack.mapper.MangaTrackedMapper;
 import com.zan.mangatrack.repository.MangaTrackedRepository;
 import com.zan.mangatrack.repository.UserRepository;
+import com.zan.mangatrack.util.Maths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +18,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class MangaTrackedService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MangaService.class);
 
     @Autowired
     MangaTrackedRepository mangaTrackedRepository;
@@ -26,11 +33,14 @@ public class MangaTrackedService {
     @Autowired
     MangaStatusService mangaStatusService;
 
+    @Autowired
+    MangaTrackedMapper mangaTrackedMapper;
+
+    private final int firstPosition = 65535;
+
     public List<MangaTrackedBo> list(final long userId) throws Exception {
 
-        User retrievedUser = userRepository
-                .findById(userId)
-                .orElseThrow(() -> new Exception("User doesn't exists."));
+        User retrievedUser = getUserFromUserPrincipal(userId);
 
 
         return this.mangaTrackedRepository.findByUser(retrievedUser);
@@ -47,7 +57,7 @@ public class MangaTrackedService {
         return retrievedManga;
     }
 
-    public MangaTrackedBo persist(final MangaTrackedBo mangaTrackedBo, final UserPrincipal currentUser) throws Exception {
+    public MangaTrackedBo create(final MangaTrackedBo mangaTrackedBo, final UserPrincipal currentUser) throws Exception {
         Optional<User> retrievedUser = userRepository.findById(currentUser.getId());
 
         // check if manga exist
@@ -68,42 +78,139 @@ public class MangaTrackedService {
             throw new Exception("Manga " + retrievedManga.getTitle() + " already tracked.");
         }
 
+
         mangaTrackedBo.setManga(retrievedManga);
         mangaTrackedBo.setUser(retrievedUser.get());
         mangaTrackedBo.setMangaStatus(retrievedStatus);
+        mangaTrackedBo.setPosition(generatePosition(retrievedUser.get(), retrievedStatus));
 
         return this.mangaTrackedRepository.save(mangaTrackedBo);
     }
 
-    public MangaTrackedBo updateLastChapterRead(
+    /**
+     * update a tracked manga
+     * if status is present then its an update cause by a dragged action
+     *
+     * @param id
+     * @param updatedMangatracked
+     * @param currentUser
+     * @param isDragged           if dragged in board
+     * @return
+     * @throws Exception
+     */
+    public MangaTrackedBo update(
             final long id,
-            final double lastChapterRead,
+            final MangaTrackedDto updatedMangatracked,
+            final boolean isDragged,
             final UserPrincipal currentUser) throws Exception {
 
-        User retrievedUser = userRepository
-                .findById(currentUser.getId())
-                .orElseThrow(() -> new Exception("User doesn't exists."));
+        User retrievedUser = getUserFromUserPrincipal(currentUser.getId());
 
         // check if tracked manga exists
-        List<MangaTrackedBo> retrievedmangas =
-                mangaTrackedRepository.findByIdAndUser(id, retrievedUser);
+        MangaTrackedBo retrievedMangaTracked = mangaTrackedRepository
+                .findById(id)
+                .orElseThrow(() -> new Exception("MangaTracked with this id doesn't exists"));
 
-        if (retrievedmangas.isEmpty()) {
-            throw new Exception("Manga with id " + id + " not found.");
-        }
-
-        // we know we can track only one manga so if not empty there is only one element
-        MangaTrackedBo retrievedmanga = retrievedmangas.get(0);
-
-        // check if has right to update manga
-        if (retrievedmanga.getUser().getId() != retrievedUser.getId()) {
+        if (retrievedMangaTracked.getUser() != retrievedUser) {
             throw new Exception("Not authorized. Can't update manga.");
         }
 
-        // update chapter
-        retrievedmanga.setLastChapterRead(lastChapterRead);
+        // check if destination status exist
+        MangaStatusBo updatedStatus = mangaStatusService
+                .get(updatedMangatracked.getMangaStatus().getId())
+                .orElseThrow(() -> new Exception("Status does not exist."));
 
-        return retrievedmanga;
+
+        // find mangas tracked from db with same updated status
+        List<MangaTrackedBo> mangaTrackedListDestination = mangaTrackedRepository
+                .findByMangaStatusAndUserOrderByPositionAsc(updatedStatus, retrievedUser);
+
+        // we have to update status and position
+        if (isDragged) {
+
+            // find mangas tracked from db with same source status
+            List<MangaTrackedBo> mangaTrackedListSource = mangaTrackedRepository
+                    .findByMangaStatusAndUserOrderByPositionAsc(retrievedMangaTracked.getMangaStatus(), retrievedUser);
+
+
+            int oldPosition = retrievedMangaTracked.getPosition();
+            int newPosition = updatedMangatracked.getPosition();
+
+            /*
+            // if changing own position in its category, only update positions
+            if (retrievedMangaTracked.getMangaStatus() == updatedStatus) {
+
+                // item is dragged down
+                if (newPosition > oldPosition) {
+                    mangaTrackedListSource.stream().
+                            filter(other -> other.getPosition() > oldPosition
+                                    && other.getPosition() <= newPosition
+                            )
+                            .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
+
+                    //item is dragged up
+                } else if (newPosition < oldPosition) {
+                    mangaTrackedListSource.stream().
+                            filter(other -> other.getPosition() < oldPosition
+                                    && other.getPosition() >= newPosition
+                            )
+                            .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() + 1));
+                }
+            } else {
+                //different category
+
+                mangaTrackedListSource.stream().
+                        filter(mangaTrackedBo -> mangaTrackedBo.getPosition() > oldPosition)
+                        .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
+
+                mangaTrackedListDestination.stream().
+                        filter(mangaTrackedBo -> mangaTrackedBo.getPosition() >= newPosition)
+                        .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
+            }
+            */
+
+            // delete item at old pos anyway
+            mangaTrackedListSource.remove(oldPosition);
+
+            // if changing position in same category
+            if (retrievedMangaTracked.getMangaStatus() == updatedStatus) {
+
+                // insert at new pos in same category
+                mangaTrackedListSource.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
+
+            } else {
+                // insert at new pos in differente category
+                mangaTrackedListDestination.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
+
+                for (int i = 0; i < mangaTrackedListDestination.size(); i++) {
+                    mangaTrackedListDestination.get(i).setPosition(i);
+                }
+
+                mangaTrackedRepository.saveAll(mangaTrackedListDestination);
+            }
+
+            // reset all indexes...
+            for (int i = 0; i < mangaTrackedListSource.size(); i++) {
+                mangaTrackedListSource.get(i).setPosition(i);
+            }
+
+            // then persist changes
+            mangaTrackedRepository.saveAll(mangaTrackedListSource);
+
+            retrievedMangaTracked.setPosition(newPosition);
+
+        } else {
+            // status has changed so update position
+            if (retrievedMangaTracked.getMangaStatus() != updatedStatus) {
+                // get max position in new status and update position with max + 1
+                retrievedMangaTracked.setPosition(getLastPosition(mangaTrackedListDestination) + 1);
+            }
+        }
+
+        retrievedMangaTracked.setMangaStatus(updatedStatus);
+        retrievedMangaTracked.setLastChapterRead(updatedMangatracked.lastChapterRead);
+
+        return retrievedMangaTracked;
     }
 
     public MangaTrackedBo getUpdatedInformations(final long id, final UserPrincipal currentUser)
@@ -133,5 +240,42 @@ public class MangaTrackedService {
         //retrievedUser.get().setLastFetchInformations(LocalDateTime.now());
 
         return mangaTracked;
+    }
+
+    /**
+     * Method return a position at the end of the category
+     *
+     * @param user          current user
+     * @param mangaStatusBo status of the category
+     * @return integer
+     */
+    public int generatePosition(User user, MangaStatusBo mangaStatusBo) {
+
+        List<MangaTrackedBo> mangasTrackedRetrievied = mangaTrackedRepository
+                .findByMangaStatusAndUserOrderByPositionAsc(mangaStatusBo, user);
+
+        if (mangasTrackedRetrievied.isEmpty()) {
+            return firstPosition;
+        }
+
+        // get last element
+        final int currentMaxPosition = getLastPosition(mangasTrackedRetrievied);
+
+        // generate a random int
+        return calculateNextRandomPosition(currentMaxPosition);
+    }
+
+    public int getLastPosition(List<MangaTrackedBo> mangasTracked) {
+        return mangasTracked.get(mangasTracked.size() - 1).getPosition();
+    }
+
+    public int calculateNextRandomPosition(int currentMaxPosition) {
+        return Maths.getRandomNumberInRange(currentMaxPosition + firstPosition, currentMaxPosition + (2 * firstPosition));
+    }
+
+    public User getUserFromUserPrincipal(Long id) throws Exception {
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new Exception("User doesn't exists."));
     }
 }

@@ -15,4 +15,6 @@ public class MangaTrackedDto {
     private MangaDto manga;
 
     private MangaStatusDto mangaStatus;
+
+    private int position;
 }
