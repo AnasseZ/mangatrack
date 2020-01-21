@@ -1,5 +1,5 @@
 import React from 'react';
-import {CategoryColumn} from "./CategoryColumn";
+import {CategoryColumn} from "./ColumnCategory";
 import {DragDropContext} from "react-beautiful-dnd";
 import {updateMangaTracked} from "../../../services/MangaService";
 import {addErrorNotification, addSuccessNotification} from "../../../util/notification";

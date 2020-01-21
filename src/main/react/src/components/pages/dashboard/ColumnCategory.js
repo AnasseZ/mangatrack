@@ -1,5 +1,6 @@
 import React from "react";
 import {ColumnItem} from "./ColumnItem";
+import {Link} from "react-router-dom";
 import {Droppable} from "react-beautiful-dnd";
 import {frenchStatusList} from "../../../constantes/mangaStatus";
 
@@ -31,6 +32,12 @@ export const CategoryColumn = ({category, updateMangas}) => {
                             </div>
                         )}
                     </Droppable>
+                    <Link to="/search-manga">
+                        <button className="btn btn-outline-light text-dark border-0 w-100 mb-2">
+                            <i className="fas fa-plus"></i>{' '}
+                            Ajouter un manga
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

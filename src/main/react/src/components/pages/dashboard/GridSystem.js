@@ -1,6 +1,6 @@
 import React from "react";
 
-import {CategoryGrid} from "./CategoryGrid";
+import {CategoryGrid} from "./GridCategory";
 
 export const GridSystem = ({categories, updateMangas}) => {
     return (

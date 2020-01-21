@@ -9,6 +9,6 @@ export const API_MANGAS_STATUS_ROOT = "api/mangas-status";
 
 /** MANGADEX EXTERNAL API ROOT **/
 export const mangadexApiRoot = 'https://mangadex.org/api/manga/';
-export const mangadexMangaRoot = 'https://mangadex.cc/title/';
+export const mangadexMangaRoot = 'https://mangadex.org/title/';
 
 export const mangaEdenApiRoot = '';
