@@ -73,7 +73,7 @@ export const GridItem = ({mangaTracked, updateMangas}) => {
 
     return (
         <div className="col-lg-2 col-sm-3 col-6 col-manga">
-            <div className="card border-0 shadow-sm">
+            <div className="card border-0 shadow card-manga">
                 <Link to={"/mangas/" + mangaTracked.id}>
                     <img
                         ref={imgRef}

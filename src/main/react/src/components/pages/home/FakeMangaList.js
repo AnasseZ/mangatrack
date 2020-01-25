@@ -54,7 +54,7 @@ export const FakeMangaList = () => {
 const FakeMangaCard = ({manga}) => {
     return (
         <div className="col-lg-4 col-sm-4 col-4 col-manga scale-on-hover">
-            <div className="card border-0 shadow-lg">
+            <div className="card border-0 shadow-lg card-manga">
                 <img
                     className="card-img-top"
                     src={manga.imgSrc}

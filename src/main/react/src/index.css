@@ -7,9 +7,10 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    background: #35465d;  /* fallback for old browsers */
 }
 
-body, .card {
+.card-manga {
     background: #35465d;
     background: -webkit-linear-gradient(to bottom, #192740, #35465d);
     background: linear-gradient(to bottom, #192740, #35465d);
@@ -531,12 +532,60 @@ label {
 /**  LANDING PAGE */
 
 #heading-section {
-    height: 95vh;
     z-index: 999;
 }
 
 #heading-section .col-manga {
     min-width: 190px;
+}
+
+.section-bg-grey-light, .wave-container {
+    background: #f9fbfe;
+}
+
+.section-bg-grey-light h1,
+.section-bg-grey-light h2,
+.section-bg-grey-light h3,
+.section-bg-grey-light h4,
+.section-bg-grey-light h5,
+.section-bg-grey-light h6,
+.section-bg-grey-light p,
+.section-bg-grey-light label {
+    color: black;
+}
+
+.feature-description {
+    font-size: 18px;
+}
+
+.text-xl {
+    font-size: 20px;
+}
+
+/* WAVE */
+.wave-container {
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes animateWave {
+    0% {
+        transform: scale(1, 0);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.wave-container > svg {
+    display: block;
+    transform-origin: top;
+    animation: animateWave 1000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* FOOTER */
+#footer {
+    border-top: 1px solid #f0f0f5;
 }
 
 /* BIGGER THAN TABLETTE */
@@ -706,7 +755,7 @@ a.text-blue:hover {
 }
 
 .text-grey {
-    color: grey;
+    color: grey !important;
 }
 
 .img-column-item {
