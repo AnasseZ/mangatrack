@@ -43,9 +43,8 @@ export const ColumnSystem = ({categories, updateMangas, getMangaTrackedList}) =>
 
         updateMangaTracked(
             mangaTrackedDragged,
-            result => {
+            () => {
                 getMangaTrackedList();
-                addSuccessNotification(result.position + " new position")
             },
             () =>
                 addErrorNotification("Erreur ! Vous n'avez pas pu mettre à jour " +

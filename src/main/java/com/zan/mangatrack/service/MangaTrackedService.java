@@ -78,7 +78,6 @@ public class MangaTrackedService {
             throw new Exception("Manga " + retrievedManga.getTitle() + " already tracked.");
         }
 
-
         mangaTrackedBo.setManga(retrievedManga);
         mangaTrackedBo.setUser(retrievedUser.get());
         mangaTrackedBo.setMangaStatus(retrievedStatus);
@@ -127,83 +126,11 @@ public class MangaTrackedService {
 
         // we have to update status and position
         if (isDragged) {
-
-            // find mangas tracked from db with same source status
-            List<MangaTrackedBo> mangaTrackedListSource = mangaTrackedRepository
-                    .findByMangaStatusAndUserOrderByPositionAsc(retrievedMangaTracked.getMangaStatus(), retrievedUser);
-
-
-            int oldPosition = retrievedMangaTracked.getPosition();
-            int newPosition = updatedMangatracked.getPosition();
-
-            /*
-            // if changing own position in its category, only update positions
-            if (retrievedMangaTracked.getMangaStatus() == updatedStatus) {
-
-                // item is dragged down
-                if (newPosition > oldPosition) {
-                    mangaTrackedListSource.stream().
-                            filter(other -> other.getPosition() > oldPosition
-                                    && other.getPosition() <= newPosition
-                            )
-                            .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
-
-                    //item is dragged up
-                } else if (newPosition < oldPosition) {
-                    mangaTrackedListSource.stream().
-                            filter(other -> other.getPosition() < oldPosition
-                                    && other.getPosition() >= newPosition
-                            )
-                            .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() + 1));
-                }
-            } else {
-                //different category
-
-                mangaTrackedListSource.stream().
-                        filter(mangaTrackedBo -> mangaTrackedBo.getPosition() > oldPosition)
-                        .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
-
-                mangaTrackedListDestination.stream().
-                        filter(mangaTrackedBo -> mangaTrackedBo.getPosition() >= newPosition)
-                        .forEach(mangaTrackedBo -> mangaTrackedBo.setPosition(mangaTrackedBo.getPosition() - 1));
-            }
-            */
-
-            // delete item at old pos anyway
-            mangaTrackedListSource.remove(oldPosition);
-
-            // if changing position in same category
-            if (retrievedMangaTracked.getMangaStatus() == updatedStatus) {
-
-                // insert at new pos in same category
-                mangaTrackedListSource.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
-
-            } else {
-                // insert at new pos in differente category
-                mangaTrackedListDestination.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
-
-                for (int i = 0; i < mangaTrackedListDestination.size(); i++) {
-                    mangaTrackedListDestination.get(i).setPosition(i);
-                }
-
-                mangaTrackedRepository.saveAll(mangaTrackedListDestination);
-            }
-
-            // reset all indexes...
-            for (int i = 0; i < mangaTrackedListSource.size(); i++) {
-                mangaTrackedListSource.get(i).setPosition(i);
-            }
-
-            // then persist changes
-            mangaTrackedRepository.saveAll(mangaTrackedListSource);
-
-            retrievedMangaTracked.setPosition(newPosition);
-
+            updateWhenDragged(updatedMangatracked, retrievedUser, retrievedMangaTracked, updatedStatus, mangaTrackedListDestination);
         } else {
             // status has changed so update position
             if (retrievedMangaTracked.getMangaStatus() != updatedStatus) {
-                // get max position in new status and update position with max + 1
-                retrievedMangaTracked.setPosition(getLastPosition(mangaTrackedListDestination) + 1);
+                updateWithLastPositionInCategory(retrievedMangaTracked, mangaTrackedListDestination);
             }
         }
 
@@ -211,6 +138,43 @@ public class MangaTrackedService {
         retrievedMangaTracked.setLastChapterRead(updatedMangatracked.lastChapterRead);
 
         return retrievedMangaTracked;
+    }
+
+    private void updateWithLastPositionInCategory(MangaTrackedBo retrievedMangaTracked, List<MangaTrackedBo> mangaTrackedList) {
+        // get max position in new status and update position with max + 1
+        retrievedMangaTracked.setPosition(getLastPosition(mangaTrackedList) + 1);
+    }
+
+    private void updateWhenDragged(MangaTrackedDto updatedMangatracked, User retrievedUser, MangaTrackedBo retrievedMangaTracked, MangaStatusBo updatedStatus, List<MangaTrackedBo> mangaTrackedListDestination) {
+        // find mangas tracked from db with same source status
+        List<MangaTrackedBo> mangaTrackedListSource = mangaTrackedRepository
+                .findByMangaStatusAndUserOrderByPositionAsc(retrievedMangaTracked.getMangaStatus(), retrievedUser);
+
+
+        int oldPosition = retrievedMangaTracked.getPosition();
+        int newPosition = updatedMangatracked.getPosition();
+
+        // delete item at old pos anyway
+        mangaTrackedListSource.remove(oldPosition);
+
+        // if changing position in same category
+        if (retrievedMangaTracked.getMangaStatus() == updatedStatus) {
+
+            // insert at new pos in same category
+            mangaTrackedListSource.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
+
+        } else {
+            // insert at new pos in differente category
+            mangaTrackedListDestination.add(newPosition, mangaTrackedMapper.toBo(updatedMangatracked));
+
+            // reset all indexes in destination
+            persistListWithNewPositions(mangaTrackedListDestination);
+        }
+
+        // reset all indexes in source
+        persistListWithNewPositions(mangaTrackedListSource);
+
+        retrievedMangaTracked.setPosition(newPosition);
     }
 
     public MangaTrackedBo getUpdatedInformations(final long id, final UserPrincipal currentUser)
@@ -266,6 +230,11 @@ public class MangaTrackedService {
     }
 
     public int getLastPosition(List<MangaTrackedBo> mangasTracked) {
+
+        if (mangasTracked.isEmpty()) {
+            return 0;
+        }
+
         return mangasTracked.get(mangasTracked.size() - 1).getPosition();
     }
 
@@ -277,5 +246,13 @@ public class MangaTrackedService {
         return userRepository
                 .findById(id)
                 .orElseThrow(() -> new Exception("User doesn't exists."));
+    }
+
+    private void persistListWithNewPositions(List<MangaTrackedBo> mangaTrackedListDestination) {
+        for (int i = 0; i < mangaTrackedListDestination.size(); i++) {
+            mangaTrackedListDestination.get(i).setPosition(i);
+        }
+
+        mangaTrackedRepository.saveAll(mangaTrackedListDestination);
     }
 }

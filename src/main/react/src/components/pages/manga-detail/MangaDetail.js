@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from "react";
-import {getMangaTracked} from "../../../services/MangaService";
+import {getMangasStatusList, getMangaTracked, updateMangaTracked} from "../../../services/MangaService";
 import Loading from "../loading/Loading";
+import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
+import {frenchStatusList} from "../../../constantes/mangaStatus";
 
 
 export default ({match, history}) => {
 
     const id = match.params.id;
     const [mangaTracked, setMangaTracked] = useState(null);
+    const [immutableMangaTracked, setImmutableMangaTracked] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [loadingStatus, setLoadingStatus] = useState(true);
+    const [mangaStatusList, setMangaStatusList] = useState(null);
 
     useEffect(() => {
             getMangaTracked(
                 id,
-                mangaTracked => {
-                    setMangaTracked(mangaTracked);
+                result => {
+                    setMangaTracked(result);
+                    setImmutableMangaTracked(result);
                     setLoading(false);
                 },
                 () => {
@@ -24,12 +30,44 @@ export default ({match, history}) => {
         , []
     );
 
-    if (loading) {
-        return (
-            <div>
-                <Loading/>
-            </div>
+    // after mangatracked is fetched
+    useEffect(() => {
+        getMangasStatusList(statusList => {
+                setMangaStatusList(statusList);
+                setLoadingStatus(false);
+            },
+            null
         );
+    }, [immutableMangaTracked]);
+
+    const onChangeField = e => {
+        setMangaTracked({
+            ...mangaTracked,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const onChangeSelect = e => {
+        setMangaTracked({
+            ...mangaTracked,
+            [e.target.name]: mangaStatusList.find(status => status.id == e.target.value)
+        });
+    };
+
+    const update = () => {
+        if (immutableMangaTracked.lastChapterRead !== mangaTracked.lastChapterRead
+            || immutableMangaTracked.mangaStatus.id !== mangaTracked.mangaStatus.id
+        ) {
+            updateMangaTracked(
+                mangaTracked,
+                () => addSuccessNotification(mangaTracked.manga.title + " est mis à jour."),
+                () => addErrorNotification("Erreur ! Vous n'avez pas pu mettre à jour " + mangaTracked.manga.title + ".")
+            );
+        }
+    };
+
+    if (loading || loadingStatus) {
+        return <Loading/>;
     }
 
     const manga = mangaTracked.manga;
@@ -66,19 +104,24 @@ export default ({match, history}) => {
                                         type="number"
                                         className="form-control w-auto mb-1 col-6"
                                         placeholder="Mis à jours"
+                                        name="lastChapterRead"
                                         value={mangaTracked.lastChapterRead}
-                                        onChange={() => {
-                                        }}
+                                        onChange={onChangeField}
                                         min="0"
                                     />
                                 </div>
                                 <div className="form-group d-flex">
-                                    <label className="col-form-label col-sm-4 col-6" htmlFor="selectCategory">Avancement
-                                        :</label>
-                                    <select className="form-control w-auto col-6" id="selectCategory">
-                                        <option>En cours</option>
-                                        <option>Terminé</option>
-                                        <option>A lire</option>
+                                    <label className="col-form-label col-sm-4 col-6" htmlFor="selectCategory">
+                                        Avancement :
+                                    </label>
+                                    <select className="form-control w-auto col-6" id="selectCategory"
+                                            value={mangaTracked.mangaStatus.id} name="mangaStatus"
+                                            onChange={onChangeSelect}>
+                                        {
+                                            mangaStatusList.map((status, index) =>
+                                                <option key={index} value={status.id}>{frenchStatusList[status.status]}</option>
+                                            )
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -94,8 +137,7 @@ export default ({match, history}) => {
                                 <button
                                     type="submit"
                                     className="btn btn-success ml-2"
-                                    onClick={() => {
-                                    }}
+                                    onClick={update}
                                 >
                                     Enregistrer
                                 </button>

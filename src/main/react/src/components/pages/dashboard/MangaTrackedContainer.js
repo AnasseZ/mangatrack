@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 
 import {getMangasStatusList, getMangasTracked} from "../../../services/MangaService";
-import {COMPLETED, frenchStatusList, ON_GOING, TO_READ} from "../../../constantes/mangaStatus";
 import Loading from "../loading/Loading";
 import {Link} from "react-router-dom";
 import {GridSystem} from "./GridSystem";

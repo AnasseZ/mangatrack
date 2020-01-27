@@ -12,7 +12,7 @@ export const FeatureCard = ({feature}) => {
                     {description}
                 </div>
                 <a href={href} className="mt-2 text-decoration-none text-blue text-xl text-left font-weight-bold">
-                    Voir <i className="fas fa-long-arrow-alt-right"></i>
+                    Voir <i className="fas fa-long-arrow-alt-right"> </i>
                 </a>
             </div>
         </div>
