@@ -2,7 +2,7 @@ import React from 'react';
 import {CategoryColumn} from "./ColumnCategory";
 import {DragDropContext} from "react-beautiful-dnd";
 import {updateMangaTracked} from "../../../services/MangaService";
-import {addErrorNotification, addSuccessNotification} from "../../../util/notification";
+import {addErrorNotification} from "../../../util/notification";
 
 
 export const ColumnSystem = ({categories, updateMangas, getMangaTrackedList}) => {
