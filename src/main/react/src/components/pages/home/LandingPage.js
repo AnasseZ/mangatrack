@@ -20,6 +20,14 @@ export const LandingPage = () => {
             title: 'Suivi de séries',
             description: "Votre série préférée n'est pas sûr Netflix? Vous n'avez aucun moyen de tracez vos visionnages? MangaTrack est là pour vous.",
             href: '#mangaSection'
+        },
+        {
+            title: 'Multi-sources',
+            description: "MangaTrack s'occupe de récuperer les dernières sorties depuis plusieurs sources afin d'être notifié le plus vite des sorties !"
+        },
+        {
+            title: 'Personnalisable',
+            description: "Vous ne trouvez pas le manga ou la série que vous adorez? Ajoutez le/la vous-même ! "
         }
     ];
 
