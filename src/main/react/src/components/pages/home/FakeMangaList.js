@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect, useState, useRef} from "react";
 import OnepieceCover from "../../../assets/onepiece-cover.jpg";
 import KenganCover from "../../../assets/kengan-cover.jpg";
 import NarutoCover from "../../../assets/naruto-cover.jpg";
 import TpnCover from "../../../assets/tpn-cover.jpg";
+import {IMG_RATIO} from "../../../constantes/utils";
 
 export const FakeMangaList = () => {
 
@@ -52,13 +53,26 @@ export const FakeMangaList = () => {
 
 
 const FakeMangaCard = ({manga}) => {
+
+    const imgRef = useRef(null);
+
+    const [imgHeight, setImgHeight] = useState(0);
+
+    useEffect(() => {
+        const width = imgRef.current ? imgRef.current.offsetWidth : 0;
+        setImgHeight(width * IMG_RATIO);
+    }, [imgRef.current]);
+
+
     return (
         <div className="col-lg-4 col-sm-4 col-4 col-manga scale-on-hover">
             <div className="card border-0 shadow-lg card-manga">
                 <img
                     className="card-img-top"
                     src={manga.imgSrc}
-                    alt={"Miniature manga " + manga.id}
+                    ref={imgRef}
+                    height={imgHeight}
+                    alt={"Miniature manga " + manga.title}
                 />
                 <div className="card-body d-flex justify-content-between">
                     <div>

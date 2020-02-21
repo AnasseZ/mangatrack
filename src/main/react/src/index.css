@@ -853,3 +853,17 @@ a.text-blue:hover {
 .rounded-10px {
     border-radius: 10px;
 }
+
+/* FADE IN EFFECT */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(15px);
+    visibility: hidden;
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    will-change: opacity, visibility;
+}
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+}

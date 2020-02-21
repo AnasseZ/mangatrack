@@ -2,6 +2,8 @@ import React from "react";
 import {FakeMangaList} from "./FakeMangaList";
 import {Footer} from "../../shared/Footer";
 import {FeatureCard} from "./FeatureCard";
+import {ReadyToStart} from "./ReadyToStart";
+import {FadeInContent} from "../../shared/FadeInContent";
 
 export const LandingPage = () => {
 
@@ -23,7 +25,7 @@ export const LandingPage = () => {
         },
         {
             title: 'Multi-sources',
-            description: "MangaTrack s'occupe de récuperer les dernières sorties depuis plusieurs sources afin d'être notifié le plus vite des sorties !"
+            description: "MangaTrack s'occupe d'aggréger les dernières sorties depuis plusieurs sources afin d'être notifié le plus vite des sorties !"
         },
         {
             title: 'Personnalisable',
@@ -39,16 +41,18 @@ export const LandingPage = () => {
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-5 col-lg-5 col-md-3">
-                            <h1 className="heading-landing mb-3">MangaTrack</h1>
-                            <div className="sub-heading-landing">
-                                <p className="mb-4">Suis tout tes mangas préférés en illimité au même endroit et en
-                                    temps réel.
-                                </p>
-                                <p className="mb-5"><a className="btn btn-success btn-lg btn-pill smoothscroll"
-                                                       href="/signup"><span
-                                    className="pb_font-14 text-uppercase pb_letter-spacing-1">Commencer</span></a>
-                                </p>
-                            </div>
+                            <FadeInContent>
+                                <h1 className="heading-landing mb-3">MangaTrack</h1>
+                                <div className="sub-heading-landing">
+                                    <p className="mb-4">Suis tout tes mangas préférés en illimité au même endroit et en
+                                        temps réel.
+                                    </p>
+                                    <p className="mb-5"><a className="btn btn-success btn-lg btn-pill smoothscroll"
+                                                           href="/signup"><span
+                                        className="pb_font-14 text-uppercase pb_letter-spacing-1">Commencer</span></a>
+                                    </p>
+                                </div>
+                            </FadeInContent>
                         </div>
                         <div className="col-xl-6 col-lg-7 col-md-9 relative align-self-center">
                             <div><FakeMangaList/></div>
@@ -64,13 +68,17 @@ export const LandingPage = () => {
                 </svg>
             </div>
             <section className="pt-5 section-bg-grey-light">
+                <FadeInContent>
+
                 <h1>Features</h1>
+                </FadeInContent>
                 <div className="row mx-3 justify-content-center">
                     {
                         features.map((feature, index) => <FeatureCard index={index} feature={feature}/>)
                     }
                 </div>
             </section>
+            <ReadyToStart/>
             <Footer/>
         </>
     );

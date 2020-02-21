@@ -6,7 +6,7 @@ import {MangaTrackedContainer} from "./MangaTrackedContainer";
 export const Dashboard = ({user}) => {
 
     // TODO: define how to store display mode
-    const [gridMode, setGridMode] = useState(false);
+    const [gridMode, setGridMode] = useState(true);
 
     const notSelectedStyle = ' not-selected';
     let gridIconStyle = '';
