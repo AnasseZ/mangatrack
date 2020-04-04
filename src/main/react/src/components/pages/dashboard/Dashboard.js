@@ -1,55 +1,95 @@
-import React, {useState} from "react";
-import {Title} from "../../shared/Title";
-import {AuthConsumer} from "../../../contexts/AuthContext";
-import {MangaTrackedContainer} from "./MangaTrackedContainer";
+import React from "react";
+import {PageContainer} from "../../shared/PageContainer";
 
-export const Dashboard = ({user}) => {
-
-    // TODO: define how to store display mode
-    const [gridMode, setGridMode] = useState(true);
-
-    const notSelectedStyle = ' not-selected';
-    let gridIconStyle = '';
-    let columnIconStyle = '';
-
-    if (gridMode) {
-        columnIconStyle = notSelectedStyle;
-    } else {
-        gridIconStyle = notSelectedStyle;
-    }
-
-    const updateGridMode = useGrid => {
-        setGridMode(useGrid);
-    };
-
+export const Dashboard = () => {
     return (
-        <div className="container">
+        <PageContainer title="Tableau de bord">
             <div className="row">
-                <div className="col align-self-center">
-                    <br/>
-                    <br/>
-                    <Title title="Tableau de bord"/>
-                    <br/>
-                    <br/>
-                    <div className="mt-3 text-right text-white">
-                        <span className="cursor-pointer" onClick={() => updateGridMode(true)}>
-                            <i className={"fas fa-th-large fa-lg mr-2" + gridIconStyle}></i>
-                        </span>
-                        <span className="cursor-pointer" onClick={() => updateGridMode(false)}>
-                            <i className={"fab fa-trello fa-lg" + columnIconStyle}></i>
-                        </span>
 
+                <div className="col-12 col-sm-6 col-xl mb-4">
+                    <div className="card flex-fill">
+                        <div className="card-body py-4 shadow">
+                            <div className="media">
+                                <div className="d-inline-block mt-2 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         className="feather feather-activity feather-lg text-warning">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                </div>
+                                <div className="media-body">
+                                    <h4 className="mb-2 text-dark font-weight-bold">17.212</h4>
+                                    <div className="mb-0">Mangas en cours</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <MangaTrackedContainer gridMode={gridMode}/>
+                </div>
+
+                <div className="col-12 col-sm-6 col-xl mb-4">
+                    <div className="card flex-fill">
+                        <div className="card-body py-4 shadow">
+                            <div className="media">
+                                <div className="d-inline-block mt-2 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         className="feather feather-activity feather-lg text-warning">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                </div>
+                                <div className="media-body">
+                                    <h4 className="mb-2 text-dark font-weight-bold">17.212</h4>
+                                    <div className="mb-0">Chapitres sorties</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-12 col-sm-6 col-xl mb-4">
+                    <div className="card flex-fill">
+                        <div className="card-body py-4 shadow">
+                            <div className="media">
+                                <div className="d-inline-block mt-2 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         className="feather feather-activity feather-lg text-warning">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                </div>
+                                <div className="media-body">
+                                    <h4 className="mb-2 text-dark font-weight-bold">17.212</h4>
+                                    <div className="mb-0">Séries en cours</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-12 col-sm-6 col-xl mb-4">
+                    <div className="card flex-fill">
+                        <div className="card-body py-4 shadow">
+                            <div className="media">
+                                <div className="d-inline-block mt-2 mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round"
+                                         className="feather feather-activity feather-lg text-warning">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                </div>
+                                <div className="media-body">
+                                    <h4 className="mb-2 text-dark font-weight-bold">17.212</h4>
+                                    <div className="mb-0">Episodes à voir</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        </PageContainer>
+    )
 };
-
-export default () => (
-    <AuthConsumer>
-        {({user}) => <Dashboard user={user}/>
-        }
-    </AuthConsumer>
-);

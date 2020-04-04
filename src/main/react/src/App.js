@@ -3,11 +3,13 @@ import "./App.css";
 import "react-notifications-component/dist/theme.css";
 
 import Navbar from "./components/Navbar/Navbar";
-import {Main} from "./components/pages/Main";
+import {MainRouter} from "./components/pages/MainRouter";
 import {AuthProvider} from "./contexts/AuthContext"
 
 import {BrowserRouter} from "react-router-dom";
 import ReactNotification from "react-notifications-component";
+import SideBar from "./components/sidebar/SideBar";
+import {ToggleProvider} from "./contexts/ToggleContext";
 
 class App extends Component {
     render() {
@@ -16,8 +18,15 @@ class App extends Component {
                 <ReactNotification/>
                 <BrowserRouter>
                     <AuthProvider>
-                        <Navbar/>
-                        <Main/>
+                        <ToggleProvider>
+                            <div className="d-flex">
+                                <SideBar/>
+                                <div className="w-100">
+                                    <Navbar/>
+                                    <MainRouter/>
+                                </div>
+                            </div>
+                        </ToggleProvider>
                     </AuthProvider>
                 </BrowserRouter>
             </div>

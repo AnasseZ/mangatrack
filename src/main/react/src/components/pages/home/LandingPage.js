@@ -41,7 +41,7 @@ export const LandingPage = () => {
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-xl-5 col-lg-5 col-md-3">
-                            <FadeInContent>
+                            <FadeInContent direction="up">
                                 <h1 className="heading-landing mb-3">MangaTrack</h1>
                                 <div className="sub-heading-landing">
                                     <p className="mb-4">Suis tout tes mangas préférés en illimité au même endroit et en
@@ -68,10 +68,7 @@ export const LandingPage = () => {
                 </svg>
             </div>
             <section className="pt-5 section-bg-grey-light">
-                <FadeInContent>
-
                 <h1>Features</h1>
-                </FadeInContent>
                 <div className="row mx-3 justify-content-center">
                     {
                         features.map((feature, index) => <FeatureCard index={index} feature={feature}/>)
