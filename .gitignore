@@ -6,6 +6,7 @@ target/
 mangatrack.log
 *.log
 *.log.zip
+.DS_Store
 
 ### STS ###
 .apt_generated
